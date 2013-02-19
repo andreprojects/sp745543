@@ -28,5 +28,12 @@ class PlanoRepository extends EntityRepository {
 		$records = $this->findOneBy(array('p_left' => $p_left,'p_top' => $p_top,'p_right' => $p_right,'p_btn' =>$p_btn));
 		return $records;
 	}
+
+	public function findByPlano($id)
+	{ 
+		$records = $this->findOneBy(array('id'=>$id));
+		return $records;
+	}
+
     
 }

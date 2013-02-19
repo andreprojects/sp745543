@@ -17,7 +17,7 @@
                 <tr>
                   <td><?php echo $value->id; ?></td>
                   <td><?php echo $value->nome; ?></td>
-                  <td><a href="<?php echo $this->url("admin/servico",array('action'=>'edit','id'=>$value->id)); ?>"><i class="icon-edit"></i> Editar</a> <a href="<?php echo $this->url("admin/servico",array('action'=>'delete','id'=>$value->id)); ?>"><i class="icon-remove-circle"></i> Excluir</a></td>
+                  <td><a href="<?php echo $this->url("admin/plano",array('action'=>'edit','id'=>$value->id)); ?>"><i class="icon-edit"></i> Editar</a> <a href="<?php echo $this->url("admin/plano",array('action'=>'delete','id'=>$value->id)); ?>"><i class="icon-remove-circle"></i> Excluir</a></td>
                 </tr>
                 <?php } ?>
               </tbody>
@@ -45,11 +45,11 @@
            		echo '<div class="alert alert-success">';
 				switch ($this->msg['cod_msg']) {
 					case '1':
-						echo "Serviço cadastrado com sucesso";
+						echo "Plano cadastrado com sucesso";
 						break;
 						
 					case '2':
-						echo "Serviço atualizado com sucesso";
+						echo "Plano atualizado com sucesso";
 						break;
 					
 					default:
@@ -70,6 +70,13 @@
 			 echo $this->form()->openTag($form) . PHP_EOL;
 			 echo $this->formInput($form->get('id'));
 			?>
+			   <div class="control-group">
+			    <label class="control-label" for="">ID</label>
+			    <div class="controls">
+			      <?php echo $this->formSelect($form->get('id_servico')); ?>
+			      <?php echo $this->formElementErrors($form->get('id_servico')); ?>
+			    </div>
+			  </div>
               <div class="control-group">
 			    <label class="control-label" for="">Nome</label>
 			    <div class="controls">

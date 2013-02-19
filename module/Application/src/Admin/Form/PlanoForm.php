@@ -11,7 +11,7 @@ class PlanoForm extends Form
     public function __construct($baseUrl = null)
     {
         // we want to ignore the name passed
-        parent::__construct('servico');
+        parent::__construct('plano');
 
         $this->setAttribute('method', 'post');
         $this->setInputFilter(new ServicoFilter);
@@ -23,6 +23,23 @@ class PlanoForm extends Form
             )
 
         ));
+
+        $this->add(array(
+
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'id_servico',
+            'options' => array(
+                'label' => 'Gender',
+                'value_options' => array(
+                ),
+
+            ),
+            'attributes' => array(
+             // 'value' => '1' //set selected to '1'
+            )
+
+        ));
+
 
         $this->add(array(
             'name' => 'nome',

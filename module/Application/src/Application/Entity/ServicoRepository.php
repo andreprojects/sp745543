@@ -28,5 +28,18 @@ class ServicoRepository extends EntityRepository {
 		$records = $this->findOneBy(array('p_left' => $p_left,'p_top' => $p_top,'p_right' => $p_right,'p_btn' =>$p_btn));
 		return $records;
 	}
+
+	public function getServicoToCombobox(){
+
+		$entities = $this->findAll();
+
+		$array = array();
+        
+        foreach($entities as $entity) {
+            $array[$entity->id] = $entity->nome;
+        }
+        
+        return $array;
+	}
     
 }

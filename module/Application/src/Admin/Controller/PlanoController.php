@@ -63,7 +63,7 @@ class PlanoController extends AbstractActionController {
 	public function editAction()
 	{
 		
-		$form = $this->getServiceLocator()->get("service_servico_form");
+		$form = $this->getServiceLocator()->get("service_plano_form");
 		$request = $this->getRequest();
 		
 		if ($request->isPost()) {
@@ -71,7 +71,7 @@ class PlanoController extends AbstractActionController {
 			
 			if ($form->isValid()) {
 				
-				$service = $this->getServiceLocator()->get("service_servico");
+				$service = $this->getServiceLocator()->get("service_plano");
 				$records = $request->getPost()->toArray();
 				//$records['token'] = md5(uniqid(time()));
 				//var_dump($records);
@@ -86,11 +86,11 @@ class PlanoController extends AbstractActionController {
 				//return $this->redirect()->toRoute('home-message',array('tipo'=>'fsuccess','ref'=>'register','cod_msg'=>'1'));
 			}
 		}
-		$repository = $this->getEm()->getRepository("Application\Entity\Servico");
+		$repository = $this->getEm()->getRepository("Application\Entity\Plano");
 		
 		$id = $this->params()->fromRoute('id', 0);
 
-		$obj_record_edit = $repository->findByServico($id);
+		$obj_record_edit = $repository->findByPlano($id);
 		
 		if(!empty($obj_record_edit)){
 			// var_dump($obj_record_edit->getArrayCopy());
@@ -103,16 +103,16 @@ class PlanoController extends AbstractActionController {
 		//var_dump($obj_records->getArrayCopy());
 		$new_model = new ViewModel(array('form' => $form,'msg' => $msg,'dados'=>$obj_records));
 		//$new_model->setTerminal(true);
-		$new_model->setTemplate('admin/servico/index');
+		$new_model->setTemplate('admin/plano/index');
 		return $new_model;		
 	}
 
 	public function deleteAction()
 	{
-		$service = $this->getServiceLocator()->get("service_servico");
+		$service = $this->getServiceLocator()->get("service_plano");
 		$id = $this->params()->fromRoute('id', 0);
 		$service->delete($id);
-		return $this->redirect()->toRoute('admin/servico');
+		return $this->redirect()->toRoute('admin/plano');
 		
 	}
 	

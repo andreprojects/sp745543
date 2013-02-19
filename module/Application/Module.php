@@ -216,6 +216,8 @@ class Module {
 
                 'service_plano_form' => function ($service) {
                      $form = new \Admin\Form\PlanoForm();
+                     $opt= $service->get('Doctrine\ORM\EntityManager')->getRepository('Application\Entity\Servico')->getServicoToCombobox();
+                     $form->get('id_servico')->setValueOptions($opt);
                      return $form;
                 },
 				
