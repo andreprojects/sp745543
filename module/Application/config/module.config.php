@@ -161,6 +161,17 @@ return array(
                             )
                         )
                     ),
+
+                    'plano' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '/plano[/:action][/:id]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Plano',
+                                'action' => 'index'
+                            )
+                        )
+                    ),
                    
                 )
             ),
@@ -380,6 +391,7 @@ return array(
             'Login\Controller\ChangePassword' 	 => 'Login\Controller\ChangePasswordController',
             'Admin\Controller\Index' 			 => 'Admin\Controller\IndexController',
             'Admin\Controller\Servico' 			 => 'Admin\Controller\ServicoController',
+            'Admin\Controller\Plano'             => 'Admin\Controller\PlanoController',
             
         ),
     ),

@@ -138,6 +138,12 @@ class Module {
                     $obj->setMessageRenderer($service->get('Zend\View\Renderer\PhpRenderer'));
                     return $obj;
                 },
+
+                'service_plano' => function($service) {
+                    $obj = new \Admin\Service\Plano($service->get('Doctrine\ORM\EntityManager'));
+                    $obj->setMessageRenderer($service->get('Zend\View\Renderer\PhpRenderer'));
+                    return $obj;
+                },
                 
                 'Login\Auth\Adapter' => function($service) {
                     return new \Login\Auth\Adapter($service->get('Doctrine\ORM\EntityManager'));
@@ -205,6 +211,11 @@ class Module {
                 
 				'service_servico_form' => function ($service) {
                      $form = new \Admin\Form\ServicoForm();
+                     return $form;
+                },
+
+                'service_plano_form' => function ($service) {
+                     $form = new \Admin\Form\PlanoForm();
                      return $form;
                 },
 				

@@ -60,7 +60,7 @@ class Plano {
      * @ORM\Column(type="integer")
      */  
      
-    protected $dia_publicao;
+    protected $dia_publicacao;
 
     /**
         * @ORM\Column(type="datetime")
