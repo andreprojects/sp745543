@@ -43,7 +43,7 @@ class PlanoController extends AbstractActionController {
 				//var_dump($records);
 				$service->insert($records);
 				
-				$msg['ref'] 	= "plano";
+				$msg['ref'] 	= "plano1";
 				$msg['tipo']	= "success";	
 				$msg['cod_msg'] = "1";
 				$form->setData(array('nome'=>'','descricao'=>'','preco'=>'','dia_publicacao'=>''));
