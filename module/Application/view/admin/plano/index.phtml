@@ -9,6 +9,7 @@
                 <tr>
                   <th>#</th>
                   <th>Nome</th>
+                  <th>Preço</th>
                   <th>Ações</th>
                 </tr>
               </thead>
@@ -17,6 +18,7 @@
                 <tr>
                   <td><?php echo $value->id; ?></td>
                   <td><?php echo $value->nome; ?></td>
+                  <td><?php echo $value->preco; ?></td>
                   <td><a href="<?php echo $this->url("admin/plano",array('action'=>'edit','id'=>$value->id)); ?>"><i class="icon-edit"></i> Editar</a> <a href="<?php echo $this->url("admin/plano",array('action'=>'delete','id'=>$value->id)); ?>"><i class="icon-remove-circle"></i> Excluir</a></td>
                 </tr>
                 <?php } ?>
@@ -71,7 +73,7 @@
 			 echo $this->formInput($form->get('id'));
 			?>
 			   <div class="control-group">
-			    <label class="control-label" for="">ID</label>
+			    <label class="control-label" for="">Serviço</label>
 			    <div class="controls">
 			      <?php echo $this->formSelect($form->get('id_servico')); ?>
 			      <?php echo $this->formElementErrors($form->get('id_servico')); ?>
