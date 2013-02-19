@@ -1,0 +1,111 @@
+      <!-- Example row of columns -->
+      <div class="row">
+      
+        <div class="span7">
+          <h4>Planos</h4>
+          
+          <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nome</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+              	<?php foreach ($this->dados as $key => $value) { ?>
+                <tr>
+                  <td><?php echo $value->id; ?></td>
+                  <td><?php echo $value->nome; ?></td>
+                  <td><a href="<?php echo $this->url("admin/servico",array('action'=>'edit','id'=>$value->id)); ?>"><i class="icon-edit"></i> Editar</a> <a href="<?php echo $this->url("admin/servico",array('action'=>'delete','id'=>$value->id)); ?>"><i class="icon-remove-circle"></i> Excluir</a></td>
+                </tr>
+                <?php } ?>
+              </tbody>
+            </table>
+       </div>
+        <div class="span5">
+          
+          <h4><?php $form = $this->form; if($form->get('id')->getValue()) echo "Editar"; else echo "Novo"; ?> Registro #<?php echo $form->get('id')->getValue(); ?></h4>
+           <?php 
+           
+           if($this->msg['tipo'] == "error"){
+           		echo '<div class="alert alert-error">';
+				switch ($this->msg['cod_msg']) {
+					case '1':
+						echo "Usuário ou senha inválidos";
+						break;
+					
+					default:
+						
+						break;
+				}
+				echo '</div>';
+			
+           }elseif($this->msg['tipo'] == "success"){
+           		echo '<div class="alert alert-success">';
+				switch ($this->msg['cod_msg']) {
+					case '1':
+						echo "Serviço cadastrado com sucesso";
+						break;
+						
+					case '2':
+						echo "Serviço atualizado com sucesso";
+						break;
+					
+					default:
+						
+						break;
+				}
+				echo '</div>';
+           }
+           
+           ?>
+           
+		  
+		  <?php            
+			 $action = $form->get('id')->getValue() ? "edit" : "index" ;
+			 $form->setAttribute('action', $this->url('admin/plano',array('action'=>$action)));
+			 $form->setAttribute('class', 'form-horizontal');
+			 $form->prepare();
+			 echo $this->form()->openTag($form) . PHP_EOL;
+			 echo $this->formInput($form->get('id'));
+			?>
+              <div class="control-group">
+			    <label class="control-label" for="">Nome</label>
+			    <div class="controls">
+			      <?php echo $this->formInput($form->get('nome')); ?>
+			      <?php echo $this->formElementErrors($form->get('nome')); ?>
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <label class="control-label" for="">Descrição</label>
+			    <div class="controls">
+			      <?php echo $this->formTextarea($form->get('descricao')); ?>
+			      <?php echo $this->formElementErrors($form->get('descricao')); ?>
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <label class="control-label" for="">Preço</label>
+			    <div class="controls">
+			      <?php echo $this->formInput($form->get('preco')); ?>
+			      <?php echo $this->formElementErrors($form->get('preco')); ?>
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <label class="control-label" for="">Dia</label>
+			    <div class="controls">
+			      <?php echo $this->formInput($form->get('dia_publicacao')); ?>
+			      <?php echo $this->formElementErrors($form->get('dia_publicacao')); ?>
+			    </div>
+			  </div>
+			  
+			  <div class="control-group">
+			    <div class="controls">
+			      <button type="submit" class="btn"><?php if($form->get('id')->getValue()) echo "Editar"; else echo "Cadastrar"; ?></button> 
+			      <?php if($form->get('id')->getValue()): ?> <a href="<?php echo $this->url('admin/plano'); ?>">Novo Registro</a><?php endif; ?>
+			    </div>
+			  </div>
+			</form>
+          
+        </div>
+      </div>
