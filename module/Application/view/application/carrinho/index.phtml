@@ -1,0 +1,66 @@
+<div class="center">
+  <div class="checkout_content rounded shadow">
+
+        <table cellpadding="10" cellspacing="0" border="0" width="100%" class="title-Table">
+            <thead>
+                <tr>
+                    <td width="5%">Área</td>
+                    <td width="55%">&nbsp;</td>
+                    <td>Pixels</td>
+                    <td width="10%">Qtd.</td>
+                    <td>Valor</td>
+                    
+                    <td>Total</td>                                               
+                </tr>
+            </thead>
+            <tbody>
+              <?php foreach($this->areas as $k => $v){ ?>
+                <tr>
+                    <td valign="middle">
+                        <img src="/images/app/area_livre.png" class="rounded">
+                    </td>
+                    <td valign="middle" align="left" class="checkout_deal">
+                        Área livre - Código <?php echo $v['id_area']; ?>                        
+                                                
+                    </td>
+                    <td valign="top">
+                        100 (10x10)
+                    </td>
+                    <td valign="top">
+                        1
+                    </td>
+                    <td valign="top">R$ <?php echo number_format($v['valor'], 2, ',', '.'); ?></td>
+                     
+                    <td class="valor_produto_novo" valign="top"><div id="product_value">R$ <?php echo number_format($v['valor'], 2, ',', '.'); ?></div></td>                                               
+                </tr>
+                <?php } ?>
+            </tbody>            
+        </table>
+        
+        <br clear="all">
+
+        <div class="price-Total">
+        
+        <div class="Total">
+          Valor total: <span id="value_full" class="valor_produto_novo">R$ <?php echo number_format($this->records['vl_total'], 2, ',', '.'); ?></span>
+                </div>
+
+          <!-- VALE CUPOM -->
+                            <br clear="all">        
+          </div>
+          
+          <!-- FIM VALE CUPOM -->
+
+        <br clear="all">
+            <!-- PROMO��O POR PONTOS -->
+            
+            
+        <!-- FIM PROMO��O POR PONTOS -->
+
+
+        <!-- Tinoco -->
+        <div class="" style="padding: 10px;text-align: right;">
+<input type="submit" value="Finalizar a compra" onclick="window.location='<?php echo $this->url('finish-carrinho'); ?>'" class="btn_submit rounded shadow" style="text-align: right;"><br></div>
+</div>
+<div class="clear"></div>
+</div>

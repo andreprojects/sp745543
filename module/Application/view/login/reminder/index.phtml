@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+
+        <!-- Le styles -->
+   <?php
+   echo $this->headLink()
+           ->prependStylesheet($this->basePath() . '/css/app/reset.css')
+		   ->prependStylesheet($this->basePath() . '/css/app/forms.css')
+           ->prependStylesheet($this->basePath() . '/css/app/green_position1.css')
+   ?>   
+ 
+
+
+<style type="text/css">
+body {background-color: #FFF; padding:10px, 0px, 10px, 10px; font-size:13px}
+input {
+    background: url(../images/bg-campotxt.png) repeat-x scroll left top #FFFFFF;
+    border: 1px solid #B6C7CB;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    height: 21px;
+    padding: 3px 5px;
+    font-size:14px;
+    margin:0 0 10px 0;
+    width:300px;
+}
+h1 {
+    border-bottom: 1px dotted #CCCCCC;
+    color: #5B9FB0;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0 0 10px;
+    padding: 5px 0 10px;
+}
+label {
+    font-weight:bold;
+}
+.textarea {
+    width:308px;
+}
+.errors li {
+    padding:5px 0;
+    margin:-15px 0 0 0;
+    color:#900;
+    font-size:11px;
+}
+.decorator_submit {
+  width:90%;
+}
+
+</style>
+</head>
+
+<body>
+    
+    <?php
+switch($this->msg):
+
+  case 1:
+    ?> <div class="fm_ok rounded shadow">Foi enviado um email para sua conta confirmando a alteração da senha!</div><?php
+    break;
+  
+  
+  case 2:
+    ?> <div class="fm_alert rounded shadow">Você não confirmou seu email, reenviamos novamente um email para confirmação.</div><?php
+    break;
+  
+endswitch;
+?>
+    
+    
+    <p class="content_title">Esqueceu sua senha?</p>
+    
+    Preencha os campos abaixo e você receberá uma mensagem com um link, que lhe permitirá redefinir sua senha.
+    
+<?php
+
+$form = $this->form;
+//$form->setAttribute('action', $this->url('album', array('action' => 'add')));
+$form->prepare();
+
+echo $this->form()->openTag($form) . PHP_EOL;
+?>
+    
+    <div>
+<div class="decorator_big"><div id="email-label"><label for="email" class="required">E-mail*:</label></div>
+
+<?php echo $this->formInput($form->get('email')); ?>
+<ul class="errors"><li><?php echo $this->formElementErrors($form->get('email')); ?></li></ul>
+
+<?php echo $this->formRow($form->get('captcha'));?>
+<div class="decorator_submit">
+<input type="submit" name="forgot" id="forgot" value="Enviar minha nova senha" class="btn_submit shadow" title="Enviar minha nova senha" /></div></div>
+<?php echo $this->form()->closeTag($form) . PHP_EOL; ?>
+
+
+</body>
+</html>

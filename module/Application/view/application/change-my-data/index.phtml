@@ -1,0 +1,46 @@
+<div class="center">
+  <div class="checkout_content rounded shadow">
+    <div id="alert_message" class="fm_alert rounded shadow" style="display:none"></div>
+    <p class="content_title">MEUS DADOS</p>
+<?php 
+
+  $form = $this->form;
+  //$form->setAttribute('action', $this->url('register/step2', array('token' => $this->records['token'])));
+  $form->prepare();
+  echo $this->form()->openTag($form) . PHP_EOL;
+  echo $this->formHidden($form->get('id')) . PHP_EOL;
+?>
+    
+    <div>
+<div class=""><div><label style="font-weight: bold;">E-mail*:</label></div>
+
+<?php echo $this->records['email']; ?></div>
+
+<div class="decorator_big">
+    <div id="name-label"><label for="name" class="required">Nome Completo*:</label></div>
+    <?php echo $this->formInput($form->get('nome')); ?>
+	<ul class="errors"><li><?php echo $this->formElementErrors($form->get('nome')); ?></li></ul>
+</div>
+<div class="decorator_big">
+  <div id="zip_code-label"><label for="zip_code" class="required">CEP: (Opcional - Apenas números)</label></div>
+	<?php echo $this->formInput($form->get('cep')); ?>
+	<ul class="errors"><li><?php echo $this->formElementErrors($form->get('cep')); ?></li></ul>
+</div>
+    
+
+<div class="decorator_big">
+  <div id="password-label"><label for="password" class="required">Nova Senha de Acesso*:</label></div>
+ <?php echo $this->formInput($form->get('senha')); ?>
+	<ul class="errors"><li><?php echo $this->formElementErrors($form->get('senha')); ?></li></ul>
+</div>
+<div class="decorator_big">
+    <div id="password_confirmation-label"><label for="password_confirmation" class="optional">Confirme sua nova senha*:</label></div>
+<?php echo $this->formInput($form->get('contra_senha')); ?>
+	<ul class="errors"><li><?php echo $this->formElementErrors($form->get('contra_senha')); ?></li></ul>
+</div>
+
+<div class="decorator_submit">
+<input type="submit" name="register" id="register" value="Alterar" class="btn_submit shadow" title="Alterar"></div></div>
+<?php echo $this->form()->closeTag($form) . PHP_EOL; ?>     <div class="clear"></div>
+<div class="clear"></div>
+</div>

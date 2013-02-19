@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+       <!-- Le styles -->
+   <?php
+   echo $this->headLink()
+           ->prependStylesheet($this->basePath() . '/css/app/reset.css')
+           ->prependStylesheet($this->basePath() . '/css/app/green_position1.css')
+   ?>        
+     
+</head>
+
+<!-- Box login -->
+<body>
+    <div class="login_container" style="position:relative; display: block;">
+        <form action="<?php echo $this->url('login'); ?>" method="post" target="_top">        
+           <label>Usuário:</label>
+            <input type="text" name="email" class="campotxt login_campotxt input-ForIE7" value="" id="input-ForIE7" style="*width:180px;" />
+            <label>Senha:</label>
+            <input type="password" name="senha" class="campotxt login_campotxt input-ForIE7" value="" id="password_login" style="*width:180px;" maxlength="10"/>               
+            <div class="clear"></div><br />
+            <input type="submit" id="" class="btn_submit_login rounded shadow" value="Acessar" style="*width:90px;" title="Acessar" />
+            
+        </form>
+        
+        <br clear="all"/>
+        
+    </div>
+    
+</body>
+
+</html>

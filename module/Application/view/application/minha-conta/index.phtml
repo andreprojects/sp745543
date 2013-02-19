@@ -1,0 +1,49 @@
+<div class="center">
+    <div class="other_deals shadow rounded">
+    
+        <p class="content_title"> Minha Conta </p>
+            
+        <div class="padding_Internal">
+            Faça aqui o controle de sua conta pessoal.            <br>
+            <br>
+            <div class="box-Internal margin-Right">
+                <a href="<?php echo $this->url('change-my-data'); ?>">
+                    <ul>
+                        <li class="side-Icon"><img src="/images/app/data-48.gif"></li>
+                        <li>
+                            <strong>Alterar meus dados</strong><br>
+                            <span>Mantenha seus dados atualizados.</span>
+                            <div class="btn_submit_register rounded">
+                                ACESSAR                            </div>
+                        </li>
+                    </ul>
+                </a>
+            </div>
+			
+            <div class="box-Internal" style="display:none;">
+               
+                    <ul>
+                        <li class="side-Icon"><img src="/images/app/minha_conta_money.png"></li>
+                        <li>
+                            <strong>Programa de Afiliados</strong><br>
+                            <span>
+                                Fique atualizado sobre suas indicações. </span>
+                            <span>Link de indicação: {$url_divulga_afiliado}</span>
+                            <span>Usuários indicados cadastrados: {$qtd_total_cadastrados}</span>
+                            <span>Usuários indicados que compraram: {$qtd_total_comprados}</span>
+                            <span>Saldo atual: R$ {$saldo_atual}</span>
+                            <span>Valor total das retiradas: </span>
+                            <!--<div class="btn_submit_register rounded">ACESSAR</div>-->
+                        </li>
+                    </ul>
+                
+            </div>
+
+            
+                                    
+            <br clear="all">
+            
+        </div>
+        
+    </div>
+</div>

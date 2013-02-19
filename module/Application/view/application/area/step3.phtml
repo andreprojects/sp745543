@@ -1,0 +1,45 @@
+<div class="center">
+  <div class="checkout_content rounded shadow" style="float: left;width:100%;">
+    <div id="alert_message" class="fm_alert rounded shadow" style="display:none"></div>
+    <p class="content_title">EDITAR ÁREA</p>
+    <p style="text-align: center;">Upload -> Seleção -> <span style="font-weight: bold;">Confirmação</span></p>
+    <?php if($this->dados['modo_sem_sel'] == false){ ?>
+    	<p style="margin: 10px 0 10px 0;text-align: left;">Deseja modificar a área atual para área selecionada?</p>
+		<p style="text-align: left;width: 100%;">Área atual: [<img src="<?php if($this->dados['img_atual'] == 'my'): echo '/images/app/m51_comprado.jpg'; else: echo $this->url('area-edit-myimg',array('img-sel'=>$this->dados['img_atual'])); endif; ?>" />] <-  Área selecionada: [<img src="<?php echo $this->url('area-edit-myimg',array('img-sel'=>'10x10')); ?>" />]</p>
+	<?php }else{ ?>
+		<p style="text-align: left;width: 100%;">Área atual: [<img src="<?php if($this->dados['img_atual'] == 'my'): echo '/images/app/m51_comprado.jpg'; else: echo $this->url('area-edit-myimg',array('img-sel'=>$this->dados['img_atual'])); endif; ?>" />]</p>
+	<?php } ?>
+<?php
+$form = $this->form;
+//$form->setAttribute('action', $this->url('album', array('action' => 'add')));
+$form->prepare();
+
+echo $this->form()->openTag($form) . PHP_EOL;
+echo $this->formHidden($form->get('id')) . PHP_EOL;
+?>	
+	<div class="decorator_big">
+	    <div id="name-label"><label for="name" class="required">Título:</label></div>
+			<?php echo $this->formInput($form->get('titulo')); ?>
+	        <ul class="errors"><li><?php echo $this->formElementErrors($form->get('titulo')); ?></li></ul>
+	 
+	</div>
+	<div class="decorator_big">
+	  <div id="zip_code-label"><label for="zip_code" class="required">URL (Link para redirecionamento):</label></div>
+			<?php echo $this->formInput($form->get('url')); ?>
+	        <ul class="errors"><li><?php echo $this->formElementErrors($form->get('url')); ?></li></ul>
+	 
+	</div>	
+		
+	
+	<div class="decorator_submit">
+		<input type="button" value="Selecionar área de uma imagem" class="btn_submit shadow" onclick="window.location='<?php echo $this->url("area-edit",array('area'=>$this->dados['area'],'action'=>'step2'));?>';"  />
+ <input type="submit" name="register" id="register" value="Alterar e Publicar" class="btn_submit shadow" title="Cadastrar" style="margin-left: 80px;" />
+		
+	</div>
+	<?php echo $this->form()->closeTag($form) . PHP_EOL; ?>
+	
+</div>
+<div class="clear"></div>
+</div>
+</div>
+

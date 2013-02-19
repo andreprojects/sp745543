@@ -1,0 +1,81 @@
+<div class="center">
+  <div class="checkout_content rounded shadow">
+    <div id="alert_message" class="fm_alert rounded shadow" style="display:none"></div>
+    <p class="content_title">EDITAR ÁREA</p>
+    <div>
+{if !empty($image_submetida)}
+  
+  <script type="text/javascript">{literal}
+    $(function() {
+      $('.maph').maphilight();
+    });
+  </script>{/literal}
+  <div class="">
+    <div><label for="" class="required">Selecione a área ( 10x10=100 pixels) da imagem enviada para publicação:</label></div>
+    <div style="margin: 10px;">
+      <img src="{$image_submetida}" class="maph" usemap="#image_submit_map" /><map name="image_submit_map">{$list_area_image}</map></div>
+  </div>
+{/if}
+      
+<form action="{$post_action_upload}" method="post">
+<div class="div_editar_area" >
+  <div><span>Envie uma imagem:</span></div>
+  <div>Tamanho máximo: 500 kb</div>
+  <div>Extensões: *.jpg ou *.png</div>
+  {$render_upload}
+</div>
+</form>
+
+{$form.javascript}
+<form {$form.attributes}>
+{$form.hidden}
+
+{if !empty($url_100p_selecionado)}
+  <div class="div_editar_area">
+    <div><span>Última área selecionada (10x10=100px):</span></div>
+    <div><img src="{$url_100p_selecionado}" /></div>
+  </div>
+{/if}
+
+<div class="div_editar_area">
+  <div><span>Área atual (10x10=100px):</span></div>
+  <div><img src="{$url_100p_atual}" /></div>
+</div>
+
+{*}
+<script type='text/javascript'>{literal}
+
+  function CuteWebUI_AjaxUploader_OnTaskComplete(task)
+  {
+    //console.dir(task);
+    document.getElementById('image_uploaded').innerHTML = '';
+    var img=document.createElement("IMG");
+    img.src = '{/literal}{$dir_usuario}{literal}image/myimagearea.'+task.FileName.substring((task.FileName.length-3));
+    document.getElementById('image_uploaded').appendChild(img);
+  }
+  </script>{/literal}
+{*}
+
+<div class="decorator_big">
+    <div id="name-label"><label for="name" class="required">Título:</label></div>
+    {$form.txtTitulo.html}
+    
+    {if !empty($form.txtTitulo.error)}
+        <ul class="errors"><li>{$form.txtTitulo.error}</li></ul>
+    {/if}
+</div>
+<div class="decorator_big">
+  <div id="zip_code-label"><label for="zip_code" class="required">URL (Link para redirecionamento):</label></div>
+  http://{$form.txtUrl.html}
+    
+    {if !empty($form.txtUrl.error)}
+        <ul class="errors"><li>{$form.txtUrl.error}</li></ul>
+    {/if}
+</div>
+ 
+<div class="decorator_submit">
+<input type="submit" name="register" id="register" value="Publicar" class="btn_submit shadow" title="Cadastrar" /></div></div>
+</form>    <div class="clear"></div>
+<div class="clear"></div>
+</div>
+

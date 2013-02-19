@@ -1,0 +1,32 @@
+<div class="center">
+  <div class="checkout_content rounded shadow">
+    <div id="alert_message" class="fm_alert rounded shadow" style="display:none"></div>
+    <p class="content_title">EDITAR ÁREA</p>
+    <p style="text-align: center;"><span style="font-weight: bold;">Upload</span> -> Seleção -> Confirmação</p>
+    <div>
+      
+		<?php
+		$form = $this->form;
+		$form->prepare();
+		echo $this->form()->openTag($form) . PHP_EOL;
+		$this->form;
+		$form->setAttribute('action', $this->url('area-edit'));
+		?>
+		
+		<div class="div_editar_area">
+		  <div><span>Envie uma imagem para seleção:</span></div>
+		  <div>Tamanho máximo: 500 kb</div>
+		  <div>Extensões: *.jpg</div>
+		  <?php echo $this->formInput($form->get('fileupload')); ?>
+		  <ul class="errors"><li><?php echo $this->formElementErrors($form->get('fileupload')); ?></li></ul>
+		</div>
+		 
+		<div class="decorator_submit">
+			<input type="submit" name="register" id="register" value="Enviar" class="btn_submit shadow" title="Cadastrar" />
+		</div>
+		<?php echo $this->form()->closeTag($form) . PHP_EOL; ?>
+	</div>  
+	<div class="clear"></div>
+	<div class="clear"></div>
+</div>
+

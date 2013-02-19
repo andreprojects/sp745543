@@ -1,0 +1,29 @@
+<div class="center">
+  <div class="content rounded shadow">
+    <div id="alert_message" class="fm_alert rounded shadow" style="display:none"></div>
+
+    <p class="content_title">CADASTRO</p>
+<?php
+$form = $this->form;
+//$form->setAttribute('action', $this->url('album', array('action' => 'add')));
+$form->prepare();
+echo $this->form()->openTag($form) . PHP_EOL;
+echo $this->formHidden($form->get('id')) . PHP_EOL;
+?>
+
+<div class="decorator_big" style="width:400px;">
+	<div id="email_register-label">
+		<label for="email_register" class="required">E-mail*:</label>
+	</div>
+	<?php echo $this->formInput($form->get('email')); ?>
+	<ul class="errors"><li><?php echo $this->formElementErrors($form->get('email')); ?></li></ul>	
+</div>
+<div class="decorator_big">
+	<div >
+       <?php echo $this->formRow($form->get('captcha'));?>
+	</div>
+</div>
+<div class="decorator_submit">
+<input type="submit" name="register" id="register" value="Cadastrar" class="btn_submit shadow" title="Cadastrar"></div></div></form>    <div class="clear"></div>
+<div class="clear"></div>
+</div>

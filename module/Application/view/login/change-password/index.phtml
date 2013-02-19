@@ -1,0 +1,33 @@
+<div class="center">
+<div class="checkout_content rounded shadow">
+        <p class="content_title rounded shadow">Informe sua nova senha</p>
+        <p>Preencha os campos abaixo e clique no botão alterar para renovar a sua senha de acesso.</p>
+<?php
+$form = $this->form;
+//$form->setAttribute('action', $this->url('album', array('action' => 'add')));
+$form->prepare();
+
+echo $this->form()->openTag($form) . PHP_EOL;
+echo $this->formHidden($form->get('id')) . PHP_EOL;
+?>
+
+<div>
+<div class="decorator_big"><div id="password-label"><label for="password" class="required">Nova Senha*:</label></div>    
+    <?php echo $this->formInput($form->get('senha')); ?>
+	<ul class="errors"><li><?php echo $this->formElementErrors($form->get('senha')); ?></li></ul>
+</div>
+<div class="decorator_big">
+    <div id="password_confirmation-label"><label for="password_confirmation" class="required">Confirme sua senha*:</label></div>
+    <?php echo $this->formInput($form->get('contra_senha')); ?>
+	<ul class="errors"><li><?php echo $this->formElementErrors($form->get('contra_senha')); ?></li></ul>
+
+</div>
+<div class="decorator_submit">
+<input type="submit" name="change" id="change" value="Alterar" class="btn_submit shadow" title="Alterar"></div>
+</div>
+<?php echo $this->form()->closeTag($form) . PHP_EOL; ?>
+        <div class="clear"></div>
+    </div>
+</div>
+
+

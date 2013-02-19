@@ -1,0 +1,47 @@
+<div class="center">
+  <div class="content rounded shadow">
+        <p class="content_title">Fale Conosco</p>
+        
+        <span class="adver">
+                        
+<?php            
+ $form = $this->form;
+ $form->setAttribute('action', $this->url('home/action', array('action' => 'faleconosco')));
+ $form->prepare();
+ echo $this->form()->openTag($form) . PHP_EOL;
+?>
+<div>
+
+    <div class="decorator_big">
+        <div id="name-label">
+            <label for="name" class="required">Nome*:</label>
+        </div>
+        <?php echo $this->formInput($form->get('nome')); ?>
+        <ul class="errors"><li><?php echo $this->formElementErrors($form->get('nome')); ?></li></ul>
+    </div>
+
+    <div class="decorator_big">
+        <div id="email-label">
+            <label for="email" class="required">Email*:</label>
+        </div>
+    
+        <?php echo $this->formInput($form->get('emailfc')); ?>
+        <ul class="errors"><li><?php echo $this->formElementErrors($form->get('emailfc')); ?></li></ul>
+    </div>
+
+
+    <div class="decorator_terms">
+        <label for="message" class="required">Mensagem*:</label>
+        <?php echo $this->formTextarea($form->get('msg')); ?>
+        <ul class="errors"><li><?php echo $this->formElementErrors($form->get('msg')); ?></li></ul>
+    </div>
+    <div class="decorator_submit">
+        <input type="submit" name="send" id="send" value="Enviar" class="btn_submit shadow" title="Enviar">
+    </div>
+</div>
+<?php
+    echo $this->form()->closeTag($form);
+?>
+</span>
+<div class="clear"></div>
+</div>

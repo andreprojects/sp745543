@@ -1,0 +1,41 @@
+
+<div class="center">
+    <div class="checkout_content rounded shadow">
+        <h2 class="content_title">Já está cadastrado no Anúncio Mosaico?</h2>
+        <h3>Faça seu login e registre sua marca.</h3><!--<a class="tooltip" onmouseout="show_tooltip();" onmouseover="show_tooltip();"><span class="tooltip_msg"> utiliza a plataforma SaveMe.<br><br>Este site faz parte de uma plataforma integrada ao Saveme.<br>Se voc� j� possui cadastro no Saveme, informe seu login e senha ao lado para realizar suas compras aqui e depois complete com as informa��es restantes.<br>Caso ainda n�o possua cadastro no Saveme, preencha seus dados para finalizar a compra.</span></a></h3> -->
+        
+        <br>
+        
+<?php
+
+$form = $this->form;
+//$form->setAttribute('action', $this->url('album', array('action' => 'add')));
+$form->prepare();
+
+echo $this->form()->openTag($form) . PHP_EOL; 
+
+?>
+        
+        <div>
+    	<div class="decorator_medium">
+    	<div id="email-label">
+    		<label for="email" class="required">Email</label></div>
+        
+        	<?php echo $this->formInput($form->get('email')); ?>
+        	<ul class="errors"><li><?php echo $this->formElementErrors($form->get('email')); ?></li></ul>
+        
+        </div>
+        <div class="decorator_medium"><div id="password_login-label"><label for="password_login" class="required">Senha</label></div>
+        	<?php echo $this->formInput($form->get('senha')); ?>
+        	<ul class="errors"><li><?php echo $this->formElementErrors($form->get('senha')); ?>
+        	</li></ul>
+        	
+        </div>
+        <div class="form_hidden">
+        <input type="hidden" name="purchasing_data" value="" class="" id="purchasing_data"></div>
+        <div class="decorator_submit_inline">
+        <input type="submit" name="submit" id="submit" value="Entrar" title="Entrar" class="btn_submit shadow"></div></div></form>	<div class="clear"></div>
+   </div>
+</div>
+
+<?php echo $this->form()->closeTag($form) . PHP_EOL; ?>

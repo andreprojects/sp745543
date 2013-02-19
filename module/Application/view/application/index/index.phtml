@@ -1,0 +1,68 @@
+
+
+<div class="center">
+  
+    <script type="text/javascript">
+    
+    
+    function modo_area(tipo,id_coord,obj){
+    	
+      if(tipo == "over"){
+        //$('#'.id_coord).mouseout();
+        //$('.maphome').css('background-image', 'url("<?php echo $this->serverUrl($this->url('home', array('action' => 'photoSpace','tipo'=>2))); ?>")');
+        //$('#photo_space').attr('src','<?php echo $this->serverUrl($this->url('home', array('action' => 'photoSpace','tipo'=>2))); ?>'); 
+      	$('#photo_space').hide();
+      	$('#photo_space2').show();
+      	$('#photo_space2').addClass('maphome');
+      }
+      if(tipo == "out"){
+        
+        $('#photo_space').show();
+      	$('#photo_space2').hide();
+      	$('#photo_space2').removeClass('maphome');
+      
+        //$('#'.id_coord).mouseover();
+        //$('.maphome').css('background-image', 'url("<?php echo $this->serverUrl($this->url('home', array('action' => 'photoSpace'))); ?>")');  
+      	//$('#photo_space').attr('src','<?php echo $this->serverUrl($this->url('home', array('action' => 'photoSpace'))); ?>');
+      }
+    }
+    
+    
+  </script>
+	  
+	  <script type="text/javascript">
+		$(document).ready(function() {
+			$("#loadp").show();
+			$('#photo_space2').hide();
+			
+		    $.ajax({
+		     	type: "GET",
+		        cache: true,
+		        url: "/listareas",
+		        //data: "pag=noticias_ajax&sem_smarty=1&toajax=4&chk=afbb28d57e2f54b4b7a856c56c0fd8aa",
+		        success: function(msg)
+		        {
+		        	$("#pm1").html(msg);
+		        },
+		        complete: function()
+		        {
+		        	$("#loadp").hide();
+		        	$('.maphome').maphilight();
+		        	<?php $sessionUser = $this->UserIdentity('Login');  if(!$sessionUser): ?>	
+					<?php else: ?>
+					<?php endif; ?>
+					
+		        }
+		   });
+  
+		});	
+	</script>
+
+	  <img src="<?php echo $this->serverUrl($this->url('home', array('action' => 'photoSpace','tipo'=>2))); ?>" class="" usemap="#planetmap"  id="photo_space2"  />    
+      <img src="<?php echo $this->serverUrl($this->url('home', array('action' => 'photoSpace'))); ?>" class="maphome"  usemap="#planetmap" id="photo_space"  />
+      
+      <map name="planetmap" id="pm1">
+        <?php echo $list_areas; ?> 
+      </map>
+
+</div>

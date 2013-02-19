@@ -1,0 +1,30 @@
+<?php 
+$title = 'Login';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<?php if ($this->error == 1): ?>
+    <hr />Email ou senha inválidos<hr />
+<?php elseif($this->error == 2): ?>
+  <hr /> No momento seu e-mail não foi confirmado. Clique aqui para reenviar e-mail de confirmação. <hr />
+<?php endif; ?>
+
+<?php
+
+$form = $this->form;
+//$form->setAttribute('action', $this->url('album', array('action' => 'add')));
+$form->prepare();
+
+echo $this->form()->openTag($form) . PHP_EOL;
+echo $this->formRow($form->get('email')) . PHP_EOL;
+//echo $this->formRow($form->get('artist')) . PHP_EOL;
+//echo $recaptcha->getHTML();
+//echo $captcha->getFiglet()->render($captcha->getWord());
+echo $this->formRow($form->get('senha'));
+
+echo $this->formInput($form->get('submit')) . PHP_EOL;
+echo $this->form()->closeTag($form) . PHP_EOL;
+//echo "<a href='".$this->url('reminder')."'>Esqueci minha senha</a> <br>";
+//echo "<a href='".$this->url('register')."'>Novo Cadastro</a>";
+//echo $this->partial('login/register/confirmationEmail.phtml',array());
