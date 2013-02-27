@@ -138,6 +138,17 @@ return array(
                     )
                 )
             ),
+            'meus-anuncios' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/meus-anuncios[/:action][/:id]',
+                    'defaults' => array(
+                      'controller' => 'Application\Controller\MeusAnuncios',
+                        'action'  => 'index'
+                        
+                    )
+                )
+            ),
             'admin' => array(
                 'type' => 'literal',
                 'options' => array(
@@ -392,6 +403,7 @@ return array(
             'Admin\Controller\Index' 			 => 'Admin\Controller\IndexController',
             'Admin\Controller\Servico' 			 => 'Admin\Controller\ServicoController',
             'Admin\Controller\Plano'             => 'Admin\Controller\PlanoController',
+            'Application\Controller\MeusAnuncios' => 'Application\Controller\MeusAnunciosController'
             
         ),
     ),

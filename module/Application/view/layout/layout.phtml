@@ -1,658 +1,100 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <?php echo $this->headTitle('Anúncio Mosaico - Seu anúncio publicado para sempre')->setSeparator(' - ')->setAutoEscape(false) ?>
-  <meta property="og:title" content="" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="" />
-  <meta property="og:url" content="" />
-  <meta property="og:site_name" content="Anúncio Mosaico" />
-  <meta property="og:locale" content="pt_BR" />
-   <!-- Le styles -->
-   <?php
-   
-	// Get params in the controllers
-	$children = $this->viewModel()->getCurrent()->getChildren();
-	$child = $children[0];
-	
-   echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/images/favicon.ico'))
-           ->prependStylesheet($this->basePath() . '/css/app/checkout.css')
-           ->prependStylesheet($this->basePath() . '/css/app/green_position1.css')
-           ->prependStylesheet($this->basePath() . '/css/app/blockUI.css')
-           ->prependStylesheet($this->basePath() . '/css/app/forms.css')
-           ->prependStylesheet($this->basePath() . '/css/app/fancybox/fancybox.css')
-           ->prependStylesheet($this->basePath() . '/css/app/reset.css')
-           
-   ?>        
-   <!-- Scripts -->
-   <?php echo $this->headScript()->prependFile($this->basePath() . '/js/app/default.js', 'text/javascript')
-   								 ->prependFile($this->basePath() . '/js/app/jquery.maphilight.js')
-                                  ->prependFile($this->basePath() . '/js/app/main.js')
-                                  ->prependFile($this->basePath() . '/js/app/jquery.nivo.slider.js')
-                                  ->prependFile($this->basePath() . '/js/app/fancybox.js')
-                                  ->prependFile($this->basePath() . '/js/app/jquery.maskedinput-1.2.2.js')
-                                  ->prependFile($this->basePath() . '/js/app/jquery.cookie.js')
-                                  ->prependFile($this->basePath() . '/js/app/jquery-1.5.1.min.js', 'text/javascript')
-                                 //->prependFile($this->basePath() . '/js/app/default.js')
-                                 
-   ?>
-   
-   <script type="text/javascript">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Shareplaque ADM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-37917209-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-    <script type="text/javascript">
-    //<![CDATA[
-		var vCityId='1000000';    //]]>
-	</script>
-
+    <!-- Le styles -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
-        
-    .bg_store {
-      background: url('<?php echo $this->basePath();  ?>/images/app/background/supperofertas20120621105224.jpg') no-repeat center center;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover;
-      filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<?php echo $this->basePath();  ?>/images/app/background/supperofertas20120621105224.jpg', sizingMethod='scale');
-      -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<?php echo $this->basePath();  ?>/images/app/background/supperofertas20120621105224.jpg', sizingMethod='scale')";
-      width:100%;
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
       }
-    
-      .logo_store {background:url('<?php echo $this->basePath();  ?>/images/app/logo/logotipo300px.png') no-repeat; width:190px; margin:0 20px 0 0; height:90px; display:block; float:left; text-indent:-9999px}
-		#banner728{
-			background:url('<?php echo $this->basePath();  ?>/images/app/logo/banner728x90.png') no-repeat;
-			width: 728px;
-			height: 90px;
-			float:left;
-		}
-		.fontbanner728{
-			font-size: 24px;
-			color: #537e87;
-		}
     </style>
-   
-    <script type="text/javascript">
+    <link href="/css/bootstrap-responsive.css" rel="stylesheet">
 
-        // fancybox!
-        var no_fancybox = true;
-        // analytics
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="/admin"><img src="/img/logo/logosp160.png" /></a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <?php $sessionUser = $this->UserIdentity('Login');  if($sessionUser): ?>
+              <li class="active"><a href="/meus-anuncios">Meus Anúncios</a></li>
+              <?php endif; ?>
+              <li class=""><a href="/">Fale Conosco</a></li>
+              <li class=""><a href="/">Faq</a></li>
+              
+              <?php if($sessionUser): ?>
+              <li class="">
+                <a class="small" href="#">Olá,  <?php echo $sessionUser['user']->email; ?></a>
+              </li>
+              <li class=""><a href="/logout">Sair</a></li>
+              <?php endif; ?>
+            </ul>
+             
+             
+           
+            
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+    
+    
+    <?php echo $this->content; ?>
+ 
+      <hr>
+
+      <footer>
+        <p>&copy; SharePlaque 2013</p>
+      </footer>
+
+    </div> <!-- /container -->
+    <script src="/js/jquery-1.7.2.min.js"></script>
+    <script src="/js/bootstrap-dropdown.js"></script>
+    <script src="/js/bootstrap-tooltip.js"></script>
+    <script>
+    !function ($) {
+
+      $(function(){
+
+    // tooltip demo
+        $('.table').tooltip({
+          selector: "a[data-toggle=tooltip]"
+        })
+
+    })
+
+    }(window.jQuery)
     </script>
     
-    <!-- Piwik -->
-        <!-- End Piwik Tracking Code -->
-    
-    <!--[if IE 6]><style type="text/css">#page-background {position:absolute; z-index:-1; top: expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+0+"px" : body.scrollTop+0+"px");} #content {position:absolute; z-index:1;} </style> <![endif]-->
-
-</head>
-<body>
- 
-  <div class="bg_store" style=" background-attachment: fixed;">
-       
-      <div id="loadp" style="width: 100%;height: 40px;position: relative;top:0px;left:0px;background-color: #fff;color:#bbb;text-align: center;border: 1px solid #bbb;display: none;"><table align="center"><tr><td><img src="/images/app/loading2.gif" align="absmiddle" /></td><td>Um momento processando áreas...</td></tr></table></div>
-    
-    <div id="content_full">
-    <input type="hidden" id="site_permalink" value=""/>  
-
-    <div id="fb-root"></div>
-    <!-- DIV Header -->
-	<div style="">
-    <div class="header">
-        <div class="center">
-            <a href="/" class="logo_store" title="">Logo da Empresa</a>
-            <?php $sessionUser = $this->UserIdentity('Login');  if(!$sessionUser): 
-            	  $sessionGanhe = $this->SessionSelection('ganhe');
-            	
-            	?>
-            	<a href="<?php echo $this->url('ganhe'); ?>">
-            	<div id="banner728" >
-            		<div style='position: relative;top:18px;left:269px;width: 150px;' class="fontbanner728"><?php echo $sessionGanhe->qtd_livres; ?></div>
-            		<div style='position: relative;top:-6px;left:493px;width: 150px;' class="fontbanner728"><?php echo $sessionGanhe->valor_atual; ?></div>
-            	</div>
-            	</a>
-            <?php endif; ?>
-            <!-- City Selection -->
-      <!-- City Selection -->
-<?php $sessionCarrinho = $this->SessionSelection('carrinho'); $item_carrinho = $sessionCarrinho->areas; ?>
-<div class="city_selected rounded" style="display: <?php if(!empty($item_carrinho) && $this->controllerclass != "Application\Controller\CarrinhoController") echo "block"; else echo "none"; ?>">
-    <table>
-      <tr>
-        <td><span id="carrinho_bar">Carrinho</span></td>
-        <td>Qtd.</td>
-        <td>Valor total</td>
-      </tr>
-      <tr>
-        <td class="">Quatidade de área(s) selecionada(s)</td>
-        <td><?php echo $sessionCarrinho->qtd; ?></td>
-        <td>R$ <?php echo number_format($sessionCarrinho->vl_total, 2, ',', '.'); ?></td>
-      </tr>
-      <tr>
-        <td class="td_sub_title"></td>
-        <td></td>
-        <td><input type="button" class="btn_submit_register rounded shadow" value=" Comprar " title=" Comprar " onclick="window.location='<?php echo $this->serverUrl($this->url('carrinho')); ?>'" id="btn_submit_register_newsletter"></td>
-      </tr>
-        
-    </table>
-   
-    
-</div>
-
-<!-- End City Selection -->               
-            <!-- End City Selection -->            
-        
-            <div class="email_register"> 
-              
-        <!-- Email register -->
-        <!-- Email register -->
-<div id="email_register">
-	<?php if($sessionUser): ?>
-    <div class="email_register_form">
-		<!--
-		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-		<input type="hidden" name="cmd" value="_xclick">
-		<input type="hidden" name="business" value="FYUEQHTW5M258">
-		<input type="hidden" name="lc" value="BR">
-		<input type="hidden" name="item_name" value="Credito OutMarcas">
-		<input type="hidden" name="item_number" value="<?php echo $sessionUser['user']->id; ?>">
-		<input type="hidden" name="button_subtype" value="services">
-		<input type="hidden" name="no_note" value="0">
-		<input type="hidden" name="cn" value="Adicionar instruções especiais para o vendedor:">
-		<input type="hidden" name="no_shipping" value="1">
-		<input type="hidden" name="currency_code" value="BRL">
-		<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">
-		<table>
-		<tr><td><input type="hidden" name="on0" value="Credito">Crédito</td></tr><tr><td><select name="os0">
-			<option value="1 Area -">1 Area - R$3,00</option>
-			<option value="2 Areas -">2 Areas - R$6,00</option>
-			<option value="3 Areas -">3 Areas - R$9,00</option>
-			<option value="4 Areas -">4 Areas - R$12,00</option>
-			<option value="5 Areas -">5 Areas - R$15,00</option>
-			<option value="6 Areas -">6 Areas - R$18,00</option>
-		</select> </td></tr>
-		</table>
-		<input type="hidden" name="currency_code" value="BRL">
-		<input type="hidden" name="option_select0" value="1 Area -">
-		<input type="hidden" name="option_amount0" value="3.00">
-		<input type="hidden" name="option_select1" value="2 Areas -">
-		<input type="hidden" name="option_amount1" value="6.00">
-		<input type="hidden" name="option_select2" value="3 Areas -">
-		<input type="hidden" name="option_amount2" value="9.00">
-		<input type="hidden" name="option_select3" value="4 Areas -">
-		<input type="hidden" name="option_amount3" value="12.00">
-		<input type="hidden" name="option_select4" value="5 Areas -">
-		<input type="hidden" name="option_amount4" value="15.00">
-		<input type="hidden" name="option_select5" value="6 Areas -">
-		<input type="hidden" name="option_amount5" value="18.00">
-		<input type="hidden" name="option_index" value="0">
-		<input type="image" src="https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" style="padding-left: 15px;" alt="PayPal - A maneira mais fácil e segura de efetuar pagamentos online!">
-		<img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
-		</form>-->
-		
-		<label for="" id="compra_credito"><img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/pagamentos/205x30-comprar.gif" /></label>
-            <table>
-                <tr>
-                    <td>
-                        
-                        <form target="pagseguro" action="https://pagseguro.uol.com.br/security/webpagamentos/webpagto.aspx" method="post" onsubmit="">
-		                  <input type="hidden" name="email_cobranca" value="andrework@gmail.com">
-		                  <input type="hidden" name="tipo" value="CP">
-		                  <input type="hidden" name="moeda" value="BRL">
-		                  <input type="hidden" name="item_id_1" value="<?php echo $sessionUser['user']->id; ?>">
-		                  <input type="hidden" name="item_valor_1" value="<?php echo number_format(3, 2, ',', '.'); ?>">
-		                  <input type="hidden" name="item_descr_1" value="Credito COD:<?php echo $sessionUser['user']->id; ?> - R$ 3,00">
-		                  <input type="hidden" name="item_quant_1" value="1">
-		                  <input type="hidden" name="item_frete_1" value="000">
-		                  <input type="submit" class="btn_submit rounded shadow" value=" R$ 3,00 " title="R$ 3,00" id=""/>
-                        </form>
-                        
-                    </td>
-                    <td>
-                        <form target="pagseguro" action="https://pagseguro.uol.com.br/security/webpagamentos/webpagto.aspx" method="post" onsubmit="">
-		                  <input type="hidden" name="email_cobranca" value="andrework@gmail.com">
-		                  <input type="hidden" name="tipo" value="CP">
-		                  <input type="hidden" name="moeda" value="BRL">
-		                  <input type="hidden" name="item_id_1" value="<?php echo $sessionUser['user']->id; ?>">
-		                  <input type="hidden" name="item_valor_1" value="<?php echo number_format(6, 2, ',', '.'); ?>">
-		                  <input type="hidden" name="item_descr_1" value="Credito COD:<?php echo $sessionUser['user']->id; ?> - R$ 6,00">
-		                  <input type="hidden" name="item_quant_1" value="1">
-		                  <input type="hidden" name="item_frete_1" value="000">
-		                  <input type="submit" class="btn_submit rounded shadow" value=" R$ 6,00 " title="R$ 6,00" id=""/>
-                        </form>
-                    </td>
-                    <td>
-                        <form target="pagseguro" action="https://pagseguro.uol.com.br/security/webpagamentos/webpagto.aspx" method="post" onsubmit="">
-		                  <input type="hidden" name="email_cobranca" value="andrework@gmail.com">
-		                  <input type="hidden" name="tipo" value="CP">
-		                  <input type="hidden" name="moeda" value="BRL">
-		                  <input type="hidden" name="item_id_1" value="<?php echo $sessionUser['user']->id; ?>">
-		                  <input type="hidden" name="item_valor_1" value="<?php echo number_format(9, 2, ',', '.'); ?>">
-		                  <input type="hidden" name="item_descr_1" value="Credito COD:<?php echo $sessionUser['user']->id; ?> - R$ 9,00">
-		                  <input type="hidden" name="item_quant_1" value="1">
-		                  <input type="hidden" name="item_frete_1" value="000">
-		                  <input type="submit" class="btn_submit rounded shadow" value=" R$ 9,00 " title="R$ 9,00" id=""/>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <form target="pagseguro" action="https://pagseguro.uol.com.br/security/webpagamentos/webpagto.aspx" method="post" onsubmit="">
-		                  <input type="hidden" name="email_cobranca" value="andrework@gmail.com">
-		                  <input type="hidden" name="tipo" value="CP">
-		                  <input type="hidden" name="moeda" value="BRL">
-		                  <input type="hidden" name="item_id_1" value="<?php echo $sessionUser['user']->id; ?>">
-		                  <input type="hidden" name="item_valor_1" value="<?php echo number_format(12, 2, ',', '.'); ?>">
-		                  <input type="hidden" name="item_descr_1" value="Credito COD:<?php echo $sessionUser['user']->id; ?> - R$ 12,00">
-		                  <input type="hidden" name="item_quant_1" value="1">
-		                  <input type="hidden" name="item_frete_1" value="000">
-		                  <input type="submit" class="btn_submit rounded shadow" value="R$ 12,00" title="R$ 12,00" id=""/>
-                        </form>
-                    </td>
-                    <td>
-                        <form target="pagseguro" action="https://pagseguro.uol.com.br/security/webpagamentos/webpagto.aspx" method="post" onsubmit="">
-		                  <input type="hidden" name="email_cobranca" value="andrework@gmail.com">
-		                  <input type="hidden" name="tipo" value="CP">
-		                  <input type="hidden" name="moeda" value="BRL">
-		                  <input type="hidden" name="item_id_1" value="<?php echo $sessionUser['user']->id; ?>">
-		                  <input type="hidden" name="item_valor_1" value="<?php echo number_format(15, 2, ',', '.'); ?>">
-		                  <input type="hidden" name="item_descr_1" value="Credito COD:<?php echo $sessionUser['user']->id; ?> - R$ 15,00">
-		                  <input type="hidden" name="item_quant_1" value="1">
-		                  <input type="hidden" name="item_frete_1" value="000">
-		                  <input type="submit" class="btn_submit rounded shadow" value="R$ 15,00" title="R$ 15,00" id=""/>
-                        </form>
-                    </td>
-                    <td>
-                        <form target="pagseguro" action="https://pagseguro.uol.com.br/security/webpagamentos/webpagto.aspx" method="post" onsubmit="">
-		                  <input type="hidden" name="email_cobranca" value="andrework@gmail.com">
-		                  <input type="hidden" name="tipo" value="CP">
-		                  <input type="hidden" name="moeda" value="BRL">
-		                  <input type="hidden" name="item_id_1" value="<?php echo $sessionUser['user']->id; ?>">
-		                  <input type="hidden" name="item_valor_1" value="<?php echo number_format(18, 2, ',', '.'); ?>">
-		                  <input type="hidden" name="item_descr_1" value="Credito COD:<?php echo $sessionUser['user']->id; ?> - R$ 18,00">
-		                  <input type="hidden" name="item_quant_1" value="1">
-		                  <input type="hidden" name="item_frete_1" value="000">
-		                  <input type="submit" class="btn_submit rounded shadow" value="R$ 18,00" title="R$ 18,00" id=""/>
-                        </form>
-                    </td>
-                </tr>
-            </table>
-		
-		
-
-        <div class="clear"></div>
-        
-        <span class="erro rounded shadow" style="display: none;" ></span>
-    </div>
-    <?php endif; ?>
-</div>
-<!-- End Email register -->                <!-- End Email register -->
-                
-            </div>    
-           
-            <div class="clear"></div>
-        </div>
-    </div>
-   
-    <!-- Helper Box de Cidades -->
-    <!--BOX CITIES-->
-    <div class="center select_other_city_box">
-        <div class="arrow_select_city"></div>
-        <div class="select_other_city rounded">
-            <p class="select_city_title">
-                Detalhes:                <a href="javascript:;" onclick="selectOtherCity();" class="close_select_city rounded" title="Fechar">X</a>
-            </p>
-            <p>Área - 74,93,29,33</p>
-            <p>Área - 74,93,29,33</p>
-            <p>Área - 74,93,29,33</p>
-            <p style="float:right;"><input type="submit" class="btn_submit_register rounded shadow" value="Confirmar Compra" title="Confirmar Comprar" id="btn_submit_register_newsletter"></p>
-            <div class="clear"></div>
-        </div>
-    </div>
-<!--END BOX CITIES-->
-   
-    <!--MENU-->
-    <div class="nav"> 
-        <div class="center rounded">
-			<?php $sessionUser = $this->UserIdentity('Login');  ?>
-            <!-- Helper Box do Menu -->
-            <!--MENU-->
-			<ul class="nav_links">
-			    <li><span><img src="<?php echo $this->basePath();  ?>/images/app/m51_livre.jpg" /> Livres</span></li>
-			    <li><span><img src="<?php echo $this->basePath();  ?>/images/app/m51_comprado.jpg" /> Registradas</span></li>
-			    <li><span><img src="<?php echo $this->basePath();  ?>/images/app/m51_minhas.jpg" /> Minhas </span></li>
-			    <li><span><img src="<?php echo $this->basePath();  ?>/images/app/m51_carrinho.jpg" /> No Carrinho </span></li>
-			    <?php if(!$sessionUser): ?>
-			    <li><a href="http://youtu.be/LaNx76qRuWc" target="_blank">> Tutorial passo a passo (Vídeo no YouTube)</a></li>
-			    <?php endif; ?>
-			    <!--<li><a href="http://cupom.saveme.com.br/supperofertas/faq/index/" class=" rounded" title="FAQ">FAQ</a></li>
-			    <li><a href="http://cupom.saveme.com.br/supperofertas/contact-us/index/" class=" rounded" title="Fale conosco">Fale conosco</a></li>-->
-			</ul>
-			
-			<!--END MENU-->           
-            
-           
-            <!-- Usuario Logado -->
-            <?php $sessionUser = $this->UserIdentity('Login');  if($sessionUser): ?>
-           	<?php $sessionCredito = $this->SessionSelection('user'); ?>
-            <div id="SVM_logged" style="">
-                <ul class="nav_menu_login">
-                    <li><span class="login_align_list">Olá, <span id="logged_name"><?php echo $sessionUser['user']->nome; ?></span> </span> você tem R$ <?php echo number_format($sessionCredito->credito, 2, ',', '.'); ?> de crédito</li>
-                    <li><a href="<?php echo $this->url('minha-conta'); ?>" title="Minha Conta" >Minha Conta</a></li>
-                   <li><a href="<?php echo $this->url('logout'); ?>" title="Sair">Sair</a></li>
-                    
-                </ul>
-            </div>
-            <?php else: ?>
-            
-            <!-- Usuario Deslogado -->
-            <div id="SVM_dologin">
-                <ul class="nav_menu_login">
-                    <?php if(!empty($this->dados['nome_indicado'])): ?><li ><span class="indicado_align_list">Indicado por: <?php echo $this->dados['nome_indicado']; ?> -></span></li><?php endif; ?>
-                    <li><a href="<?php echo $this->url('register'); ?>" class="register_link_nav" title="Cadastre-se">Cadastre-se</a></li>
-                    <li><a href="javascript:;" class="do_login_nav" onclick="loginNavBar();" title="Faça seu Login">Faça seu Login</a></li>
-                </ul>
-            </div>
-            
-            
-             <?php endif; ?>
-            <div class="clear"></div>
-           
-           
-            <!-- Box login --> 
-            <!--BUY LOGIN IFRAME-->
-<div class="login_container" >
-  <div class="line_login_container"></div>
-  <br>
-  <iframe id="iframe_login" src="<?php echo $this->url('login-iframe'); ?>" scrolling="no" height="176" width="245" style="*width:230px;" frameborder="0"></iframe>
-    <p class="forgot_password_login_nav link-Forgot-password"><a id="inline" class="iframe" href="<?php echo $this->url('reminder'); ?>" title="">Esqueci minha senha</a></p>
-  <p class="forgot_password_login_nav link-Cancel"><a href="javascript:;" onclick="loginNavBar();" title="Cancelar">Cancelar</a></p>
-
-</div>
-<!--END LOGIN IFRAME-->            <!-- Box login --> 
-            
-        </div>
-         
-    </div>
-  </div>
-    <!--END MENU-->
-
-    <!--FLASH MESSAGE-->
-    <?php if(!empty($child->dados['fsuccess'])): ?>
-    <div class="center" id="flash_message">
-        <div class="fm_ok rounded shadow">
-          <?php
-            switch($child->dados['fsuccess']['ref']):
-              
-				case "changepassword":
-					
-					switch ($child->dados['fsuccess']['cod_msg']) :
-						case 1:
-							echo "Senha alterada com sucesso";
-							break;
-					
-					endswitch;
-					
-				break;
-				
-				case "add":
-					
-					switch ($child->dados['fsuccess']['cod_msg']) :
-						
-						case 1:
-							echo "Área adicionada ao carrinho com sucesso";
-							break;
-							
-						case 2:
-							echo "Área removida do carrinho.";
-							break;
-							
-						case 3:
-							echo "Crédito solicitado com sucesso.";
-							break;
-					
-					endswitch;
-					
-				break;
-				
-				case "step3":
-					
-					switch ($child->dados['fsuccess']['cod_msg']) :
-						case 1:
-							echo "Área alterada com sucesso";
-							break;
-					
-					endswitch;
-					
-				break;
-				
-				case "register":
-					
-					switch ($child->dados['fsuccess']['cod_msg']) :
-						case 1:
-							echo "1° Etapa do cadastro realizada com sucesso. Enviamos um email agora para você, verifique sua caixa de entrada.";
-							break;
-						
-						case 2:
-							echo "Cadastro realizado com sucesso. Agora faça seu Login.";
-							break;
-							
-						case 3:
-							echo "Área registrada com sucesso.";
-							break;	
-							
-						case 4:
-							echo "Dados alterados com sucesso.";
-							break;	
-					
-					endswitch;
-					
-				break;
-				
-				case "login":
-					
-					switch ($child->dados['fsuccess']['cod_msg']) :
-						case 1:
-							echo "Logado com sucesso";
-							break;
-				
-					endswitch;
-					
-				break;
-					
-            endswitch;
-          ?>
-        </div>
-    </div>
-    <?php endif; ?>
-    
-    
-    <?php if(!empty($child->dados['ferror'])): ?>
-    <div class="center" id="flash_message">
-        <div class="fm_error rounded shadow">
-        	
-        <?php
-            switch($child->dados['ferror']['ref']) :
-              
-				case "changepassword":
-					
-					switch ($child->dados['ferror']['cod_msg']) :
-						case 1:
-							echo "Usuário não encontrado";
-							break;
-					
-					endswitch;
-					
-				break;
-				
-				case "register":
-					
-					switch ($child->dados['ferror']['cod_msg']) :
-						case 1:
-							echo "Página inválida";
-							break;
-						
-						case 2:
-							echo "Você já efetivou seu cadastro. Faça seu Login.";
-							break;
-					
-					endswitch;
-					
-				break;
-				
-				case "login":
-					
-					switch ($child->dados['ferror']['cod_msg']) :
-						case 1:
-							echo "Usuário ou senha inválidos";
-							break;
-						
-						case 2:
-							echo "No momento seu e-mail não foi confirmado. Clique aqui para reenviar confirmação.";
-							break;
-					
-					endswitch;
-					
-				break;
-					
-            endswitch;
-          ?>	
-        </div>
-    </div>
-    <?php endif; ?>
-    
-    <?php if(!empty($child->dados['falert'])): ?>
-    <div class="center" id="flash_message">
-        <div class="fm_alert rounded shadow">
-        	
-        <?php
-            switch($child->dados['falert']['ref']) :
-				
-				case "login":
-					
-					switch ($child->dados['falert']['cod_msg']) :
-						
-						case 1:
-							echo "Você não confirmou seu e-mail. Reenviamos um novo e-mail para confirmação. Verifique sua caixa de entrada.";
-							break;
-					
-					endswitch;
-					
-				break;
-				
-				case "add":
-					
-					switch ($child->dados['falert']['cod_msg']) :
-						
-						case 1:
-							echo "Você não tem crédito suficiente para comprar áreas. Por favor compre créditos a partir de R$ 3,00.";
-							break;
-							
-						case 2:
-							echo "Área não pode ser cadastrada";
-							break;
-						
-					
-					endswitch;
-					
-				break;
-				
-				case "step3":
-					
-					switch ($child->dados['falert']['cod_msg']) :
-						case 1:
-							echo "Imagem JPG não é válida. Por favor remova e selecione outra imagem válida.";
-							break;
-					
-					endswitch;
-					
-				break;
-					
-            endswitch;
-          ?>	
-        </div>
-    </div>
-    <?php endif; ?>
-    
-    
-    <!--FLASH MESSAGE-->
-
-    <!--CONTENT-->
-       
-      
-    <div class="content_container">
-
-            <?php echo $this->content; ?>
-
-            <!--END SIDEBAR-->
-            <div class="clear"></div>
-            
-        </div>
-    </div>
-    <!--CONTENT-->
-
-    <!--FOOTER-->
-    <div class="footer">
-        <div class="center">
-           
-            <ul class="footer_links">
-                <li class="footer_links_first">Institucional</li>
-
-                  <li><a href="<?php echo $this->url('quem-somos'); ?>" class="rounded" title="Quem Somos">Quem Somos</a></li>
-                
-                  <li><a href="<?php echo $this->url('faq'); ?>" class="rounded" title="FAQ">FAQ</a></li>
-
-                  <li><a href="<?php echo $this->url('home'); ?>" class="rounded" title="Como Funciona?">Como Funciona?</a></li>
-                  
-                  <li><a href="<?php echo $this->url('ganhe'); ?>" class="rounded" title="Ganhar Produtos">Ganhar Produtos</a></li>
-                
-            </ul>
-           
-                <ul class="footer_links">
-                    <li class="footer_links_first">Programa de Afiliados</li>
-                    <li><a href="<?php echo $this->url('home'); ?>" class="rounded" title="Anuncie Aqui">Como Funciona? (Em Breve)</a></li>
-                </ul>
-                       
-            <ul class="footer_links">
-                <li class="footer_links_first">Contato</li>
-                <li><a href="<?php echo $this->url('faleconosco'); ?>" class="rounded" title="Fale conosco">Fale conosco</a></li>
-            </ul>
-
-                                  
-            <ul class="footer_links">
-                <li class="footer_links_first"></li>
-                                    <li><img src="https://p.simg.uol.com.br/out/pagseguro/i/banners/parcelamento/468x60_pagseguro_18x.gif"   border="0"/></li>
-                                            </ul>
-        </div>
-    </div>
-    <!--END FOOTER-->
-
-    <!--LINKS FOOTER-->
-    <div class="saveme_cupons_bar">
-        <div class="center">
-            <p class="saveme_cupons_copy"><a href='/'> Anúncio Mosaico </a> - Todos os direitos reservados <?php echo $this->inlineScript() ?></p>
-            <span style="color:#F0F0F0;">2012-08-29 18:55:34</span>
-            <p class="saveme_cupons_logo"></p>
-            <ul class="saveme_cupons_links">
-        
-            </ul>
-           
-        </div>
-    </div>
-    <!--END LINKS FOOTER-->
-</div>
-	
-</body>
+  </body>
 </html>
-
-
-
-

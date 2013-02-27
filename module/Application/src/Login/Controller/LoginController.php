@@ -56,44 +56,25 @@ class LoginController extends AbstractActionController {
         
               $result = $auth->authenticate($authAdapter);
 				
-			  if ($result->isValid()) {
+			       if ($result->isValid()) {
                   //var_dump($auth->getIdentity());
                   $getIdentity = $result->getIdentity();
                   $getIdentity['user']->senha = null;
                   
                   //var_dump($getIdentity);exit;
                   //$sessionStorage->write($getIdentity['user'], null);       
-                  $msg['fsuccess']['ref']  	  = "login";	
-				  $msg['fsuccess']['cod_msg'] = "1";
-				  
-				  $session = new Container('user');
-				  $session->offsetSet('credito', $getIdentity['user']->credito);
-				  
-                  return $this->redirect()->toRoute("home");
-              }else{
-              	  $getIdentity = $result->getIdentity();
-                  //var_dump($getIdentity);
+                  $msg['fsuccess']['ref']     = "login";  
+                  $msg['fsuccess']['cod_msg'] = "1";
                   
-                  if(!empty($getIdentity)):
-					//echo "No momento seu e-mail não foi confirmado. Clique aqui para confirmar.";
-                    
-					$repository = $this->getEm()->getRepository("Application\Entity\Users");
-        			$objRecordUser = $repository->findByEmail($obj_post_array['email']);
-					
-					if(!empty($objRecordUser)):
-						$recordsBaseUser = $objRecordUser->getArrayCopy();
-						
-						$recordsLogin['email'] = $recordsBaseUser['email'];
-						$recordsLogin['token'] = $recordsBaseUser['token'];
-	                    $service->SendEmail($recordsLogin);
-	                    
-	                    $msg['falert']['ref'] 	  = "login";	
-					  	$msg['falert']['cod_msg'] = "1";
-					endif;
-           	   	  else:
-                  	$msg['ferror']['ref'] 	  = "login";	
-				  	$msg['ferror']['cod_msg'] = "1";
-				  endif;
+                  $session = new Container('user');
+                  $session->offsetSet('credito', $getIdentity['user']->credito);
+                  
+                  return $this->redirect()->toRoute("home");
+
+              }else{
+              	  $msg['ref']  = "login";
+                  $msg['tipo']  = "error";  
+                  $msg['cod_msg'] = "1";
               }
               
             }

@@ -144,6 +144,12 @@ class Module {
                     $obj->setMessageRenderer($service->get('Zend\View\Renderer\PhpRenderer'));
                     return $obj;
                 },
+
+                'service_meusanuncios' => function($service) {
+                    $obj = new \Application\Service\Anuncio($service->get('Doctrine\ORM\EntityManager'));
+                    $obj->setMessageRenderer($service->get('Zend\View\Renderer\PhpRenderer'));
+                    return $obj;
+                },
                 
                 'Login\Auth\Adapter' => function($service) {
                     return new \Login\Auth\Adapter($service->get('Doctrine\ORM\EntityManager'));
@@ -218,6 +224,14 @@ class Module {
                      $form = new \Admin\Form\PlanoForm();
                      $opt= $service->get('Doctrine\ORM\EntityManager')->getRepository('Application\Entity\Servico')->getServicoToCombobox();
                      $form->get('id_servico')->setValueOptions($opt);
+                     return $form;
+                },
+
+                'service_meusanuncios_form' => function ($service) {
+                     $form = new \Application\Form\AnuncioForm();
+                     $helper = $service->get('viewhelpermanager')->get('UserIdentity');
+                     //$session = $helper('Login')['user']->id; 
+                     $form->get('id_usuario')->setValue($helper('Login')['user']->id);
                      return $form;
                 },
 				
