@@ -1,0 +1,238 @@
+      <script type="text/javascript" src="/js/tiny_mce/tiny_mce.js"></script>
+      <script type="text/javascript">
+		tinyMCE.init({
+		    mode : "textareas",
+		    theme : "advanced",
+		    theme_advanced_buttons1 :"mybutton,bold,italic,underline,separator,justifyleft,justifycenter,justifyright,justifyfull",
+		    content_css : "css/bootstrap.css",
+			theme_advanced_buttons2 : "",
+		    theme_advanced_buttons3 : "",
+		    theme_advanced_toolbar_location : "top",
+		    theme_advanced_toolbar_align : "left",
+		    theme_advanced_statusbar_location : "bottom",
+		    plugins : 'inlinepopups'/*,
+		    setup : function(ed) {
+		        // Add a custom button
+		        ed.addButton('mybutton', {
+		            title : 'My button',
+		            image : 'img/example.gif',
+		            onclick : function() {
+		                // Add you own code to execute something on click
+		                ed.focus();
+		                ed.selection.setContent('Hello world!');
+		            }
+		        });
+		    }*/
+		});
+		//$('a[data-toggle="tooltip"]').tooltip();
+	</script>
+
+	<style type="text/css">
+	.control-label{
+		text-align: left !important;
+		width: 70px !important;
+	}
+
+	.controls {
+		margin-left: 75px !important;
+	}
+	</style>
+
+      <!-- Example row of columns -->
+      <div class="row">
+      
+        <div class="span7">
+          <ul class="breadcrumb">
+			  <li><a href="/">Home</a> <span class="divider">/</span></li>
+			  <li class="active">Meus Anúncios</li>
+			</ul>
+          
+          <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Título</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+              	<?php foreach ($this->dados as $key => $value) { ?>
+                <tr>
+                  <td><?php echo $value->id; ?></td>
+                  <td><a href="#" data-toggle="tooltip" data-original-title="Visualizar Produto/Serviço Oferecido"><?php echo $value->titulo; ?></a></td>
+                  <td>
+
+                  
+                  <?php
+                  	switch ($value->status) {
+                  		case '0':
+                  			$src= "/img/status/status_mod.png";
+                  			$txt_tooltip= "Moderação";
+                  			break;
+
+                  		case '1':
+                  			$src= "/img/status/status_ok.png";
+                  			$txt_tooltip= "Ativo";
+                  			break;
+                  		
+                  		case '2':
+                  			$src= "/img/status/status_rep.png";
+                  			$txt_tooltip= "Reprovado";
+                  			break;		
+                  		
+                  		default:
+                  			# code...
+                  			break;
+                  	}
+                  ?>
+                   <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="No momento este anúncio está em <?php echo $txt_tooltip; ?>"><img src="<?php echo $src; ?>" /></a>
+               	  </td>
+                  <td><a href="<?php echo $this->url("meus-anuncios",array('action'=>'edit','id'=>$value->id)); ?>"><i class="icon-edit"></i> Editar</a> <a href="<?php echo $this->url("meus-anuncios",array('action'=>'delete','id'=>$value->id)); ?>"><i class="icon-remove-circle"></i> Excluir</a></td>
+                </tr>
+                <tr>
+                	<td></td>
+                	<td>
+                		<form class="fileupload" action="<?php echo $this->url("meus-anuncios",array('action'=>'addimage','id'=>$value->id)); ?>" method="POST" enctype="multipart/form-data">
+	                		<span class="label label-important"></span>
+	                		<span class="btn btn-success fileinput-button" >
+			                    <i class="icon-plus icon-white"></i>
+			                    <span>Adicionar fotos</span>
+			                    <input type="file" name="filesaddfotos" multiple="">
+			                </span>
+                		</form>
+                	</td>
+                	<td></td>
+                	<td></td>
+                		
+                </tr>
+                <?php } ?>
+              </tbody>
+            </table>
+       </div>
+        <div class="span5">
+          <p>Você pode cadastrar 1 anúncio.</p>
+          
+          <h4><?php $form = $this->form; if($form->get('id')->getValue()) echo "Editar"; else echo "Novo"; ?> Anúncio #<?php echo $form->get('id')->getValue(); ?></h4>
+           <?php 
+           
+           if($this->msg['tipo'] == "error"){
+           		echo '<div class="alert alert-error">';
+				switch ($this->msg['cod_msg']) {
+					case '1':
+						echo "Usuário ou senha inválidos";
+						break;
+					
+					default:
+						
+						break;
+				}
+				echo '</div>';
+			
+           }elseif($this->msg['tipo'] == "success"){
+           		echo '<div class="alert alert-success">';
+				switch ($this->msg['cod_msg']) {
+					case '1':
+						echo "Anúncio cadastrado com sucesso";
+						break;
+						
+					case '2':
+						echo "Anúncio atualizado com sucesso";
+						break;
+					
+					default:
+						
+						break;
+				}
+				echo '</div>';
+           }
+           
+           ?>
+           
+		  
+		  <?php            
+			 $action = $form->get('id')->getValue() ? "edit" : "index" ;
+			 //$form->setAttribute('action', $this->url('admin/servico',array('action'=>$action)));
+			 $form->setAttribute('class', 'form-horizontal');
+			 $form->prepare();
+			 echo $this->form()->openTag($form) . PHP_EOL;
+			 echo $this->formInput($form->get('id'));
+			 echo $this->formInput($form->get('id_usuario'));
+			?>
+            <div class="control-group ">
+			    <label class="control-label" for="inputEmail">Título</label>
+			    <div class="controls">
+			      <?php echo $this->formInput($form->get('titulo')); ?>
+			      <?php echo $this->formElementErrors($form->get('titulo')); ?>
+			    </div>
+			  </div>
+
+			  <div class="control-group">
+			    <label class="control-label" for="">Descrição</label>
+			    <div class="controls">
+			      <?php echo $this->formTextarea($form->get('descricao')); ?>
+			      <?php echo $this->formElementErrors($form->get('descricao')); ?>
+			    </div>
+			  </div>
+			  
+			  <div class="control-group">
+			    <div class="controls">
+			      <button type="submit" class="btn"><?php if($form->get('id')->getValue()) echo "Editar"; else echo "Cadastrar"; ?></button> 
+			      <?php if($form->get('id')->getValue()): ?> <a href="<?php echo $this->url('meus-anuncios'); ?>">Novo Anúncio</a><?php endif; ?>
+			    </div>
+			  </div>
+			</form>
+			<p>(0) Convites enviados - (0) Amigos Cadastrados</p>
+			<p>Para cadastrar <b>novos anúncios</b> envie convites para seus amigos. </p>
+          
+        </div>
+      </div>
+      <script type="text/javascript">
+      	
+		 !function ($) {
+		
+		     $(function(){
+		
+				    $('.fileupload').fileupload({
+				        // Uncomment the following to send cross-domain cookies:
+				        //xhrFields: {withCredentials: true},
+				        url: $(this).attr('action'),
+				        autoupload: true,
+				        add: function (e, data) {
+				        	//console.dir(data);
+				        	//console.dir(data.files);
+				        	var valid = true;
+	                        var re = /^.+\.((jpg)|(png)|(gif))$/i;
+	                        var form_current = $(this); 
+	                        $.each(data.files, function (index, file) {
+	                        	//console.dir(file.name);
+	                            if (!re.test(file.name)) {
+	                                form_current.find('.label-important').html('This file type is not supported');
+	                                valid = false;
+	                            }
+	                        });
+	                        if (valid)
+	                            data.submit();
+				        	
+				        },
+	                    done: function (e, data) {
+	                    	console.dir(data);
+	                        $.each(data.result, function (index, file) {
+	                            $(this).find('.label-important').html(file);
+	                        });
+	                        //GetFiles($('#ddlCats').val())
+	                    },
+	                    error: function () {
+	                        $(this).find('.label-important').html('An error occured while uploading the document.');
+	                    }
+				    });
+		
+		    })
+		
+		}(window.jQuery)
+      </script>
+
+
+
+
+
