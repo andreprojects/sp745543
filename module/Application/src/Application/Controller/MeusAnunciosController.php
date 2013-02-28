@@ -125,7 +125,7 @@ class MeusAnunciosController extends AbstractActionController {
 		if(!empty($list_files)){
 			foreach($list_files as $k => $v){
 				if(file_exists($path_folder."/".$v) && $v != "." && $v != ".."){
-					echo "<img src='".$path_host."/".$v."' /> ";
+					echo "<img src='".$path_host."/".$v."' style='padding:3px;' /><i class='icon-remove-circle'></i> ";
 				}
 			}
 		}
