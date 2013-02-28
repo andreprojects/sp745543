@@ -112,6 +112,28 @@ class MeusAnunciosController extends AbstractActionController {
 		return $new_model;		
 	}
 
+	public function displayimageAction(){
+		
+		$id_anuncio = $this->params()->fromRoute('id', 0);
+		$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
+		
+		$path_folder = "./public/users/".$sessionLogin['user']->diretorio.$id_anuncio."/50";
+		$path_host = "/users/".$sessionLogin['user']->diretorio.$id_anuncio."/50";
+		
+		$list_files = scandir($path_folder);
+		
+		if(!empty($list_files)){
+			foreach($list_files as $k => $v){
+				if(file_exists($path_folder."/".$v) && $v != "." && $v != ".."){
+					echo "<img src='".$path_host."/".$v."' /> ";
+				}
+			}
+		}
+		//var_dump($list_files);
+		
+		return $this->response;
+	}
+
 	public function addimageAction(){
 		
 		$id_anuncio = $this->params()->fromRoute('id', 0);
@@ -123,10 +145,11 @@ class MeusAnunciosController extends AbstractActionController {
 		}
 		
 		$path_folder = "./public/users/".$sessionLogin['user']->diretorio.$id_anuncio;
+		$path_folder_full = "./public/users/".$sessionLogin['user']->diretorio.$id_anuncio."/50";
 		
-		if(!file_exists($path_folder))
+		if(!file_exists($path_folder_full))
 		{
-			$create_dir = mkdir($path_folder,0755,true);
+			$create_dir = mkdir($path_folder_full,0755,true);
 			if(!$create_dir){
 				json_encode(array('files'=>array('error'=>'Erro ao criar diretório. Tente Novamente')));
 				exit;
@@ -136,7 +159,7 @@ class MeusAnunciosController extends AbstractActionController {
 		//var_dump($id,$path_folder,$file,$file['name'],$_FILES);exit;
 		
 		$size = new Size(array('min'=>100,'max'=>512000)); //minimum bytes filesize
-        $extension = new Extension(array("extension" => array("jpg","gif","png")));
+        $extension = new Extension(array("extension" => array("jpg","gif","png","jpeg")));
         
         $adapter = new \Zend\File\Transfer\Adapter\Http(); 
         $adapter->setValidators(array($size,$extension), $file['name']);
@@ -151,12 +174,17 @@ class MeusAnunciosController extends AbstractActionController {
 				exit;
             }  
         } else {
-        	$files_current_count = count(scandir($path_folder,1))-1;
+        	//$files_current_count = count(scandir($path_folder,1))-1;
+        	$namefile = time()."-".$file['name'];
+        	$current_pathimg = $path_folder.'/'.$namefile;
+			$new_pathimg = $path_folder_full.'/'.$namefile;
+			
 			$adapter->setDestination($path_folder);
-			$adapter->addFilter('Rename', array('target' => $path_folder.'/'.$files_current_count."-".$file['name'],
+			$adapter->addFilter('Rename', array('target' => $current_pathimg,
              'overwrite' => true));
             if ($adapter->receive()) {
-            	echo json_encode(array('files'=>array($file+array('pathfull'=>$path_folder.'/'.$files_current_count."-".$file['name']))));
+            	$this->geraimagem($current_pathimg, $new_pathimg,50);
+            	echo json_encode(array('files'=>array($file+array('id'=>$id_anuncio,'pathfull'=>$path_folder.'/'.$files_current_count."-".$file['name']))));
 			}
 		}
 		
@@ -167,6 +195,70 @@ class MeusAnunciosController extends AbstractActionController {
 		return $this->response;
 		//return $viewModel;
 		
+	}
+
+	public function geraimagem($current_pathimg,$new_pathimg,$larguraMax = null,$alturaMax =null)
+	{
+		
+		$dados_img = getimagesize($current_pathimg);
+		
+		if(empty($alturaMax) && empty($larguraMax)){
+			$larguraMax = 50;
+			$alturaMax = $larguraMax;
+		}
+		
+		if(empty($alturaMax)){
+			$alturaMax = $larguraMax; 
+			
+		}elseif(empty($larguraMax)){
+			$larguraMax = $alturaMax; 
+		}
+		
+		 // Somente exita números muito pequenos. Para este exemplo não quero
+		if($larguraMax < 20)
+		    $larguraMax = 20;
+		
+		
+		$largura_original = $dados_img[0];
+		$altura_original  = $dados_img[1];
+		
+		// Calcula a nova altura da imagem 
+		$largura_nova = $larguraMax;
+		$altura_nova = intval( ( $altura_original * $largura_nova ) / $largura_original );
+		
+		
+		if ($dados_img['mime'] == "image/gif") {
+		    $imagem = imagecreatefromgif($current_pathimg );
+		} elseif ($dados_img['mime'] == "image/jpeg") {
+		    $imagem = imagecreatefromjpeg($current_pathimg );
+		} elseif ($dados_img['mime'] == "image/png") {
+		    $imagem = imagecreatefrompng($current_pathimg );
+		} elseif ($dados_img['mime'] == "image/x-ms-bmp") {
+		    //$imagem = imagecreatefromwbmp($filename);
+		    $magicianObj = new ZC_ImageLib($current_pathimg);
+			$magicianObj->resizeImage($largura_nova, $altura_nova);
+			$magicianObj->saveImage($new_pathimg, 100);
+			//echo file_get_contents($cache_file);
+			exit;
+		} else {
+		    die("No image support in this PHP server");
+		}
+		
+		$nova_imagem = imagecreatetruecolor( $largura_nova, $altura_nova );
+		imagecopyresampled( $nova_imagem, $imagem, 0, 0, 0, 0, $largura_nova, $altura_nova, $largura_original, $altura_original );
+		
+				
+		if ($dados_img['mime'] == "image/gif") {
+			imagegif($nova_imagem, $new_pathimg);
+		} elseif ($dados_img['mime'] == "image/jpeg") {
+			imagejpeg($nova_imagem, $new_pathimg, 100 );
+		} elseif ($dados_img['mime'] == "image/png") {
+			imagepng($nova_imagem, $new_pathimg);
+		} else {
+		    die("No image support in this PHP server");
+		}
+		
+		imagedestroy($nova_imagem);
 	}
 
 	public function deleteAction()
