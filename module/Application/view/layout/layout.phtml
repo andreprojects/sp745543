@@ -16,6 +16,8 @@
       }
     </style>
     <link href="/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+    <link href="/css/jquery.fileupload-ui.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -28,6 +30,11 @@
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
                     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
                                    <link rel="shortcut icon" href="../assets/ico/favicon.png">
+                                   
+   <script src="/js/jquery-1.7.2.min.js"></script>
+   <script src="/js/jquery.ui.widget.js"></script>
+   <script src="/js/jquery.fileupload.js"></script>
+   
   </head>
 
   <body>
@@ -41,7 +48,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="/admin"><img src="/img/logo/logosp160.png" /></a>
+          <a class="brand" href="/"><img src="/img/logo/logosp160.png" /></a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <?php $sessionUser = $this->UserIdentity('Login');  if($sessionUser): ?>
@@ -49,12 +56,13 @@
               <?php endif; ?>
               <li class=""><a href="/">Fale Conosco</a></li>
               <li class=""><a href="/">Faq</a></li>
-              
+            </ul>
+            
+            <ul class="nav pull-right">
               <?php if($sessionUser): ?>
               <li class="">
-                <a class="small" href="#">Olá,  <?php echo $sessionUser['user']->email; ?></a>
+                <span >Olá,  <?php echo $sessionUser['user']->email; ?><br><a href="/logout">Sair</a></span>
               </li>
-              <li class=""><a href="/logout">Sair</a></li>
               <?php endif; ?>
             </ul>
              
@@ -78,7 +86,7 @@
       </footer>
 
     </div> <!-- /container -->
-    <script src="/js/jquery-1.7.2.min.js"></script>
+    
     <script src="/js/bootstrap-dropdown.js"></script>
     <script src="/js/bootstrap-tooltip.js"></script>
     <script>

@@ -48,21 +48,23 @@ class Module {
                 }, 98);
     }
 	
-/*
+
     public function init(ModuleManager $moduleManager) {
         $sharedEvents = $moduleManager->getEventManager()->getSharedManager();
-        $sharedEvents->attach("LivrariaAdmin", 'dispatch', function($e) {
-                    $auth = new AuthenticationService;
-                    $auth->setStorage(new SessionStorage("LivrariaAdmin"));
+		
+        $sharedEvents->attach("Application", 'dispatch', function($e) {
+        				
+        			$auth = new AuthenticationService;
+                    $auth->setStorage(new SessionStorage("Login"));
 
                     $controller = $e->getTarget();
                     $matchedRoute = $controller->getEvent()->getRouteMatch()->getMatchedRouteName();
 
-                    if (!$auth->hasIdentity() and ($matchedRoute == "livraria-admin" or $matchedRoute == "livraria-admin-interna")) {
-                        return $controller->redirect()->toRoute('livraria-admin-auth');
+                    if (!$auth->hasIdentity() and ($matchedRoute == "meus-anuncios")) {
+                        return $controller->redirect()->toRoute('home');
                     }
                 }, 99);
-    }*/
+    }
 
     public function getServiceConfig() {
 
