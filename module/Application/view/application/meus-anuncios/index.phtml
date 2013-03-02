@@ -114,31 +114,46 @@
                   <td><a href="<?php echo $this->url("meus-anuncios",array('action'=>'edit','id'=>$value->id)); ?>"><i class="icon-edit"></i> Editar</a> <a href="<?php echo $this->url("meus-anuncios",array('action'=>'delete','id'=>$value->id)); ?>"><i class="icon-remove-circle"></i> Excluir</a></td>
                 </tr>
                 <tr>
-                	<td></td>
-                	<td>
-                		<form class="fileupload" action="<?php echo $this->url("meus-anuncios",array('action'=>'addimage','id'=>$value->id)); ?>" method="POST" enctype="multipart/form-data">
-	                		<span class="label label-important"></span>
-	                		<span class="btn btn-success fileinput-button" >
-			                    <i class="icon-plus icon-white"></i>
-			                    <span>Adicionar fotos</span>
-			                    <input type="file" name="filesaddfotos" multiple="">
-			                </span>
-			                <span class="loading"></span>
-                		</form>
-                	</td>
-                	<td></td>
-                	<td></td>
-                		
-                </tr>
-                <tr>
-                	<td></td>
-                	<td id="loadfotos<?php echo $value->id; ?>">
-                		<script>callAjax("/meus-anuncios/displayimage/<?php echo $value->id; ?>",$('#loadfotos<?php echo $value->id; ?>'));</script>
-                	</td>
-                	<td></td>
-                	<td></td>
-                		
-                </tr>
+                	<td colspan="4">
+                		<table class="table table-bordered">
+		                <tr>
+		                	<td colspan="4">
+		                		<div class="alert alert-error hide">
+						            <button type="button" class="close" data-dismiss="alert">×</button>
+						            <span></span>
+						          </div>
+		                	</td>
+		                </tr>
+		                <tr>
+		                	
+		                	<td>
+		                		<form class="fileupload" action="<?php echo $this->url("meus-anuncios",array('action'=>'addimage','id'=>$value->id)); ?>" method="POST" enctype="multipart/form-data">
+			                		<span class="label label-important"></span>
+			                		<span class="btn btn-success fileinput-button" >
+					                    <i class="icon-plus icon-white"></i>
+					                    <span>Adicionar fotos</span>
+					                    <input type="file" name="filesaddfotos" multiple="">
+					                </span>
+					                <span class="loading"></span>
+		                		</form>
+		                	</td>
+		                	<td></td>
+		                	<td></td>
+		                		
+		                </tr>
+		                <tr>
+		                	
+		                	<td id="loadfotos<?php echo $value->id; ?>" width="60%">
+		                		<script>callAjax("/meus-anuncios/displayimage/<?php echo $value->id; ?>",$('#loadfotos<?php echo $value->id; ?>'));</script>
+		                	</td>
+		                	<td></td>
+		                	<td></td>
+		                		
+		                </tr>
+		       			</table>
+               </td>
+              </tr>
+             </table>
                 <?php } }else{ ?>
                 <tr>
                 	<td colspan="4">Nenhum anúncio cadastro</td>
@@ -250,7 +265,8 @@
 	                        $.each(data.files, function (index, file) {
 	                        	if (!re.test(file.name)) {
 	                            	form_current.find('.loading').html("");
-			                        form_current.find('.label-important').html('This file type is not supported');
+			                        $('.alert').find('span').html('This file type is not supported');
+			                        $('.alert').show();
 	                                valid = false;
 	                            }
 	                        });
@@ -261,8 +277,11 @@
 	                    done: function (e, data) {
 	                    	var obj = JSON.parse(data.result);
 	                        $(this).find('.loading').html("");
-	                        if(obj.files.error != "" && obj.files[0].id == ""){
-	                        	$(this).find('.label-important').html(obj.files.error);
+	                        if(obj.files.error != undefined){
+	                        	
+	                        	$('.alert').find('span').html(obj.files.error);
+	                        	$('.alert').show();
+	                        	//$('.alert').alert();
 	                        }else{
 	                        	callAjax("/meus-anuncios/displayimage/"+obj.files[0].id,$('#loadfotos'+obj.files[0].id));
 	                        }	

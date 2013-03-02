@@ -120,12 +120,16 @@ class MeusAnunciosController extends AbstractActionController {
 		$path_folder = "./public/users/".$sessionLogin['user']->diretorio.$id_anuncio."/50";
 		$path_host = "/users/".$sessionLogin['user']->diretorio.$id_anuncio."/50";
 		
-		$list_files = scandir($path_folder);
 		
-		if(!empty($list_files)){
-			foreach($list_files as $k => $v){
-				if(file_exists($path_folder."/".$v) && $v != "." && $v != ".."){
-					echo "<img src='".$path_host."/".$v."' style='padding:3px;' /><i class='icon-remove-circle'></i> ";
+		if(file_exists($path_folder))
+		{
+			$list_files = scandir($path_folder);
+			
+			if(!empty($list_files)){
+				foreach($list_files as $k => $v){
+					if(file_exists($path_folder."/".$v) && $v != "." && $v != ".."){
+						echo "<img src='".$path_host."/".$v."' style='padding:3px;' /><i class='icon-remove-circle'></i> ";
+					}
 				}
 			}
 		}
@@ -175,7 +179,8 @@ class MeusAnunciosController extends AbstractActionController {
             }  
         } else {
         	//$files_current_count = count(scandir($path_folder,1))-1;
-        	$namefile = time()."-".$file['name'];
+        	$getextension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        	$namefile = time().".".$getextension;
         	$current_pathimg = $path_folder.'/'.$namefile;
 			$new_pathimg = $path_folder_full.'/'.$namefile;
 			
