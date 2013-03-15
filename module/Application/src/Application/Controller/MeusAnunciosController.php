@@ -117,8 +117,17 @@ class MeusAnunciosController extends AbstractActionController {
 		$id_anuncio = $this->params()->fromRoute('id', 0);
 		$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
 		
-		$path_folder = "./public/users/".$sessionLogin['user']->diretorio.$id_anuncio."/50";
-		$path_host = "/users/".$sessionLogin['user']->diretorio.$id_anuncio."/50";
+		echo $this->listimages($sessionLogin['user']->diretorio,$id_anuncio);
+		
+		//var_dump($list_files);
+		
+		return $this->response;
+	}
+	
+	private function listimages($diretorio,$id_anuncio){
+		
+		$path_folder = "./public/users/".$diretorio.$id_anuncio."/50";
+		$path_host = "/users/".$diretorio.$id_anuncio."/50";
 		
 		
 		if(file_exists($path_folder))
@@ -128,14 +137,14 @@ class MeusAnunciosController extends AbstractActionController {
 			if(!empty($list_files)){
 				foreach($list_files as $k => $v){
 					if(file_exists($path_folder."/".$v) && $v != "." && $v != ".."){
-						echo "<img src='".$path_host."/".$v."' style='padding:3px;' /><i class='icon-remove-circle'></i> ";
+						$strimgs .= "<img src='".$path_host."/".$v."' style='padding:3px;' /><a href=javascript:callAjax('/meus-anuncios/deleteimage/".$id_anuncio."/".$v."',$('#loadfotos".$id_anuncio."'));  ><i class='icon-remove-circle'></i></a> ";
 					}
 				}
 			}
 		}
-		//var_dump($list_files);
 		
-		return $this->response;
+		return $strimgs;
+		
 	}
 
 	public function addimageAction(){
@@ -144,21 +153,31 @@ class MeusAnunciosController extends AbstractActionController {
 		$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
 		
 		if(empty($id_anuncio)){
-			json_encode(array('files'=>array('error'=>'Erro id. Tente Novamente')));
+			echo json_encode(array('files'=>array('error'=>'Erro id. Tente Novamente')));
 			exit;
 		}
 		
-		$path_folder = "./public/users/".$sessionLogin['user']->diretorio.$id_anuncio;
-		$path_folder_full = "./public/users/".$sessionLogin['user']->diretorio.$id_anuncio."/50";
+		$create_folders = array(50,80);
 		
-		if(!file_exists($path_folder_full))
+		$path_folder = "./public/users/".$sessionLogin['user']->diretorio.$id_anuncio;
+		//$path_folder_full = "./public/users/".$sessionLogin['user']->diretorio.$id_anuncio."/50";
+		
+		if(!empty($create_folders))
 		{
-			$create_dir = mkdir($path_folder_full,0755,true);
-			if(!$create_dir){
-				json_encode(array('files'=>array('error'=>'Erro ao criar diretório. Tente Novamente')));
-				exit;
+			foreach($create_folders as $k => $v){
+				
+				if(!file_exists($path_folder."/".$v))
+				{
+					$create_dir = mkdir($path_folder."/".$v,0755,true);
+					if(!$create_dir){
+						echo json_encode(array('files'=>array('error'=>'Erro ao criar diretório. Tente Novamente')));
+						exit;
+					}
+				}
+				
 			}
 		}
+		
 		$file = $this->params()->fromFiles('filesaddfotos');
 		//var_dump($id,$path_folder,$file,$file['name'],$_FILES);exit;
 		
@@ -182,13 +201,19 @@ class MeusAnunciosController extends AbstractActionController {
         	$getextension = pathinfo($file['name'], PATHINFO_EXTENSION);
         	$namefile = time().".".$getextension;
         	$current_pathimg = $path_folder.'/'.$namefile;
-			$new_pathimg = $path_folder_full.'/'.$namefile;
+			
 			
 			$adapter->setDestination($path_folder);
-			$adapter->addFilter('Rename', array('target' => $current_pathimg,
-             'overwrite' => true));
+			$adapter->addFilter('Rename', array('target' => $current_pathimg,'overwrite' => true));
             if ($adapter->receive()) {
-            	$this->geraimagem($current_pathimg, $new_pathimg,50);
+            	//cria imagens miniaturas
+      			if(!empty($create_folders))
+				{
+					foreach($create_folders as $k => $v){
+						$new_pathimg = $path_folder.'/'.$v.'/'.$namefile;
+						$this->geraimagem($current_pathimg, $new_pathimg,$v);
+					}
+				}
             	echo json_encode(array('files'=>array($file+array('id'=>$id_anuncio,'pathfull'=>$path_folder.'/'.$files_current_count."-".$file['name']))));
 			}
 		}
@@ -200,6 +225,46 @@ class MeusAnunciosController extends AbstractActionController {
 		return $this->response;
 		//return $viewModel;
 		
+	}
+
+	public function deleteimageAction(){
+		
+		$nome_image = $this->params()->fromRoute('cod', 0);
+		$id_anuncio = $this->params()->fromRoute('id', 0);
+		
+		if(empty($nome_image) && empty($id_anuncio)){
+			echo json_encode(array('files'=>array('error'=>'Erro name file. Tente Novamente')));
+			exit;
+		}
+		
+		$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
+		
+		$folders = array(50,80);
+		$folders[] = 0;
+		
+		if(!empty($folders)){
+			foreach($folders as $k => $v){
+				if(empty($v)){
+					$path_folder = "./public/users/".$sessionLogin['user']->diretorio.$id_anuncio;
+				}else{
+					$path_folder = "./public/users/".$sessionLogin['user']->diretorio.$id_anuncio.'/'.$v;
+				}
+				$file = $path_folder."/".$nome_image;
+				if(file_exists($file))
+				{
+					$remove_file = unlink($file);
+					if(!$remove_file){
+						echo json_encode(array('files'=>array('error'=>'Erro ao remover imagem. Tente Novamente')));
+						exit;
+					}
+				}
+			}
+		}
+		
+		echo $this->listimages($sessionLogin['user']->diretorio,$id_anuncio);
+		
+		return $this->response;
+
 	}
 
 	public function geraimagem($current_pathimg,$new_pathimg,$larguraMax = null,$alturaMax =null)

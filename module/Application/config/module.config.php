@@ -141,7 +141,7 @@ return array(
             'meus-anuncios' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/meus-anuncios[/:action][/:id]',
+                    'route' => '/meus-anuncios[/:action][/:id][/:cod]',
                     'defaults' => array(
                       'controller' => 'Application\Controller\MeusAnuncios',
                         'action'  => 'index'
