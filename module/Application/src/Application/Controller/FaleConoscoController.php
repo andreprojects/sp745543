@@ -37,12 +37,16 @@ class FaleConoscoController extends AbstractActionController {
                 $service = $this->getServiceLocator()->get("service_faleconosco");
                 $records = $request->getPost()->toArray();
                 //$service->insert($records);
-                $service->SendEmail($records);    
-                return $this->redirect()->toRoute('home-message',array('msg_id'=>'13'));
+                $service->SendEmail($records);
+                $msg['ref']     = "faleconosco";
+                $msg['tipo']    = "success";    
+                $msg['cod_msg'] = "1";
+
+                //return $this->redirect()->toRoute('home-message',array('msg_id'=>'13'));
             }
         }
 
-        return new ViewModel(array('form' => $form));
+        return new ViewModel(array('form' => $form,'msg' => $msg));
     }
 
 

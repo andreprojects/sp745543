@@ -21,7 +21,8 @@ class FaleConoscoForm extends Form
             'name' => 'nome',
             'attributes' => array(
                 'type'  => 'text',
-                'class' =>'campotxt'
+                'class' =>'span4',
+                'placeholder' => 'Digite seu nome'
             ),
             'options' => array(
                 'label' => 'Nome',
@@ -33,7 +34,8 @@ class FaleConoscoForm extends Form
             'name' => 'emailfc',
             'attributes' => array(
                 'type'  => 'text',
-                'class' =>'campotxt'
+                'class' => 'span4',
+                'placeholder' => 'Digite seu email'
             ),
             'options' => array(
                 'label' => 'Email',
@@ -45,6 +47,9 @@ class FaleConoscoForm extends Form
             'name' => 'msg',
             'attributes' => array(
                 'type'  => 'Zend\Form\Element\Textarea',
+                'rows'  => 5,
+                'class' => 'span4',
+                'placeholder' => 'Digite sua Mensagem'
             ),
             'options' => array(
                 'label' => 'Mensagem',
