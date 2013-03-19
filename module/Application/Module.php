@@ -152,6 +152,12 @@ class Module {
                     $obj->setMessageRenderer($service->get('Zend\View\Renderer\PhpRenderer'));
                     return $obj;
                 },
+
+                'service_convite' => function($service) {
+                    $obj = new \Application\Service\Convite($service->get('Doctrine\ORM\EntityManager'));
+                    $obj->setMessageRenderer($service->get('Zend\View\Renderer\PhpRenderer'));
+                    return $obj;
+                },
                 
                 'Login\Auth\Adapter' => function($service) {
                     return new \Login\Auth\Adapter($service->get('Doctrine\ORM\EntityManager'));
@@ -234,6 +240,11 @@ class Module {
                      $helper = $service->get('viewhelpermanager')->get('UserIdentity');
                      //$session = $helper('Login')['user']->id; 
                      $form->get('id_usuario')->setValue($helper('Login')['user']->id);
+                     return $form;
+                },
+
+                'service_convite_form' => function ($service) {
+                     $form = new \Application\Form\ConviteForm();
                      return $form;
                 },
 				

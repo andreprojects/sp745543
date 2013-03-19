@@ -26,13 +26,24 @@
 		    }*/
 		});
 		
-		function callAjax(domain,div){
+		function callAjax(domain,div,type_send,data_send){
       		//console.log(domain);
       		//console.log(div);
+      		//console.log(type_send);
+      		if(type_send == undefined){
+      			type_send = 'GET';
+      		}
+
+			if(data_send == undefined){
+      			data_send = '';
+      		}
+      		//console.log(data_send);     		
+
 	      	$.ajax( {
 			    url: domain,
-			    type: "POST",
+			    type: type_send,
 			    cache: true,
+			    data: data_send,
 			    //ifModified: true,
 			    beforeSend: function(){
 			    	div.html('carregando...');
@@ -237,6 +248,7 @@
 			</form>
 			<p>(0) Convites enviados - (0) Amigos Cadastrados</p>
 			<p>Para cadastrar <b>novos anúncios</b> envie convites para seus amigos. </p>
+			<div id="loadconvite"></div>
           
         </div>
       </div>
@@ -247,6 +259,8 @@
 		 !function ($) {
 		
 		     $(function(){
+
+		     		callAjax("/convite",$('#loadconvite'));
 		
 				    $('.fileupload').fileupload({
 				        // Uncomment the following to send cross-domain cookies:

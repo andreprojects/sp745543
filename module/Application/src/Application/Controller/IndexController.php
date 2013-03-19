@@ -33,6 +33,7 @@ class IndexController extends AbstractActionController {
     {
         $request = $this->getRequest();
         $error = false;
+        $msg = array();
         
         $form = new \Login\Form\LoginForm($request->getbaseUrl());
         
