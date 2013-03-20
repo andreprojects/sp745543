@@ -16,7 +16,7 @@ class Register extends AbstractService {
     
     public function __construct(EntityManager $em) {
         parent::__construct($em);
-        $this->entity = "Application\Entity\Users";
+        $this->entity = "Application\Entity\Usuario";
         
     }
     

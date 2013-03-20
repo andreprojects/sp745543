@@ -62,7 +62,7 @@ class RegisterController extends AbstractActionController {
         $records = $form = array();
         $token = $this->params('token', false);
         
-        $repository = $this->getEm()->getRepository("Application\Entity\Users");
+        $repository = $this->getEm()->getRepository("Application\Entity\Usuario");
         $obj_records_users = $repository->findByToken($token);
         
         if(!empty($obj_records_users)){
