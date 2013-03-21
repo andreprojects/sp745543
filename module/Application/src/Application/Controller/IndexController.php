@@ -31,9 +31,14 @@ class IndexController extends AbstractActionController {
 
     public function indexAction()
     {
+
+        $msg = array();
+        $msg['ref']      = $this->params()->fromRoute('ref', 0);
+        $msg['tipo']     = $this->params()->fromRoute('tipo', 0);
+        $msg['cod_msg']  = $this->params()->fromRoute('cod_msg', 0);
+
         $request = $this->getRequest();
         $error = false;
-        $msg = array();
         
         $form = new \Login\Form\LoginForm($request->getbaseUrl());
         
