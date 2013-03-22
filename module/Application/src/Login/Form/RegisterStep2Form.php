@@ -29,7 +29,7 @@ class RegisterStep2Form extends Form
             'name' => 'nome',
             'attributes' => array(
                 'type'  => 'text',
-                'class' => 'campotxt'
+                'class' => 'span4'
             ),
             'options' => array(
                 'label' => 'Nome Completo*',
@@ -40,7 +40,7 @@ class RegisterStep2Form extends Form
             'name' => 'cep',
             'attributes' => array(
                 'type'  => 'text',
-                'class' => 'campotxt'
+                'class' => ''
             ),
             'options' => array(
                 'label' => 'Cep: (Opcional)',
@@ -51,7 +51,7 @@ class RegisterStep2Form extends Form
             'name' => 'senha',
             'attributes' => array(
                 'type'  => 'password',
-                'class' => 'campotxt'
+                'class' => ''
             ),
             'options' => array(
                 'label' => 'Senha:',
@@ -62,7 +62,7 @@ class RegisterStep2Form extends Form
             'name' => 'contra_senha',
             'attributes' => array(
                 'type'  => 'password',
-                'class' => 'campotxt'
+                'class' => ''
             ),
             'options' => array(
                 'label' => 'Confirme sua senha:',
