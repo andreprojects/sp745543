@@ -95,17 +95,21 @@ A Empresa declara expressamente que não será responsável pelas obrigações a
 	
 
 <div class="control-group ">
-	<label class="control-label" for="inputEmail">Li e concordo com os Termos de Uso acima</label>
-	<div class="controls">
-	 <?php echo $this->formInput($form->get('confirm_term')); ?>
-	</div>
+	<label class="checkbox">
+		<?php //var_dump($form->get('confirm_term')); ?>
+		<?php //echo $this->formRow($form->get('confirm_term')); ?>
+		 <?php  echo $this->formElement($form->get('confirm_term')); ?> Li e concordo com os Termos de Uso acima
+		 <?php echo $this->formElementErrors($form->get('confirm_term')); ?>
+	</label>
 </div>
 
 <div class="control-group ">
-	<label class="control-label" for="inputEmail"></label>
-	<div class="controls">
-	 <?php echo $this->formRow($form->get('opt_newsletter')); ?>
-	</div>
+	<label class="checkbox">
+		<?php //var_dump($form->get('opt_newsletter')); ?>
+
+		<?php echo $this->formElement($form->get('opt_newsletter')); ?> Desejo receber ofertas
+		<?php echo $this->formElementErrors($form->get('opt_newsletter')); ?>
+	</label>
 </div>
 
 
