@@ -13,9 +13,20 @@ class UsuarioRepository extends EntityRepository {
     return $records_users;
   }
   
+  
+  public function findByEmailAdmin($email){
+  	
+	$find_fields = array('email'=>$email,'status'=>'10');
+	$records_users = $this->findOneBy($find_fields);
+    return $records_users;
+	
+  }
+  
   public function findByEmail($email){
     
-    $records_users = $this->findOneBy(array('email'=>$email,'status'=>'10'));
+    $find_fields = array('email'=>$email);
+	
+    $records_users = $this->findOneBy($find_fields);
     return $records_users;
   }
   

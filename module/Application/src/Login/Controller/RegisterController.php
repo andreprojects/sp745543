@@ -103,7 +103,7 @@ class RegisterController extends AbstractActionController {
                     $records['data_alteracao']  = $data;
                     $records['diretorio']       = 'files/'.$data->format("Y").'/'.$data->format("m").'/'.$data->format("d").'/'.$records['id'].'/';
                     $records['senha']           = $service->encryptPassword($records['senha']);
-                    $records['status']			= 10;
+                    //$records['status']			= 10;
                     $result_update = $service->update($records);
                     //$service->SendEmail($records);    
                     

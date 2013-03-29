@@ -41,7 +41,7 @@ class Adapter implements AdapterInterface {
 
     public function authenticate() {
         $repository = $this->em->getRepository("Application\Entity\Usuario");
-        $regs = $repository->findByEmail($this->getUsername());
+        $regs = $repository->findByEmailAdmin($this->getUsername());
         
         if($regs->senha == '' and $regs->token != ''){
           return new Result(Result::FAILURE, array('user'=>$regs), array('Conta não confirmada'));
