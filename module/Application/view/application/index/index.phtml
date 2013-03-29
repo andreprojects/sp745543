@@ -1,5 +1,46 @@
       <!-- Example row of columns -->
       <div class="row">
+
+      	<?php 
+           
+           if($this->msg['tipo'] === "success"){
+
+           		echo '<div class="alert alert-success">';
+				switch ($this->msg['cod_msg']) {
+					case '1':
+						echo "1° Etapa do cadastro realizada com sucesso. Enviamos um email para você, verifique sua caixa de entrada e continue o processo.";
+						break;
+
+					case '2':
+						echo "Cadastro realizado com sucesso. Agora faça Login.";
+						break;
+
+					default:
+						
+						break;
+				}
+				echo '</div>';
+			
+           }elseif($this->msg['tipo'] === "error"){
+
+	           echo '<div class="alert alert-error">';
+				switch ($this->msg['cod_msg']) {
+					case '2':
+						echo "Página inválida";
+						break;
+
+					case '3':
+						echo "Você já efetivou seu cadastro. Faça Login.";
+						break;
+					
+					default:
+						
+						break;
+				}
+				echo '</div>';
+           }
+           
+           ?>
       
         <div class="span6">
           <h2></h2>
@@ -8,7 +49,7 @@
         <div class="span6">
           <h4>Você é novo membro?</h4>
 
-          <p><a href="">Cadastre-se Grátis</a></p>	
+          <p><a href="/register">Cadastre-se Grátis</a></p>	
 
           <h4>Login</h4>
 
@@ -16,7 +57,7 @@
           
            <?php 
            
-           if($this->msg['tipo'] == "error"){
+           if($this->msg['tipo'] === "error"){
            		echo '<div class="alert alert-error">';
 				switch ($this->msg['cod_msg']) {
 					case '1':

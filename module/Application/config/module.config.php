@@ -149,6 +149,16 @@ return array(
                     )
                 )
             ),
+            'convite' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/convite[/:action][/:id]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Convite',
+                        'action'  => 'index'  
+                    )
+                )
+            ),
             'admin' => array(
                 'type' => 'literal',
                 'options' => array(
@@ -403,7 +413,8 @@ return array(
             'Admin\Controller\Index' 			 => 'Admin\Controller\IndexController',
             'Admin\Controller\Servico' 			 => 'Admin\Controller\ServicoController',
             'Admin\Controller\Plano'             => 'Admin\Controller\PlanoController',
-            'Application\Controller\MeusAnuncios' => 'Application\Controller\MeusAnunciosController'
+            'Application\Controller\MeusAnuncios' => 'Application\Controller\MeusAnunciosController',
+            'Application\Controller\Convite'     => 'Application\Controller\ConviteController'
             
         ),
     ),

@@ -17,10 +17,13 @@ class RegisterStep2Filter extends InputFilter{
                 ),
             ));
 
+            
+
             $this->add(array(
                 'name'     => 'cep',
                 'required' => false,
                 'filters'  => array(
+                    array('name' => 'Int'),
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim')
                     
@@ -34,6 +37,13 @@ class RegisterStep2Filter extends InputFilter{
                             'max'      => 8,
                         )
                     ),
+                    array(
+                          'name' => 'Between',
+                          'options' => array(
+                              'min' => 1,
+                              'max' => 99999999,
+                          ),
+                      ),
                 ),
             ));
             
@@ -53,7 +63,7 @@ class RegisterStep2Filter extends InputFilter{
                             'min'      => 1,
                             'max'      => 50,
                         )
-                    ),
+                    )
                 ),
             ));
             
@@ -98,16 +108,31 @@ class RegisterStep2Filter extends InputFilter{
             
              $this->add(array(
                 'name'     => 'confirm_term',
-                'require' => true,
+                'required' => true,
                 'validators' => array(
+
                     array(
+                      'name' =>'NotEmpty', 
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Termos de Uso não Concordado' 
+                            ),
+                        ),
+                    ),
+                    /*array(
                         'name'    => 'InArray',
                         'options' => array(
                              'haystack' => array(1),
                              'message' => 'Termos de Uso não Concordado'
                         )
-                    ),
+                    ),*/
                 ),  
+            ));
+
+
+             $this->add(array(
+                'name'     => 'opt_newsletter',
+                'required' => false
             ));
         
     }

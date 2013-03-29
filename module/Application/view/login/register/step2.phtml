@@ -1,9 +1,5 @@
-<div class="center">
-  <div class="checkout_content rounded shadow">
-    <div id="alert_message" class="fm_alert rounded shadow" style="display:none"></div>
-    <p class="content_title">CADASTRO</p>
-
-
+<h4>Cadastro</h4>
+<h5>2º Etapa</h5>
 <?php 
 
   $form = $this->form;
@@ -12,40 +8,46 @@
   echo $this->form()->openTag($form) . PHP_EOL;
   echo $this->formHidden($form->get('id')) . PHP_EOL;
 ?>
-    
-    <div>
-<div class=""><div><label style="font-weight: bold;">E-mail*:</label></div>
+<p>E-mail*: <?php echo $this->records['email']; ?></p>
 
-<?php echo $this->records['email']; ?></div>
+<div class="control-group ">
+	<label class="control-label" for="inputEmail">Nome Completo*</label>
+	<div class="controls">
+	  <?php echo $this->formInput($form->get('nome')); ?>
+	  <?php echo $this->formElementErrors($form->get('nome')); ?>
+	</div>
+</div>
 
-<div style="width: 100%;float: left;">
-<div class="decorator_big" style="">
-    <div id="name-label"><label for="name" class="required">Nome Completo*:</label></div>
-	<?php echo $this->formInput($form->get('nome')); ?>
-	<ul class="errors"><li><?php echo $this->formElementErrors($form->get('nome')); ?></li></ul>
+<div class="control-group ">
+	<label class="control-label" for="inputEmail">CEP: (Opcional - Apenas números)</label>
+	<div class="controls">
+	  <?php echo $this->formInput($form->get('cep')); ?>
+	  <?php echo $this->formElementErrors($form->get('cep')); ?>
+	</div>
 </div>
-<div class="decorator_big">
-  <div id="zip_code-label"><label for="zip_code" class="required">CEP: (Opcional - Apenas números)</label></div>
-	<?php echo $this->formInput($form->get('cep')); ?>
-	<ul class="errors"><li><?php echo $this->formElementErrors($form->get('cep')); ?></li></ul>
-</div>
-    
-</div>
-<div style="width: 100%;float: left;">
-<div class="decorator_big">
-  <div id="password-label"><label for="password" class="required">Senha de Acesso*:</label></div>
-	<?php echo $this->formInput($form->get('senha')); ?>
-	<ul class="errors"><li><?php echo $this->formElementErrors($form->get('senha')); ?></li></ul>
-</div>
-<div class="decorator_big">
-    <div id="password_confirmation-label"><label for="password_confirmation" class="optional">Confirme sua senha*:</label></div>
-	<?php echo $this->formInput($form->get('contra_senha')); ?>
-	<ul class="errors"><li><?php echo $this->formElementErrors($form->get('contra_senha')); ?></li></ul>
-</div>
-</div>
-<div class="decorator_terms"><label for="terms" class="required">Termo de Uso*:</label>
 
-<textarea name="terms" id="terms" class="" title="Termo de Uso*:" readonly="readonly" rows="5" cols="5">I. Informações
+<div class="control-group ">
+	<label class="control-label" for="inputEmail">Senha de Acesso*:</label>
+	<div class="controls">
+	  <?php echo $this->formInput($form->get('senha')); ?>
+	  <?php echo $this->formElementErrors($form->get('senha')); ?>
+	</div>
+</div>
+
+<div class="control-group ">
+	<label class="control-label" for="inputEmail">Confirme sua senha*:</label>
+	<div class="controls">
+	  <?php echo $this->formInput($form->get('contra_senha')); ?>
+	  <?php echo $this->formElementErrors($form->get('contra_senha')); ?>
+	</div>
+</div>
+
+<div class="control-group">
+    <label class="control-label" for="">Termo de Uso*:</label>
+    <div class="controls">
+     
+
+<textarea name="terms" id="terms" class="span6" title="Termo de Uso*:" rows="5" cols="10">I. Informações
 
 Este documento visa informar as responsabilidades, deveres e obrigações que todo Usuário assume ao acessar e utilizar o site Anúncio Mosaico, sendo que o Usuário através deste TERMO DE USO declara estar informados e cientes de que deve utilizar o SITE Anúncio Mosaico com o mesmo cuidado que utiliza anúncios de classificados de jornal, publicidades escritas, sonoras, áudios visuais, visuais, televisivas, etc.. As funcionalidades do Site Anúncio Mosaico são possíveis graças à tecnologia eletrônica, não desvirtuam o fato da Anúncio Mosaico postar em seu meio eletrônico informações de anunciantes pelas quais o Anúncio Mosaico, NÃO se responsabiliza (assim como anúncios classificados em jornal, rádio, ou televisão). 
 Desse modo, o USUÁRIO deve ler com atenção os termos abaixo antes de acessar e usar o site Anúncio Mosaico, pois, o acesso ou uso deste implica em concordância com tais termos. O SITE Anúncio Mosaico somente fornecerá ao Usuário informações e serviços mediante expressa concordância aos termos, condições e informações aqui contidas, assim como aos demais documentos incorporados ao mesmo por referência. O cadastro efetuado incluído do aceite desse TERMO DE USO significa a total concordância com tais termos, condições e informações.
@@ -84,21 +86,37 @@ O Usuário está ciente que o site Anúncio Mosaico não se responsabilizará ta
 
 VI. Responsabilidades
 
-A Empresa declara expressamente que não será responsável pelas obrigações assumidas entre Usuário-Anunciante e Usuário. O Usuário reconhece que ao clicar na imagem disponível na página principal será redirecionado para site registrado pelo usuário-anunciante.</textarea></div>
-<div class="decorator_check">
+A Empresa declara expressamente que não será responsável pelas obrigações assumidas entre Usuário-Anunciante e Usuário. O Usuário reconhece que ao clicar na imagem disponível na página principal será redirecionado para site registrado pelo usuário-anunciante.</textarea>
+	</div>
+</div>
 	
 
 	<!--<input type="checkbox" name="confirm_term" id="confirm_term" value="1" checked="checked" class="form_input_check" title="Li e concordo com os Termos de Uso acima">-->
-	<?php echo $this->formRow($form->get('confirm_term')); ?>
-</div>
-<div class="decorator_check">
-	<!--<input type="checkbox" name="opt_newsletter" id="opt_newsletter" value="1" checked="checked" class="form_input_check" title="Desejo receber ofertas do NewDescontos">-->
-	<?php echo $this->formRow($form->get('opt_newsletter')); ?>
+	
+
+<div class="control-group ">
+	<label class="checkbox">
+		<?php //var_dump($form->get('confirm_term')); ?>
+		<?php //echo $this->formRow($form->get('confirm_term')); ?>
+		 <?php  echo $this->formElement($form->get('confirm_term')); ?> Li e concordo com os Termos de Uso acima
+		 <?php echo $this->formElementErrors($form->get('confirm_term')); ?>
+	</label>
 </div>
 
-<div class="decorator_submit">
-<input type="submit" name="register" id="register" value="Cadastrar" class="btn_submit shadow" title="Cadastrar"></div></div>
-<?php echo $this->form()->closeTag($form) . PHP_EOL; ?>    
-<div class="clear"></div>
-<div class="clear"></div>
+<div class="control-group ">
+	<label class="checkbox">
+		<?php //var_dump($form->get('opt_newsletter')); ?>
+
+		<?php echo $this->formElement($form->get('opt_newsletter')); ?> Desejo receber ofertas
+		<?php echo $this->formElementErrors($form->get('opt_newsletter')); ?>
+	</label>
 </div>
+
+
+<div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn">Cadastrar</button> 
+    </div>
+  </div>
+</form>
+

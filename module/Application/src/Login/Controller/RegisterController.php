@@ -38,7 +38,7 @@ class RegisterController extends AbstractActionController {
                 $service->insert($records);
                 $service->SendEmail($records);    
                 //return $this->redirect()->toRoute('home');
-				return $this->redirect()->toRoute('home-message',array('tipo'=>'fsuccess','ref'=>'register','cod_msg'=>'1'));
+				return $this->redirect()->toRoute('home-message',array('tipo'=>'success','ref'=>'register','cod_msg'=>'1'));
                     
             }
         }
@@ -62,7 +62,7 @@ class RegisterController extends AbstractActionController {
         $records = $form = array();
         $token = $this->params('token', false);
         
-        $repository = $this->getEm()->getRepository("Application\Entity\Users");
+        $repository = $this->getEm()->getRepository("Application\Entity\Usuario");
         $obj_records_users = $repository->findByToken($token);
         
         if(!empty($obj_records_users)){
@@ -73,10 +73,10 @@ class RegisterController extends AbstractActionController {
             $records = $obj_records_users->getArrayCopy();
 				
 			if(empty($records)):
-				return $this->redirect()->toRoute('home-message',array('tipo'=>'ferror','ref'=>'register','cod_msg'=>'1'));
+				return $this->redirect()->toRoute('home-message',array('tipo'=>'error','ref'=>'register','cod_msg'=>'2'));
 				exit;
 			elseif(!empty($records['nome']) && !empty($records['senha'])):
-				return $this->redirect()->toRoute('home-message',array('tipo'=>'ferror','ref'=>'register','cod_msg'=>'2'));
+				return $this->redirect()->toRoute('home-message',array('tipo'=>'error','ref'=>'register','cod_msg'=>'3'));
 				exit;
 			endif;
 			
@@ -100,7 +100,7 @@ class RegisterController extends AbstractActionController {
                     $records['senha']           = $service->encryptPassword($records['senha']);
                     $service->update($records);
                     //$service->SendEmail($records);    
-                    return $this->redirect()->toRoute('home-message',array('tipo'=>'fsuccess','ref'=>'register','cod_msg'=>'2'));
+                    return $this->redirect()->toRoute('home-message',array('tipo'=>'success','ref'=>'register','cod_msg'=>'2'));
                 }
                 
                 //$form->setData($obj_records_users); 

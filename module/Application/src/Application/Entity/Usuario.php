@@ -139,7 +139,7 @@ class Usuario
         $this->diretorio      = $data['diretorio'];
         $this->senha          = $data['senha'];
 		$this->credito        = $data['credito'];
-		$this->status         = $data['status'];
+		$this->status         = !empty($data['status']) ? $data['status'] : 0;
         
         //$d = new DateTime( "2010-01-15 10:41 $tzid" );
         $date = new \DateTime("now America/Sao_Paulo");

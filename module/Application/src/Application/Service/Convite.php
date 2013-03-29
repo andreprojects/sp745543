@@ -1,11 +1,12 @@
 <?php
 
-namespace Login\Service;
+namespace Application\Service;
 
 //use Zend\View\Renderer\PhpRenderer;
 use Doctrine\ORM\EntityManager;
 
-class Register extends AbstractService {
+
+class Convite extends AbstractService {
   
     /**
      * @var EntityManager
@@ -16,9 +17,13 @@ class Register extends AbstractService {
     
     public function __construct(EntityManager $em) {
         parent::__construct($em);
-        $this->entity = "Application\Entity\Usuario";
+        $this->entity = "Application\Entity\Convite";
+        //$this->mail_template = "application/fale-conosco/form-faleconosco";
+        //$this->mail_subject = "Formulário Fale Conosco";
+        /*$this->mail_form_name = "OutMarcas";*/
         
     }
+    
     
 
     /*

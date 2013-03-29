@@ -29,8 +29,8 @@ class RegisterForm extends Form
             'name' => 'email',
             'attributes' => array(
                 'type'  => 'text',
-                'class' => 'campotxt campotxtstep',
-                'size' => '30'
+                'class' => 'span4',
+                'placeholder' => 'Digite seu email'
             ),
             'options' => array(
                 'label' => 'Email',

@@ -152,6 +152,12 @@ class Module {
                     $obj->setMessageRenderer($service->get('Zend\View\Renderer\PhpRenderer'));
                     return $obj;
                 },
+
+                'service_convite' => function($service) {
+                    $obj = new \Application\Service\Convite($service->get('Doctrine\ORM\EntityManager'));
+                    $obj->setMessageRenderer($service->get('Zend\View\Renderer\PhpRenderer'));
+                    return $obj;
+                },
                 
                 'Login\Auth\Adapter' => function($service) {
                     return new \Login\Auth\Adapter($service->get('Doctrine\ORM\EntityManager'));
@@ -169,7 +175,7 @@ class Module {
                     $emailInput = $form->getInputFilter()->get('email');
                     
                     $NoObjectExistsValidator = new \DoctrineModule\Validator\NoObjectExists(array(
-                        'object_repository' => $service->get('Doctrine\ORM\EntityManager')->getRepository('Application\Entity\Users'),
+                        'object_repository' => $service->get('Doctrine\ORM\EntityManager')->getRepository('Application\Entity\Usuario'),
                         'fields'            => 'email',
                         'messages' =>
                             array(
@@ -234,6 +240,11 @@ class Module {
                      $helper = $service->get('viewhelpermanager')->get('UserIdentity');
                      //$session = $helper('Login')['user']->id; 
                      $form->get('id_usuario')->setValue($helper('Login')['user']->id);
+                     return $form;
+                },
+
+                'service_convite_form' => function ($service) {
+                     $form = new \Application\Form\ConviteForm();
                      return $form;
                 },
 				

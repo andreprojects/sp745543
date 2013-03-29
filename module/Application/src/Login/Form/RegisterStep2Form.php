@@ -17,6 +17,8 @@ class RegisterStep2Form extends Form
 
         $this->setAttribute('method', 'post');
         $this->setInputFilter(new RegisterStep2Filter);
+
+        $this->setUseInputFilterDefaults(false);
         
         $this->add(array(
             'name' => 'id',
@@ -29,7 +31,7 @@ class RegisterStep2Form extends Form
             'name' => 'nome',
             'attributes' => array(
                 'type'  => 'text',
-                'class' => 'campotxt'
+                'class' => 'span4'
             ),
             'options' => array(
                 'label' => 'Nome Completo*',
@@ -40,7 +42,7 @@ class RegisterStep2Form extends Form
             'name' => 'cep',
             'attributes' => array(
                 'type'  => 'text',
-                'class' => 'campotxt'
+                'class' => ''
             ),
             'options' => array(
                 'label' => 'Cep: (Opcional)',
@@ -51,7 +53,7 @@ class RegisterStep2Form extends Form
             'name' => 'senha',
             'attributes' => array(
                 'type'  => 'password',
-                'class' => 'campotxt'
+                'class' => ''
             ),
             'options' => array(
                 'label' => 'Senha:',
@@ -62,7 +64,7 @@ class RegisterStep2Form extends Form
             'name' => 'contra_senha',
             'attributes' => array(
                 'type'  => 'password',
-                'class' => 'campotxt'
+                'class' => ''
             ),
             'options' => array(
                 'label' => 'Confirme sua senha:',
@@ -74,14 +76,15 @@ class RegisterStep2Form extends Form
             'name' => 'confirm_term',
             'options' => array(
                 'label' => 'Li e concordo com os Termos de Uso acima',
-                'useHiddenElement' => true,
-                'checkedValue'   => true,
-                'uncheckedValue' => false,
+                'use_hidden_element' => false,
+                'checked_value'   => '1',
+                'unchecked_value' => '0',
                  
             ),
+
             //'attributes' => array('disabled' => 'disabled')
         	'attributes' => array(
-				'class' => 'form_input_check'
+				'class' => ''
 			)
 		));
          
@@ -90,10 +93,13 @@ class RegisterStep2Form extends Form
             'name' => 'opt_newsletter',
             'options' => array(
                 'label' => 'Desejo receber ofertas',
+                'use_hidden_element' => false,
+                'checked_value'   => '1',
+                'unchecked_value' => '0',
             ),
             'attributes' => array(
-                'value' => '1', //set selected to '1'
-                'class' => 'form_input_check'
+                //'value' => '1', //set selected to '1'
+                'class' => ''
             )
             
         )); 
