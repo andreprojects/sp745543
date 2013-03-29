@@ -5,6 +5,10 @@ namespace Login\Controller;
 use Zend\Mvc\Controller\AbstractActionController,
     Zend\View\Model\ViewModel,
     Login\Form\RegisterForm;
+	
+use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\Storage\Session as SessionStorage;
+use Zend\Session\Container;	
 
 class RegisterController extends AbstractActionController {
     
@@ -83,6 +87,7 @@ class RegisterController extends AbstractActionController {
             $form = $this->getServiceLocator()->get("service_register_step2_form");
             
             $form->setData($records);
+			$email = $records['email'];
             
             $request = $this->getRequest();
         
@@ -98,10 +103,40 @@ class RegisterController extends AbstractActionController {
                     $records['data_alteracao']  = $data;
                     $records['diretorio']       = 'files/'.$data->format("Y").'/'.$data->format("m").'/'.$data->format("d").'/'.$records['id'].'/';
                     $records['senha']           = $service->encryptPassword($records['senha']);
-                    $service->update($records);
+                    $records['status']			= 10;
+                    $result_update = $service->update($records);
                     //$service->SendEmail($records);    
-                    return $this->redirect()->toRoute('home-message',array('tipo'=>'success','ref'=>'register','cod_msg'=>'2'));
-                }
+                    
+                    //var_dump($result_update);
+                    if(!empty($result_update))
+					{
+						$auth = new AuthenticationService;
+	
+		                $sessionStorage = new SessionStorage("Login");
+		                $auth->setStorage($sessionStorage);
+						
+						//$email = "andrework@gmail.com";
+						//$records['senha'] = "0ab478795daa5b428b51e548a69414f94a4da5380ae0cd92198694afc52bd0bb58347762a4037efce9d8b03736aa2250dce454706346893e0ed0b388f13f17d0";
+		                
+		                //$service = $this->getServiceLocator()->get("service_changepassword");
+		                $authAdapter = $this->getServiceLocator()->get('Login\Auth\Adapter');
+		                $authAdapter->setUsername($email)
+		                            ->setPassword($records['senha']);
+		                
+		                $result = $auth->authenticate($authAdapter);
+
+				        if ($result->isValid()) {
+				        	$getIdentity = $result->getIdentity();
+			                $getIdentity['user']->senha = null;
+                  	        $session = new Container('user');
+	        				$session->offsetSet('credito', $getIdentity['user']->credito);
+								
+					    	return $this->redirect()->toRoute('meus-anuncios');
+					   	}else{
+					   		return $this->redirect()->toRoute('home-message',array('tipo'=>'success','ref'=>'register','cod_msg'=>'2'));
+					   	}
+				   	}
+				}
                 
                 //$form->setData($obj_records_users); 
             }
