@@ -55,6 +55,7 @@ class IndexController extends AbstractActionController {
 			  
               $service = $this->getServiceLocator()->get("service_changepassword");
               $authAdapter = $this->getServiceLocator()->get('Admin\Auth\Adapter');
+			  
               $authAdapter->setUsername($obj_post_array['email'])
                           ->setPassword($service->encryptPassword($obj_post_array['senha']));
         

@@ -38,6 +38,7 @@ class Adapter implements AdapterInterface {
         $this->password = $password;
         return $this;
     }
+	
 
     public function authenticate() {
         $repository = $this->em->getRepository("Application\Entity\Usuario");

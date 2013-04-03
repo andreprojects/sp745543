@@ -19,7 +19,7 @@ class AnuncioRepository extends EntityRepository {
 	
 	public function findByUser($userId)
 	{ 
-		$records = $this->findBy(array('id_user'=>$userId));
+		$records = $this->findBy(array('id_usuario'=>$userId));
 		return $records;
 	}
 	

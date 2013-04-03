@@ -35,7 +35,9 @@ class MeusAnunciosController extends AbstractActionController {
     {
     	
         $form = $this->getServiceLocator()->get("service_meusanuncios_form");
-        $request = $this->getRequest();
+		$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
+		
+		$request = $this->getRequest();
         
         if ($request->isPost()) {
             $form->setData($request->getPost());
@@ -59,7 +61,7 @@ class MeusAnunciosController extends AbstractActionController {
         }
 		
 		$repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
-		$obj_records = $repository->fetchPairs();
+		$obj_records = $repository->findByUser($sessionLogin['user']->id);
 		
 		//var_dump($obj_records->getArrayCopy());
 		return new ViewModel(array('form' => $form,'msg' => $msg,'dados'=>$obj_records));     
@@ -69,6 +71,7 @@ class MeusAnunciosController extends AbstractActionController {
 	{
 		
         $form = $this->getServiceLocator()->get("service_meusanuncios_form");
+		$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
         $request = $this->getRequest();
         
         if ($request->isPost()) {
@@ -103,7 +106,7 @@ class MeusAnunciosController extends AbstractActionController {
 		}
 		
 		
-		$obj_records = $repository->fetchPairs();
+		$obj_records = $repository->findByUser($sessionLogin['user']->id);
 		
 		//var_dump($obj_records->getArrayCopy());
 		$new_model = new ViewModel(array('form' => $form,'msg' => $msg,'dados'=>$obj_records));
