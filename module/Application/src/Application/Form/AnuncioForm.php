@@ -49,7 +49,7 @@ class AnuncioForm extends Form
             'name' => 'descricao',
             'attributes' => array(
                 'type'  => 'Zend\Form\Element\Textarea',
-                'class'  => "span7",
+                'class'  => "span4",
                 'rows'  => "3"
             )
 

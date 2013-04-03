@@ -194,7 +194,7 @@ class Module {
                     
                     $emailInput = $form->getInputFilter()->get('email');
                     $ObjectExistsValidator = new ObjectExistsValidator(array(
-                        'object_repository' => $service->get('Doctrine\ORM\EntityManager')->getRepository('Application\Entity\Users'),
+                        'object_repository' => $service->get('Doctrine\ORM\EntityManager')->getRepository('Application\Entity\Usuario'),
                         'fields'            => 'email',
                         'messages' =>
                             array(

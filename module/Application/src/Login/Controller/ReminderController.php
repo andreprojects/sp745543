@@ -38,7 +38,7 @@ class ReminderController extends AbstractActionController {
               //convert to array
               $obj_post_array = $obj_post->toArray();
                             
-              $repository = $this->getEm()->getRepository("Application\Entity\Users");
+              $repository = $this->getEm()->getRepository("Application\Entity\Usuario");
               $obj_records_users = $repository->findByEmail($obj_post_array['email']);
               $records = $obj_records_users->getArrayCopy();
               if(empty($records['senha'])){
@@ -58,8 +58,8 @@ class ReminderController extends AbstractActionController {
         }
 		
 		$new_model = new ViewModel(array('form' => $form,'msg'=>$msg));
-		$new_model->setTerminal(true);
-		$new_model->setTemplate('login/reminder/index');
+		//$new_model->setTerminal(true);
+		//$new_model->setTemplate('login/reminder/index');
 		return $new_model;
 
         //return new ViewModel(array('form' => $form,'msg'=>$msg));    
