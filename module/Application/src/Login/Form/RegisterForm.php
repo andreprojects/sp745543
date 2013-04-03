@@ -29,7 +29,7 @@ class RegisterForm extends Form
             'name' => 'email',
             'attributes' => array(
                 'type'  => 'text',
-                'class' => 'span4',
+                'class' => 'span5',
                 'placeholder' => 'Digite seu email'
             ),
             'options' => array(
@@ -52,7 +52,7 @@ class RegisterForm extends Form
 
         $captcha = new Captcha('captcha');
         $captcha->setCaptcha($captchaImage);
-        $captcha->setLabel('Please verify you are human');
+        //$captcha->setLabel('Please verify you are human');
 		//add captcha element...
         $this->add($captcha);
         

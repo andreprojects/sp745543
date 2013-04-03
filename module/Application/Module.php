@@ -187,6 +187,28 @@ class Module {
                     return $form;
                     
                 },
+
+                'convite_form' => function ($service) {
+                    //echo $baseUrl = $service->get('request')->getbaseUrl();
+                    //$baseUrl = "http://".$_SERVER['HTTP_HOST'];
+                    
+                    $form = new \Application\Form\ConviteForm();
+                    $emailInput = $form->getInputFilter()->get('email');
+                    
+                    $NoObjectExistsValidator = new \DoctrineModule\Validator\NoObjectExists(array(
+                        'object_repository' => $service->get('Doctrine\ORM\EntityManager')->getRepository('Application\Entity\Usuario'),
+                        'fields'            => 'email',
+                        'messages' =>
+                            array(
+                                'objectFound' => 'Email %value% já cadastrado'
+                            )
+                    ));
+                     //var_dump($ObjectExistsValidator->isValid('tess3@gmail.com'));
+                    $emailInput->getValidatorChain()->addValidator($NoObjectExistsValidator);
+                    return $form;
+                    
+                },
+
                 'service_reminder_form' => function ($service) {
                     $baseUrl = $service->get('request')->getbaseUrl();
                     
@@ -242,11 +264,7 @@ class Module {
                      $form->get('id_usuario')->setValue($helper('Login')['user']->id);
                      return $form;
                 },
-
-                'service_convite_form' => function ($service) {
-                     $form = new \Application\Form\ConviteForm();
-                     return $form;
-                },
+                
 				
                 'resolver_files' => function($sm) {
                   

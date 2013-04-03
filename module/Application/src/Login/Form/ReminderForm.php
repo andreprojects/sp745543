@@ -22,7 +22,7 @@ class ReminderForm extends Form
             'name' => 'email',
             'attributes' => array(
                 'type'  => 'text',
-                'class' => 'campotxt'
+                'class' => 'span5'
             ),
             'options' => array(
                 'label' => 'Email',
@@ -36,6 +36,7 @@ class ReminderForm extends Form
                 'font' => $dirdata . '/fonts/Arial_Italic.ttf',
                 'width' => 250,
                 'height' => 100,
+
                 'dotNoiseLevel' => 40,
                 'lineNoiseLevel' => 3)
         );
@@ -44,7 +45,7 @@ class ReminderForm extends Form
 
         $captcha = new Captcha('captcha');
         $captcha->setCaptcha($captchaImage);
-        $captcha->setLabel('Please verify you are human');
+        //$captcha->setLabel('Please verify you are human');
 
         //add captcha element...
         $this->add($captcha);

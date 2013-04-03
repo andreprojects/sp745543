@@ -1,11 +1,24 @@
-<?php       
+<?php 
+
+switch($this->msg['cod_msg']):
+
+  case 1:
+    ?> <div class="alert alert-success">Convite enviado com sucesso</div><?php
+    break;
+
+  case 2:
+    ?> <div class="alert alert-success">Convite reenviado com sucesso</div><?php
+    break;
+  
+endswitch;
+
 $form = $this->form;     
  //$action = $form->get('id')->getValue() ? "edit" : "index" ;
  //$form->setAttribute('action', $this->url('admin/servico',array('action'=>$action)));
  $form->setAttribute('class', 'form-horizontal');
  $form->prepare();
  echo $this->form()->openTag($form) . PHP_EOL;
- echo $this->formInput($form->get('id'));
+ //echo $this->formInput($form->get('id'));
 // echo $this->formInput($form->get('id_usuario'));
 ?>
 <div class="control-group ">

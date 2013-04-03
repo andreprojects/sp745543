@@ -22,16 +22,10 @@ class ConviteRepository extends EntityRepository {
 		$records = $this->findBy(array('id_user'=>$userId));
 		return $records;
 	}
-	
-	public function findByArea($p_left,$p_top,$p_right,$p_btn)
-	{ 
-		$records = $this->findOneBy(array('p_left' => $p_left,'p_top' => $p_top,'p_right' => $p_right,'p_btn' =>$p_btn));
-		return $records;
-	}
 
-	public function findByAnuncio($id)
+	public function findByEmail($email)
 	{ 
-		$records = $this->findOneBy(array('id'=>$id));
+		$records = $this->findOneBy(array('email'=>$email));
 		return $records;
 	}
 

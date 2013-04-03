@@ -19,7 +19,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @property datetime $data_alteracao
  */
 
-class Anuncio {
+class Convite {
 
     /**
      * @ORM\Id

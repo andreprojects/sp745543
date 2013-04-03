@@ -17,7 +17,7 @@ class ChangePassword extends AbstractService {
     
     public function __construct(EntityManager $em) {
         parent::__construct($em);
-        $this->entity = "Application\Entity\Users";
+        $this->entity = "Application\Entity\Usuario";
         /*$this->mail_template = "login/reminder/reminder-password";
         $this->mail_subject = "Redefinição de Senha";
         $this->mail_form_name = "OutMarcas";*/
