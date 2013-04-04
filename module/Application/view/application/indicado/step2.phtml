@@ -1,0 +1,122 @@
+<h4>Cadastro</h4>
+<h5>2º Etapa</h5>
+<?php 
+
+  $form = $this->form;
+  $form->setAttribute('action', $this->url('register/step2', array('token' => $this->records['token'])));
+  $form->prepare();
+  echo $this->form()->openTag($form) . PHP_EOL;
+  echo $this->formHidden($form->get('id')) . PHP_EOL;
+?>
+<p>E-mail*: <?php echo $this->records['email']; ?></p>
+
+<div class="control-group ">
+	<label class="control-label" for="inputEmail">Nome Completo*</label>
+	<div class="controls">
+	  <?php echo $this->formInput($form->get('nome')); ?>
+	  <?php echo $this->formElementErrors($form->get('nome')); ?>
+	</div>
+</div>
+
+<div class="control-group ">
+	<label class="control-label" for="inputEmail">CEP: (Opcional - Apenas números)</label>
+	<div class="controls">
+	  <?php echo $this->formInput($form->get('cep')); ?>
+	  <?php echo $this->formElementErrors($form->get('cep')); ?>
+	</div>
+</div>
+
+<div class="control-group ">
+	<label class="control-label" for="inputEmail">Senha de Acesso*:</label>
+	<div class="controls">
+	  <?php echo $this->formInput($form->get('senha')); ?>
+	  <?php echo $this->formElementErrors($form->get('senha')); ?>
+	</div>
+</div>
+
+<div class="control-group ">
+	<label class="control-label" for="inputEmail">Confirme sua senha*:</label>
+	<div class="controls">
+	  <?php echo $this->formInput($form->get('contra_senha')); ?>
+	  <?php echo $this->formElementErrors($form->get('contra_senha')); ?>
+	</div>
+</div>
+
+<div class="control-group">
+    <label class="control-label" for="">Termo de Uso*:</label>
+    <div class="controls">
+     
+
+<textarea name="terms" id="terms" class="span6" title="Termo de Uso*:" rows="5" cols="10">I. Informações
+
+Este documento visa informar as responsabilidades, deveres e obrigações que todo Usuário assume ao acessar e utilizar o site Anúncio Mosaico, sendo que o Usuário através deste TERMO DE USO declara estar informados e cientes de que deve utilizar o SITE Anúncio Mosaico com o mesmo cuidado que utiliza anúncios de classificados de jornal, publicidades escritas, sonoras, áudios visuais, visuais, televisivas, etc.. As funcionalidades do Site Anúncio Mosaico são possíveis graças à tecnologia eletrônica, não desvirtuam o fato da Anúncio Mosaico postar em seu meio eletrônico informações de anunciantes pelas quais o Anúncio Mosaico, NÃO se responsabiliza (assim como anúncios classificados em jornal, rádio, ou televisão). 
+Desse modo, o USUÁRIO deve ler com atenção os termos abaixo antes de acessar e usar o site Anúncio Mosaico, pois, o acesso ou uso deste implica em concordância com tais termos. O SITE Anúncio Mosaico somente fornecerá ao Usuário informações e serviços mediante expressa concordância aos termos, condições e informações aqui contidas, assim como aos demais documentos incorporados ao mesmo por referência. O cadastro efetuado incluído do aceite desse TERMO DE USO significa a total concordância com tais termos, condições e informações.
+
+II. Objeto
+
+O SITE Anúncio Mosaico disponibilizará as Usuários, direta ou indiretamente cadastrados, uma imagem fixa na página principal com o tamanho definido entre 1000 pixel de comprimento e 1000 pixel de largura. Onde os Usuários poderão comprar e anunciar nas área livres disponíveis em 100 pixel (10 x 10 pixel) por tempo indeterminado.
+
+A possibilidade de aquisição com desconto dos produtos e/ou serviços das empresas parceiras ocorre a partir da negociação entre Empresa e o Parceiro de um número mínimo de aquisições de determinado produto e/ou serviço. Sempre que for atingido e/ou ultrapassado o número mínimo de aquisições previamente estabelecido a oferta será validada e o usuário receberá os produtos e/ou serviços adquiridos diretamente do Parceiro através da apresentação de um cupom distribuído pela Empresa aos compradores.
+
+Regulamento das promoções.
+
+
+
+III- Cadastro
+
+Os serviços do Site Anúncio Mosaico estarão disponíveis apenas para as pessoas que tenham capacidade legal para contratá-los. Não poderão utilizá-los, portanto, pessoas que não tenham capacidade, incluindo, porém não se limitando a menor de idade, ou pessoas que tenham sido inabilitadas pelo site Anúncio Mosaico, por razões específicas temporária ou definitivamente.
+Também não será permitido que uma mesma pessoa tenha mais de um cadastro no Site Anúncio Mosaico. O usuário está ciente de que se o site Anúncio Mosaico detectar cadastros duplicados, irá imediatamente desabilitar definitivamente todos os cadastros do referido usuário.
+O Cadastro será confirmado apenas se o usuário interessado preencher corretamente todos os campos do cadastro. O usuário deverá preenchê-los com informações exatas, precisas e verdadeiras, bem como assumir o compromisso de atualizar os dados pessoais sempre ocorrer alguma alteração nos mesmos. O site Anúncio Mosaico não poderá ser responsabilizado pela correção dos dados pessoais inseridos pelos usuários. Os usuários deverão garantir e responder, em qualquer caso, pela veracidade, exatidão e autenticidade dos dados pessoais cadastrados.
+O site Anúncio Mosaico se reserva o direito de utilizar todos os meios válidos e possíveis para identificar seus usuários, bem como de solicitar dados adicionais e documentos que estime serem pertinentes a fim de conferir os dados pessoais informados.
+O usuário acessará sua conta através de email e senha e compromete-se a não informar a terceiros esses dados, responsabilizando-se integralmente pelo uso que deles seja feito. O usuário compromete-se a notificar a Empresa imediatamente, sempre que houver uso não autorizado de sua conta, bem como o acesso não autorizado por terceiros à mesma. O usuário será o único responsável pelas operações efetuadas em sua conta, uma vez que o acesso à mesma só será possível mediante a utilização de login e senha, cujo conhecimento é exclusivo do usuário.
+
+|||- Cadastro de Anúncios
+
+Cada área adquirida pelos Usuários, poderão ser alterados as imagens (10 x 10 pixel), urls, títulos e descrições. Sendo proibido qualquer publicação de conteúdo pornográficos nas imagens, urls ou textos anunciados. 
+
+IV. Meio de pagamento
+
+A compra de créditos somente poderá ser realizada pelos usuários através do Pagseguro, www.pagseguro.com.br.
+A Empresa não intervirá na relação estabelecida entre usuário e Pagseguro. O usuário deverá abrir uma conta no Site do Pagseguro www.pagseguro.com.br, ler atentamente seu contrato e aceitar todas as condições lá estabelecidas, sem qualquer ressalva. 
+
+V. Obrigações dos Usuários
+As imagens publicadas pelos usuários devem ser no tamanho exato (ex. 100 pixels = 10 x 10 pixels) 
+Os usuários interessados em anunciar nas áreas disponíveis poderão alterar as imagens (100 pixel = 10 x 10 pixel), urls, títulos e descrições.
+O Usuário está ciente que o site Anúncio Mosaico não se responsabilizará também pela existência, qualidade, integridade, características, e legitimidade dos anúncios publicados. 
+
+VI. Responsabilidades
+
+A Empresa declara expressamente que não será responsável pelas obrigações assumidas entre Usuário-Anunciante e Usuário. O Usuário reconhece que ao clicar na imagem disponível na página principal será redirecionado para site registrado pelo usuário-anunciante.</textarea>
+	</div>
+</div>
+	
+
+	<!--<input type="checkbox" name="confirm_term" id="confirm_term" value="1" checked="checked" class="form_input_check" title="Li e concordo com os Termos de Uso acima">-->
+	
+
+<div class="control-group ">
+	<label class="checkbox">
+		<?php //var_dump($form->get('confirm_term')); ?>
+		<?php //echo $this->formRow($form->get('confirm_term')); ?>
+		 <?php  echo $this->formElement($form->get('confirm_term')); ?> Li e concordo com os Termos de Uso acima
+		 <?php echo $this->formElementErrors($form->get('confirm_term')); ?>
+	</label>
+</div>
+
+<div class="control-group ">
+	<label class="checkbox">
+		<?php //var_dump($form->get('opt_newsletter')); ?>
+
+		<?php echo $this->formElement($form->get('opt_newsletter')); ?> Desejo receber ofertas
+		<?php echo $this->formElementErrors($form->get('opt_newsletter')); ?>
+	</label>
+</div>
+
+
+<div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn">Cadastrar</button> 
+    </div>
+  </div>
+</form>
+
