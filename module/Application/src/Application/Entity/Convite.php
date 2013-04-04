@@ -103,7 +103,7 @@ class Convite {
 		$this->email              = $data['email'];
 		$date                     = new \DateTime("now America/Sao_Paulo");
         $this->data_cadastro      = $date;
-        $this->data_alteracao     = !empty($data['id']) ? $data['data_alteracao'] : null;
+        $this->data_alteracao     = !empty($data['id']) ? $date : null;
   
     }
 }

@@ -26,7 +26,7 @@ abstract class AbstractService {
     protected $mail_password='xoutandre';
     
     protected $mail_form_email = 'anunciomosaico@gmail.com';
-    protected $mail_form_name = 'Anúncio Mosaico';
+    protected $mail_form_name = 'SharePlaque';
     
     protected $mail_to_email = 'andrework@gmail.com';
     protected $mail_to_name = '';

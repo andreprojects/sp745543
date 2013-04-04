@@ -55,18 +55,29 @@ class ConviteController extends AbstractActionController {
                 {
                     $records_prepare = $obj_records->getArrayCopy();
                     $records_prepare['nome'] = $records['nome'];
-                    //var_dump($obj_records,$obj_records->nome);
-                    //var_dump($obj_records->toArray());
-                    //$service->insert($records);
-    				
-    				$msg['ref'] 	= "convite";
-    				$msg['tipo']	= "success";	
-    				$msg['cod_msg'] = "1";
-    				$form->setData(array('nome'=>'','email'=>''));
-    				
+                    $service->update($records_prepare);
+                    $msg['ref']     = "convite";
+                    $msg['tipo']    = "success";    
+                    $msg['cod_msg'] = "2";
+                }else{
+                    $records_email['id'] = $service->insert($records);
+                    $msg['ref']     = "convite";
+                    $msg['tipo']    = "success";    
+                    $msg['cod_msg'] = "1";
+    			}
+                $records_email['nome_remetente'] = $sessionLogin['user']->nome;
+                $records_email['nome'] = $records['nome'];
+                $records_email['email'] = $records['email'];
+
+                $service->setMailSubject($records_email['nome_remetente']." enviou um convite para você");
+                $service->SendEmail($records_email);
+
+				
+				$form->setData(array('nome'=>'','email'=>''));
+				
                     //$service->SendEmail($records);    
     				//return $this->redirect()->toRoute('home-message',array('tipo'=>'fsuccess','ref'=>'register','cod_msg'=>'1'));
-                }
+                
             }
         }
 
@@ -74,6 +85,7 @@ class ConviteController extends AbstractActionController {
     	$result->setTerminal(true);
 		return $result;     
     }
+
 
 
 }

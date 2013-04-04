@@ -18,10 +18,14 @@ class Convite extends AbstractService {
     public function __construct(EntityManager $em) {
         parent::__construct($em);
         $this->entity = "Application\Entity\Convite";
-        //$this->mail_template = "application/fale-conosco/form-faleconosco";
+        $this->mail_template = "application/convite/convite-email";
         //$this->mail_subject = "Formulário Fale Conosco";
         /*$this->mail_form_name = "OutMarcas";*/
         
+    }
+
+    public function setMailSubject($subject){
+        $this->mail_subject = $subject;
     }
     
     
