@@ -159,6 +159,16 @@ return array(
                     )
                 )
             ),
+            'indicado' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/indicado[/:id][/:token]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Indicado',
+                        'action'  => 'index'  
+                    )
+                )
+            ),
             'admin' => array(
                 'type' => 'literal',
                 'options' => array(
@@ -414,7 +424,8 @@ return array(
             'Admin\Controller\Servico' 			 => 'Admin\Controller\ServicoController',
             'Admin\Controller\Plano'             => 'Admin\Controller\PlanoController',
             'Application\Controller\MeusAnuncios' => 'Application\Controller\MeusAnunciosController',
-            'Application\Controller\Convite'     => 'Application\Controller\ConviteController'
+            'Application\Controller\Convite'     => 'Application\Controller\ConviteController',
+            'Application\Controller\Indicado'   => 'Application\Controller\IndicadoController'
             
         ),
     ),

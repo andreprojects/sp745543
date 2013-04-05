@@ -230,6 +230,12 @@ class Module {
                     return $form;
                     
                 },
+
+                'indicado_step2_form' => function ($service) {
+                     $form = new \Application\Form\IndicadoStep2Form();
+                     return $form;
+                },
+
                 'service_register_step2_form' => function ($service) {
                      $form = new \Login\Form\RegisterStep2Form();
                      return $form;

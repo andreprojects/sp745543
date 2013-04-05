@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @property int      $id_usuario
  * @property string   $nome
  * @property string   $email
+ * @property string   $token
  * @property datetime $data_cadastro
  * @property datetime $data_alteracao
  */
@@ -46,6 +47,12 @@ class Convite {
      */  
      
     protected $email;
+
+    /**
+     * @ORM\Column(type="string")
+     */  
+     
+    protected $token;
     
     /**
         * @ORM\Column(type="datetime")
@@ -101,6 +108,7 @@ class Convite {
 		$this->id_usuario         = $data['id_usuario'];
         $this->nome               = $data['nome'];
 		$this->email              = $data['email'];
+        $this->token              = $data['token'];
 		$date                     = new \DateTime("now America/Sao_Paulo");
         $this->data_cadastro      = $date;
         $this->data_alteracao     = !empty($data['id']) ? $date : null;

@@ -29,5 +29,11 @@ class ConviteRepository extends EntityRepository {
 		return $records;
 	}
 
+	public function findByTokenAndId($token,$id)
+	{
+		$records = $this->findOneBy(array('token'=>$token,'id'=>$id));
+		return $records;
+	}
+
     
 }
