@@ -23,6 +23,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @property int $id
  * @property int $status
  * @property int $qtd_anuncio
+ * @property string $username
  */
 class Usuario
 {
@@ -95,6 +96,12 @@ class Usuario
 	 * @ORM\Column(type="integer")
 	 */
     protected $qtd_anuncio;
+
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $username;
     
     /**
      * Magic getter to expose protected properties.
@@ -147,6 +154,7 @@ class Usuario
 		$this->credito        = $data['credito'];
 		$this->qtd_anuncio    = !empty($data['qtd_anuncio']) ? $data['qtd_anuncio'] : 1;
 		$this->status         = !empty($data['status']) ? $data['status'] : 0;
+        $this->username        = $data['username'];
         
         //$d = new DateTime( "2010-01-15 10:41 $tzid" );
         $date = new \DateTime("now America/Sao_Paulo");

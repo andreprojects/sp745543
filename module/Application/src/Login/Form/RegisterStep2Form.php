@@ -37,6 +37,17 @@ class RegisterStep2Form extends Form
                 'label' => 'Nome Completo*',
             ),
         ));
+
+        $this->add(array(
+            'name' => 'username',
+            'attributes' => array(
+                'type'  => 'text',
+                'class' => ''
+            ),
+            'options' => array(
+                'label' => 'Username*',
+            ),
+        ));
         
         $this->add(array(
             'name' => 'cep',

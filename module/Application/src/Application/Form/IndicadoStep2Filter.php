@@ -75,6 +75,33 @@ class IndicadoStep2Filter extends InputFilter{
                     )
                 ),
             ));
+
+            $this->add(array(
+                'name'     => 'username',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim')
+                    
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 3,
+                            'max'      => 15,
+                        )
+                    ),
+                    array(
+                        'name' => 'Regex', 
+                        'options' => array(
+                            'pattern'   => '/^[a-z0-9_\.-]{3,15}$/',
+                            'message'  =>  'Username inválido, utilize apenas caracteres de números,letras e _-'
+                        )
+                    )
+                )    
+            ));
             
             $this->add(array(
                 'name'     => 'senha',

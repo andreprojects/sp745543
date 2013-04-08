@@ -234,12 +234,40 @@ class Module {
 
                 'indicado_step2_form' => function ($service) {
                      $form = new \Application\Form\IndicadoStep2Form();
+
+                     $usernameInput = $form->getInputFilter()->get('username');
+                    
+                    $NoObjectExistsValidator = new \DoctrineModule\Validator\NoObjectExists(array(
+                        'object_repository' => $service->get('Doctrine\ORM\EntityManager')->getRepository('Application\Entity\Usuario'),
+                        'fields'            => 'username',
+                        'messages' =>
+                            array(
+                                'objectFound' => 'Username %value% já cadastrado'
+                            )
+                    ));
+                     //var_dump($ObjectExistsValidator->isValid('tess3@gmail.com'));
+                    $usernameInput->getValidatorChain()->addValidator($NoObjectExistsValidator);
+                    
                      return $form;
                 },
 
                 'service_register_step2_form' => function ($service) {
-                     $form = new \Login\Form\RegisterStep2Form();
-                     return $form;
+                    $form = new \Login\Form\RegisterStep2Form();
+
+                    $usernameInput = $form->getInputFilter()->get('username');
+                    
+                    $NoObjectExistsValidator = new \DoctrineModule\Validator\NoObjectExists(array(
+                        'object_repository' => $service->get('Doctrine\ORM\EntityManager')->getRepository('Application\Entity\Usuario'),
+                        'fields'            => 'username',
+                        'messages' =>
+                            array(
+                                'objectFound' => 'Username %value% já cadastrado'
+                            )
+                    ));
+                     //var_dump($ObjectExistsValidator->isValid('tess3@gmail.com'));
+                    $usernameInput->getValidatorChain()->addValidator($NoObjectExistsValidator);
+                    
+                    return $form;
                 },
                 
 				'service_change_my_data_form' => function ($service) {

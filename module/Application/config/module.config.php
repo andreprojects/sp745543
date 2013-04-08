@@ -8,9 +8,9 @@ return array(
             'home' => array(
               'type' => 'segment',
                 'options' => array(
-                    'route' => '/[:action][/:tipo]',
+                    'route' => '/[:username]',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'Application\Controller\Perfil',
                         'action'     => 'index',
                     ),
                 ),
@@ -50,7 +50,7 @@ return array(
             'home-message' => array(
               'type' => 'segment',
                 'options' => array(
-                    'route' => '/[:tipo][/:ref][/:cod_msg]',
+                    'route' => '/home[/:tipo][/:ref][/:cod_msg]',
                     'constraints' => array(
                         'tipo'=> '[a-z]+',
                         'cod_msg'=> '[0-9]+'
@@ -425,7 +425,8 @@ return array(
             'Admin\Controller\Plano'             => 'Admin\Controller\PlanoController',
             'Application\Controller\MeusAnuncios' => 'Application\Controller\MeusAnunciosController',
             'Application\Controller\Convite'     => 'Application\Controller\ConviteController',
-            'Application\Controller\Indicado'   => 'Application\Controller\IndicadoController'
+            'Application\Controller\Indicado'   => 'Application\Controller\IndicadoController',
+            'Application\Controller\Perfil'     => 'Application\Controller\PerfilController'
             
         ),
     ),

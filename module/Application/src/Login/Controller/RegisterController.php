@@ -63,6 +63,9 @@ class RegisterController extends AbstractActionController {
                         1002=>'SET NAMES \'UTF8\''
                 	)
 		*/
+
+// Report all PHP errors
+//error_reporting(E_ALL);
         $records = $form = array();
         $token = $this->params('token', false);
         
