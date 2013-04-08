@@ -33,18 +33,16 @@ class ChangePasswordController extends AbstractActionController {
         
         if($token && $email){
             
-            $repository = $this->getEm()->getRepository("Application\Entity\Users");
+            $repository = $this->getEm()->getRepository("Application\Entity\Usuario");
             $obj_records_users = $repository->findByTokenAndEmail($token,$email);
             //var_dump($repository,$obj_records_users);
             $form = $this->getServiceLocator()->get("service_changepassword_form");
             if(!empty($obj_records_users)){
                $records = $obj_records_users->getArrayCopy();
                
-               
-               
                $request = $this->getRequest();
-               $recordBase['id'] = $records['id']; 
-               $form->setData($recordBase);
+               //$recordBase['id'] = $records['id']; 
+               //$form->setData($recordBase);
                
                if($request->isPost()){
                   $records_post = $request->getPost()->toArray();
@@ -53,17 +51,18 @@ class ChangePasswordController extends AbstractActionController {
                   if ($form->isValid()) {
                     $service = $this->getServiceLocator()->get("service_changepassword");
                     $data = new \DateTime("now America/Sao_Paulo");
+                    $records_post['id'] = $records['id'];
                     $records_post['data_alteracao']  = $data;
                     $records_post['senha'] = $service->encryptPassword($records_post['senha']);
                     $service->update($records_post);
-                   	$this->redirect()->toRoute('home-message',array('tipo'=>'fsuccess','ref'=>'changepassword','cod_msg'=>'1'));
+                   	$this->redirect()->toRoute('home-message',array('tipo'=>'success','ref'=>'changepassword','cod_msg'=>'3'));
                     //return $this->redirect()->toRoute('home');
                   }
                }
                
                 
             }else{
-                $this->redirect()->toRoute('home-message',array('tipo'=>'ferror','ref'=>'changepassword','cod_msg'=>'1'));
+                $this->redirect()->toRoute('home-message',array('tipo'=>'error','ref'=>'changepassword','cod_msg'=>'4'));
             }
             
         }else{

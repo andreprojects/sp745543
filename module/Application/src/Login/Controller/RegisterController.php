@@ -64,8 +64,6 @@ class RegisterController extends AbstractActionController {
                 	)
 		*/
 
-// Report all PHP errors
-//error_reporting(E_ALL);
         $records = $form = array();
         $token = $this->params('token', false);
         
@@ -89,6 +87,10 @@ class RegisterController extends AbstractActionController {
 			
             $form = $this->getServiceLocator()->get("service_register_step2_form");
             
+
+            $username = explode('@',$records['email']);
+            $records['username'] = $username[0];
+
             $form->setData($records);
 			$email = $records['email'];
             

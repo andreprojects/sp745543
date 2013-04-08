@@ -53,6 +53,7 @@ class ReminderController extends AbstractActionController {
                 $msg = 1;
                
               }
+              $form->setData(array('email'=>''));
             
             }
         }
@@ -61,8 +62,7 @@ class ReminderController extends AbstractActionController {
 		//$new_model->setTerminal(true);
 		//$new_model->setTemplate('login/reminder/index');
 		return $new_model;
-
-        //return new ViewModel(array('form' => $form,'msg'=>$msg));    
+    //return new ViewModel(array('form' => $form,'msg'=>$msg));    
 
     }
     
