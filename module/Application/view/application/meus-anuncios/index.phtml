@@ -175,77 +175,80 @@
             </table>
        </div>
         <div class="span5">
-          <p>Você pode cadastrar 1 anúncio.</p>
-          
-          <h4><?php $form = $this->form; if($form->get('id')->getValue()) echo "Editar"; else echo "Novo"; ?> Anúncio #<?php echo $form->get('id')->getValue(); ?></h4>
-           <?php 
-           
-           if($this->msg['tipo'] == "error"){
-           		echo '<div class="alert alert-error">';
-				switch ($this->msg['cod_msg']) {
-					case '1':
-						echo "Usuário ou senha inválidos";
-						break;
-					
-					default:
+        	
+       	  <?php if($this->qtd_anuncio > 0 || $this->action == 'edit'){ ?>
+	          <p>Você pode cadastrar <?php echo $this->qtd_anuncio; ?> anúncio(s).</p>
+	          
+	          <h4><?php $form = $this->form; if($form->get('id')->getValue()) echo "Editar"; else echo "Novo"; ?> Anúncio #<?php echo $form->get('id')->getValue(); ?></h4>
+	           <?php 
+	           
+	           if($this->msg['tipo'] == "error"){
+	           		echo '<div class="alert alert-error">';
+					switch ($this->msg['cod_msg']) {
+						case '1':
+							echo "Usuário ou senha inválidos";
+							break;
 						
-						break;
-				}
-				echo '</div>';
-			
-           }elseif($this->msg['tipo'] == "success"){
-           		echo '<div class="alert alert-success">';
-				switch ($this->msg['cod_msg']) {
-					case '1':
-						echo "Anúncio cadastrado com sucesso";
-						break;
+						default:
+							
+							break;
+					}
+					echo '</div>';
+				
+	           }elseif($this->msg['tipo'] == "success"){
+	           		echo '<div class="alert alert-success">';
+					switch ($this->msg['cod_msg']) {
+						case '1':
+							echo "Anúncio cadastrado com sucesso";
+							break;
+							
+						case '2':
+							echo "Anúncio atualizado com sucesso";
+							break;
 						
-					case '2':
-						echo "Anúncio atualizado com sucesso";
-						break;
-					
-					default:
-						
-						break;
-				}
-				echo '</div>';
-           }
-           
-           ?>
-           
-		  
-		  <?php            
-			 $action = $form->get('id')->getValue() ? "edit" : "index" ;
-			 //$form->setAttribute('action', $this->url('admin/servico',array('action'=>$action)));
-			 $form->setAttribute('class', 'form-horizontal');
-			 $form->prepare();
-			 echo $this->form()->openTag($form) . PHP_EOL;
-			 echo $this->formInput($form->get('id'));
-			 echo $this->formInput($form->get('id_usuario'));
-			?>
-            <div class="control-group ">
-			    <label class="control-label" for="inputEmail">Título</label>
-			    <div class="controls">
-			      <?php echo $this->formInput($form->get('titulo')); ?>
-			      <?php echo $this->formElementErrors($form->get('titulo')); ?>
-			    </div>
-			  </div>
-
-			  <div class="control-group">
-			    <label class="control-label" for="">Descrição</label>
-			    <div class="controls">
-			      <?php echo $this->formTextarea($form->get('descricao')); ?>
-			      <?php echo $this->formElementErrors($form->get('descricao')); ?>
-			    </div>
-			  </div>
+						default:
+							
+							break;
+					}
+					echo '</div>';
+	           }
+	           
+	           ?>
+	           
 			  
-			  <div class="control-group">
-			    <div class="controls">
-			      <button type="submit" class="btn"><?php if($form->get('id')->getValue()) echo "Editar"; else echo "Cadastrar"; ?></button> 
-			      <?php if($form->get('id')->getValue()): ?> <a href="<?php echo $this->url('meus-anuncios'); ?>">Novo Anúncio</a><?php endif; ?>
-			    </div>
-			  </div>
-			</form>
+			  <?php            
+				 $action = $form->get('id')->getValue() ? "edit" : "index" ;
+				 //$form->setAttribute('action', $this->url('admin/servico',array('action'=>$action)));
+				 $form->setAttribute('class', 'form-horizontal');
+				 $form->prepare();
+				 echo $this->form()->openTag($form) . PHP_EOL;
+				 echo $this->formInput($form->get('id'));
+				 echo $this->formInput($form->get('id_usuario'));
+				?>
+	            <div class="control-group ">
+				    <label class="control-label" for="inputEmail">Título</label>
+				    <div class="controls">
+				      <?php echo $this->formInput($form->get('titulo')); ?>
+				      <?php echo $this->formElementErrors($form->get('titulo')); ?>
+				    </div>
+				  </div>
+	
+				  <div class="control-group">
+				    <label class="control-label" for="">Descrição</label>
+				    <div class="controls">
+				      <?php echo $this->formTextarea($form->get('descricao')); ?>
+				      <?php echo $this->formElementErrors($form->get('descricao')); ?>
+				    </div>
+				  </div>
+				  
+				  <div class="control-group">
+				    <div class="controls">
+				      <button type="submit" class="btn"><?php if($form->get('id')->getValue()) echo "Editar"; else echo "Cadastrar"; ?></button> 
+				      <?php if($form->get('id')->getValue()): ?> <a href="<?php echo $this->url('meus-anuncios'); ?>">Novo Anúncio</a><?php endif; ?>
+				    </div>
+				  </div>
+				</form>
+			<?php } ?>
 			<p>(0) Convites enviados - (0) Amigos Cadastrados</p>
 			<p>Para cadastrar <b>novos anúncios</b> envie convites para seus amigos. </p>
 			<div id="loadconvite"></div>

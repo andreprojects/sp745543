@@ -152,6 +152,7 @@ class Module {
                     $obj->setMessageRenderer($service->get('Zend\View\Renderer\PhpRenderer'));
                     return $obj;
                 },
+                
 
                 'service_convite' => function($service) {
                     $obj = new \Application\Service\Convite($service->get('Doctrine\ORM\EntityManager'));

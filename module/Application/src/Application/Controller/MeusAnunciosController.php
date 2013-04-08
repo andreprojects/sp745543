@@ -33,11 +33,12 @@ class MeusAnunciosController extends AbstractActionController {
 	
     public function indexAction()
     {
-    	
+    	$repository_user = $this->getEm()->getRepository("Application\Entity\Usuario");
         $form = $this->getServiceLocator()->get("service_meusanuncios_form");
 		$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
 		
 		$request = $this->getRequest();
+		$obj_records_user = $repository_user->findById($sessionLogin['user']->id);
         
         if ($request->isPost()) {
             $form->setData($request->getPost());
@@ -46,9 +47,15 @@ class MeusAnunciosController extends AbstractActionController {
             	
                 $service = $this->getServiceLocator()->get("service_meusanuncios");
                 $records = $request->getPost()->toArray();
+				$records['id_usuario'] = $sessionLogin['user']->id;
                 //$records['token'] = md5(uniqid(time()));
                 //var_dump($records);
                 $service->insert($records);
+				
+				$service_user = $this->getServiceLocator()->get("service_register");
+				$update_records_user['id'] = $sessionLogin['user']->id;
+				$update_records_user['qtd_anuncio'] = $obj_records_user->qtd_anuncio - 1;
+				$service_user->update($update_records_user);
 				
 				$msg['ref'] 	= "meusanuncios";
 				$msg['tipo']	= "success";	
@@ -63,8 +70,11 @@ class MeusAnunciosController extends AbstractActionController {
 		$repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
 		$obj_records = $repository->findByUser($sessionLogin['user']->id);
 		
+		
+		
+		
 		//var_dump($obj_records->getArrayCopy());
-		return new ViewModel(array('form' => $form,'msg' => $msg,'dados'=>$obj_records));     
+		return new ViewModel(array('form' => $form,'msg' => $msg,'dados'=>$obj_records,'qtd_anuncio'=>$obj_records_user->qtd_anuncio));     
     }
 
 	public function editAction()
@@ -73,7 +83,18 @@ class MeusAnunciosController extends AbstractActionController {
         $form = $this->getServiceLocator()->get("service_meusanuncios_form");
 		$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
         $request = $this->getRequest();
+		
+		$id_anuncio = $this->params()->fromRoute('id', 0);
+		
+		$repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
+		//Verificar se o anuncio pertence ao usuario
+		$obj_check_ok = $repository->findByAnuncioAndUser($id_anuncio,$id);
         
+		if(empty($obj_check_ok)){
+			return $this->redirect()->toRoute('home-message');
+			exit;
+		}
+		
         if ($request->isPost()) {
             $form->setData($request->getPost());
             
@@ -94,11 +115,11 @@ class MeusAnunciosController extends AbstractActionController {
 				//return $this->redirect()->toRoute('home-message',array('tipo'=>'fsuccess','ref'=>'register','cod_msg'=>'1'));
             }
         }
-		$repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
 		
-		$id = $this->params()->fromRoute('id', 0);
+		
+		$action = $this->params()->fromRoute('action', 0);
 
-		$obj_record_edit = $repository->findByAnuncio($id);
+		$obj_record_edit = $repository->findByAnuncio($id_anuncio);
 		
 		if(!empty($obj_record_edit)){
 			// var_dump($obj_record_edit->getArrayCopy());
@@ -108,8 +129,10 @@ class MeusAnunciosController extends AbstractActionController {
 		
 		$obj_records = $repository->findByUser($sessionLogin['user']->id);
 		
-		//var_dump($obj_records->getArrayCopy());
-		$new_model = new ViewModel(array('form' => $form,'msg' => $msg,'dados'=>$obj_records));
+		$repository_user = $this->getEm()->getRepository("Application\Entity\Usuario");
+		$obj_records_user = $repository_user->findById($sessionLogin['user']->id);
+		
+		$new_model = new ViewModel(array('form' => $form,'msg' => $msg,'dados'=>$obj_records,'qtd_anuncio'=>$obj_records_user->qtd_anuncio,'action' => $action));
 		//$new_model->setTerminal(true);
 		$new_model->setTemplate('application/meus-anuncios/index');
 		return $new_model;		

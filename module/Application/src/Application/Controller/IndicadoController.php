@@ -43,14 +43,23 @@ class IndicadoController extends AbstractActionController {
         
         $token  = $this->params('token', false);
         $id     = $this->params('id', false);
+		
+		
 
         $repository_convite  = $this->getEm()->getRepository("Application\Entity\Convite");
         $obj_rec_convite     = $repository_convite->findByTokenAndId($token,$id);
 
         if(!empty($obj_rec_convite)){
             $repository_user  = $this->getEm()->getRepository("Application\Entity\Usuario");
-            $obj_rec_user     = $repository_user->findById($obj_rec_convite->id_usuario);
+			$obj_rec_user     = $repository_user->findById($obj_rec_convite->id_usuario);
             
+			$obj_check_user = $repository_user->findByEmail($obj_rec_convite->email);
+			//var_dump($obj_rec_convite->email,$obj_rec_user->email);
+			if(!empty($obj_check_user)){
+				return $this->redirect()->toRoute('home-message');
+				exit;
+			}
+			
             $records = $obj_rec_convite->getArrayCopy();
 
             if(!empty($obj_rec_user)){
@@ -79,17 +88,24 @@ class IndicadoController extends AbstractActionController {
                     $records['token'] = md5(uniqid(time()));
                     $data = new \DateTime("now America/Sao_Paulo");
                     $records['data_alteracao']  = $data;
-                    $records['diretorio']       = 'files/'.$data->format("Y").'/'.$data->format("m").'/'.$data->format("d").'/'.$records['id'].'/';
                     $records['senha']           = $service->encryptPassword($records['senha']);
                     //$records['status']        = 10;
                     
                     //var_dump($records);
-                    $result_update = $service->insert($records);
+                    $result_insert = $service->insert($records);
                     //$service->SendEmail($records);    
                     
                     //var_dump($result_update);
-                    if(!empty($result_update))
+                    if(!empty($result_insert))
                     {
+                    	$records['id'] = $result_insert->id;
+                    	$records['diretorio'] = 'files/'.$data->format("Y").'/'.$data->format("m").'/'.$data->format("d").'/'.$records['id'].'/';
+                    	$service->update($records);
+                    	
+						$records_up_user['id'] = $obj_rec_user->id;
+						$records_up_user['qtd_anuncio'] = $obj_rec_user->qtd_anuncio + 1;
+						$service->update($records_up_user);	
+						
                         $auth = new AuthenticationService;
     
                         $sessionStorage = new SessionStorage("Login");

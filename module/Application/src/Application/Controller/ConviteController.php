@@ -44,7 +44,6 @@ class ConviteController extends AbstractActionController {
             	
                 $service = $this->getServiceLocator()->get("service_convite");
                 $records = $request->getPost()->toArray();
-                //$records['token'] = md5(uniqid(time()));
                 $records['id_usuario'] = $sessionLogin['user']->id;
                 //var_dump($records);
 
@@ -54,12 +53,15 @@ class ConviteController extends AbstractActionController {
                 if(!empty($obj_records))
                 {
                     $records_prepare = $obj_records->getArrayCopy();
+					$records_email['id'] = $records_prepare['id'];
+					$records_email['token'] = $records_prepare['token'];
                     $records_prepare['nome'] = $records['nome'];
                     $service->update($records_prepare);
                     $msg['ref']     = "convite";
                     $msg['tipo']    = "success";    
                     $msg['cod_msg'] = "2";
                 }else{
+                	$records_email['token'] = $records['token'] = md5(uniqid(time()));
                     $records_email['id'] = $service->insert($records);
                     $msg['ref']     = "convite";
                     $msg['tipo']    = "success";    

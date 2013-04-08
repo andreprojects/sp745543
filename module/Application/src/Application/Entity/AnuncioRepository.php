@@ -34,6 +34,12 @@ class AnuncioRepository extends EntityRepository {
 		$records = $this->findOneBy(array('id'=>$id));
 		return $records;
 	}
+	
+	public function findByAnuncioAndUser($id_anuncio,$id)
+	{ 
+		$records = $this->findOneBy(array('id'=>$id_anuncio,'id_usuario'=>$id));
+		return $records;
+	}
 
     
 }
