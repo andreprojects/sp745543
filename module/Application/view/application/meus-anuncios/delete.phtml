@@ -1,0 +1,37 @@
+<div class="row">
+      
+        
+          <ul class="breadcrumb">
+            <li><a href="/">Home</a> <span class="divider">/</span></li>
+            <li><a href="/">Meus Anúncios</a> <span class="divider">/</span></li>
+            <li class="active">Remover</li>
+          </ul>
+            <div class="span7">        
+            <?php
+
+				if($this->msg == 1){
+                	echo '<div class="alert alert-success">';
+                    echo "Anúncio removido com sucesso";
+                	echo '</div>';
+				?>	
+				<div class="control-group">
+                <div class="controls">
+                  <a class="btn" href="/meus-anuncios">Voltar</a>
+                </div>
+              </div>	
+					
+				<?php	
+				}else{
+           ?>
+          
+            <p>Deseja realmente remover este anúncio <b><?php echo $this->dados->titulo; ?></b>?</p>
+              <div class="control-group">
+                <div class="controls">
+                  <a class="btn" href="/meus-anuncios/delete/<?php echo $this->dados->id; ?>/1">Sim</a>
+                  <a class="btn" href="/meus-anuncios">Cancelar</a>
+                </div>
+              </div>
+              <?php } ?>
+        </div>
+   
+</div>
