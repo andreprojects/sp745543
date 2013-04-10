@@ -64,9 +64,20 @@ return array(
             'faleconosco' => array(
                 'type' => 'literal',
                 'options' => array(
-                    'route' => '/faleconosco',
+                    'route' => '/h/faleconosco',
                     'defaults' => array(
                       'controller' => 'Application\Controller\FaleConosco',
+                        'action'  => 'index'
+                        
+                    )
+                )
+            ),
+            'conta' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/h/conta',
+                    'defaults' => array(
+                      'controller' => 'Application\Controller\Conta',
                         'action'  => 'index'
                         
                     )
@@ -108,7 +119,7 @@ return array(
             'faq' => array(
                 'type' => 'literal',
                 'options' => array(
-                    'route' => '/faq',
+                    'route' => '/h/faq',
                     'defaults' => array(
                       'controller' => 'Application\Controller\Faq',
                         'action'  => 'index'
@@ -141,7 +152,7 @@ return array(
             'meus-anuncios' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/meus-anuncios[/:action][/:id][/:cod]',
+                    'route' => '/h/meus-anuncios[/:action][/:id][/:cod]',
                     'defaults' => array(
                       'controller' => 'Application\Controller\MeusAnuncios',
                         'action'  => 'index'
@@ -152,7 +163,7 @@ return array(
             'convite' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/convite[/:action][/:id]',
+                    'route' => '/h/convite[/:action][/:id]',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Convite',
                         'action'  => 'index'  
@@ -162,7 +173,7 @@ return array(
             'indicado' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/indicado[/:id][/:token]',
+                    'route' => '/h/indicado[/:id][/:token]',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Indicado',
                         'action'  => 'index'  
@@ -209,7 +220,7 @@ return array(
             'reminder' => array(
                 'type' => 'literal',
                 'options' => array(
-                    'route' => '/reminder',
+                    'route' => '/h/reminder',
                     'defaults' => array(
                       'controller' => 'Login\Controller\Reminder',
                       'action'  => 'index'
@@ -220,7 +231,7 @@ return array(
             'register' => array(
                 'type'    => 'literal',
                 'options' => array(
-                    'route'    => '/register',
+                    'route'    => '/h/register',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Login\Controller',
                         'controller'    => 'Login\Controller\Register',
@@ -254,7 +265,7 @@ return array(
             'changepassword' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/changepassword[/:email][/:token]',
+                    'route'    => '/h/changepassword[/:email][/:token]',
                     'defaults' => array(
                         'controller' => 'Login\Controller\ChangePassword',
                         'action'     => 'index',
@@ -264,7 +275,7 @@ return array(
             'logout' => array(
                 'type' => 'Literal',
                 'options' => array(
-                    'route' => '/logout',
+                    'route' => '/h/logout',
                     'defaults' => array(
                         'action' => 'logout',
                         'controller'=>'Login\Controller\Login'
@@ -381,7 +392,7 @@ return array(
 			'console' => array(
               'type' => 'segment',
                 'options' => array(
-                    'route' => '/console',
+                    'route' => '/h/console',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Credito',
                         'action'     => 'console',
@@ -423,10 +434,11 @@ return array(
             'Admin\Controller\Index' 			 => 'Admin\Controller\IndexController',
             'Admin\Controller\Servico' 			 => 'Admin\Controller\ServicoController',
             'Admin\Controller\Plano'             => 'Admin\Controller\PlanoController',
-            'Application\Controller\MeusAnuncios' => 'Application\Controller\MeusAnunciosController',
+            'Application\Controller\MeusAnuncios'=> 'Application\Controller\MeusAnunciosController',
             'Application\Controller\Convite'     => 'Application\Controller\ConviteController',
             'Application\Controller\Indicado'   => 'Application\Controller\IndicadoController',
-            'Application\Controller\Perfil'     => 'Application\Controller\PerfilController'
+            'Application\Controller\Perfil'     => 'Application\Controller\PerfilController',
+            'Application\Controller\Conta'      => 'Application\Controller\ContaController',
             
         ),
     ),

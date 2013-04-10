@@ -269,6 +269,11 @@ class Module {
                     
                     return $form;
                 },
+
+                'conta_form' => function ($service) {
+                     $form = new \Application\Form\ContaForm();
+                     return $form;
+                },
                 
 				'service_change_my_data_form' => function ($service) {
                      $form = new \Application\Form\ChangeMyDataForm();

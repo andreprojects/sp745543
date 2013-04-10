@@ -155,7 +155,7 @@
 		                <tr>
 		                	
 		                	<td id="loadfotos<?php echo $value->id; ?>" width="60%">
-		                		<script>callAjax("/meus-anuncios/displayimage/<?php echo $value->id; ?>",$('#loadfotos<?php echo $value->id; ?>'));</script>
+		                		<script>callAjax("<?php echo $this->url("meus-anuncios",array('action'=>'displayimage','id'=>$value->id)); ?>",$('#loadfotos<?php echo $value->id; ?>'));</script>
 		                	</td>
 		                	<td></td>
 		                	<td></td>
@@ -263,7 +263,7 @@
 		
 		     $(function(){
 
-		     		callAjax("/convite",$('#loadconvite'));
+		     		callAjax("<?php echo $this->url('convite'); ?>",$('#loadconvite'));
 		
 				    $('.fileupload').fileupload({
 				        // Uncomment the following to send cross-domain cookies:
@@ -300,7 +300,7 @@
 	                        	$('.alert').show();
 	                        	//$('.alert').alert();
 	                        }else{
-	                        	callAjax("/meus-anuncios/displayimage/"+obj.files[0].id,$('#loadfotos'+obj.files[0].id));
+	                        	callAjax("<?php echo $this->url("meus-anuncios",array('action'=>'displayimage')); ?>/"+obj.files[0].id,$('#loadfotos'+obj.files[0].id));
 	                        }	
 	                        
 	                    },

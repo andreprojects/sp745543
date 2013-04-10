@@ -3,7 +3,7 @@
         
           <ul class="breadcrumb">
             <li><a href="/">Home</a> <span class="divider">/</span></li>
-            <li><a href="/">Meus Anúncios</a> <span class="divider">/</span></li>
+            <li><a href="<?php echo $this->url("meus-anuncios"); ?>">Meus Anúncios</a> <span class="divider">/</span></li>
             <li class="active">Remover</li>
           </ul>
             <div class="span7">        
@@ -16,7 +16,7 @@
 				?>	
 				<div class="control-group">
                 <div class="controls">
-                  <a class="btn" href="/meus-anuncios">Voltar</a>
+                  <a class="btn" href="<?php echo $this->url("meus-anuncios"); ?>">Voltar</a>
                 </div>
               </div>	
 					
@@ -27,8 +27,8 @@
             <p>Deseja realmente remover este anúncio <b><?php echo $this->dados->titulo; ?></b>?</p>
               <div class="control-group">
                 <div class="controls">
-                  <a class="btn" href="/meus-anuncios/delete/<?php echo $this->dados->id; ?>/1">Sim</a>
-                  <a class="btn" href="/meus-anuncios">Cancelar</a>
+                  <a class="btn" href="<?php echo $this->url("meus-anuncios",array('action'=>'delete','id'=>$this->dados->id,'cod'=>'1')); ?>">Sim</a>
+                  <a class="btn" href="<?php echo $this->url("meus-anuncios"); ?>">Cancelar</a>
                 </div>
               </div>
               <?php } ?>

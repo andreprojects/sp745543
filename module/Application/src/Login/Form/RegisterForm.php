@@ -48,7 +48,7 @@ class RegisterForm extends Form
                 'lineNoiseLevel' => 3)
         );
         $captchaImage->setImgDir($dirdata.'/captcha');
-        $captchaImage->setImgUrl($baseUrl.'/register/generate/');
+        $captchaImage->setImgUrl($baseUrl.'/h/register/generate/');
 
         $captcha = new Captcha('captcha');
         $captcha->setCaptcha($captchaImage);
