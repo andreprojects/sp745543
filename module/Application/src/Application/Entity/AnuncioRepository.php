@@ -27,13 +27,25 @@ class AnuncioRepository extends EntityRepository {
 	{
 		$qb = $this->createQueryBuilder('n'); 
 		$records = $qb->where('n.id_usuario = '.$userId,$qb->expr()->in('n.status', array(0,1,2,3)))->getQuery()->getResult();
-		//$records = $this->findBy(array('id_usuario'=>$userId,'status'=>'0','status'=>'1','status'=>'2','status'=>'3'));
 		return $records;
 	}
 	
-	public function findByArea($p_left,$p_top,$p_right,$p_btn)
+	public function findByUserWithAds($id_anuncio)
 	{ 
-		$records = $this->findOneBy(array('p_left' => $p_left,'p_top' => $p_top,'p_right' => $p_right,'p_btn' =>$p_btn));
+		$qb = $this->createQueryBuilder('a');
+		$qb ->select(array('u','a'))
+			->innerJoin('Application\Entity\Usuario', 'u', 'WITH', 'u.id = a.id_usuario')
+			->where('a.id = :id_anuncio')
+			->setParameter('id_anuncio', $id_anuncio);
+		$query = $qb->getQuery();
+		
+		/*print_r(array(
+		    'sql' => $query->getSQL(),
+		    'parameters' => $query->getParameters(),
+		));
+		exit;*/
+
+		$records = $query->getResult();
 		return $records;
 	}
 

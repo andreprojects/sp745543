@@ -4,8 +4,12 @@
     <li><a href="<?php echo $this->url("meus-anuncios"); ?>">Meus Anúncios</a> <span class="divider">/</span></li>
     <li class="active"><?php echo $this->dados['url_ads']; ?></li>
   </ul>
-    <div class="span7">  
-    	
+    <div class="span7"> 
+
+    	<?php foreach($this->dados['collections_images'] as $item): ?>
+        	<a href="<?php echo $item['full']; ?>" class="MagicZoomPlus" rel="zoom-position: right; zoom-height: 213px;"><img src="<?php echo $item['50']; ?>"/></a>
+    	<?php endforeach; ?>
+ 
     </div>
 </div>
 
