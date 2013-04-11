@@ -8,13 +8,13 @@ return array(
             'home' => array(
               'type' => 'segment',
                 'options' => array(
-                    'route' => '/[:username]',
+                    'route' => '/[:username][/:action][/:id_ads][/:url_ads]',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Perfil',
                         'action'     => 'index',
                     ),
                 ),
-              
+
               /*
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
