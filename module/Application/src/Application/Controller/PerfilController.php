@@ -68,7 +68,6 @@ class PerfilController extends AbstractActionController {
 
           $path_host = "/users/".$obj_repo['1']->diretorio.$id_ads;
           $path_folder = "./public".$path_host;
-         
           
           if(file_exists($path_folder))
           {
@@ -84,6 +83,9 @@ class PerfilController extends AbstractActionController {
               $dados['collections_images'] = $collections_images;
             }
           }
+
+          $dados['titulo'] = $obj_repo['0']->titulo;
+          $dados['descricao'] = $obj_repo['0']->descricao;
 
       }
 

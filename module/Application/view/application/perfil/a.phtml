@@ -9,7 +9,8 @@
     	<?php foreach($this->dados['collections_images'] as $item): ?>
         	<a href="<?php echo $item['full']; ?>" class="MagicZoomPlus" rel="zoom-position: right; zoom-height: 213px;"><img src="<?php echo $item['50']; ?>"/></a>
     	<?php endforeach; ?>
- 
+        <h2><?php echo $this->dados['titulo']; ?></h2>
+        <p><?php echo $this->dados['descricao']; ?></p>
     </div>
 </div>
 
