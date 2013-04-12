@@ -83,13 +83,13 @@ return array(
                     )
                 )
             ),
-            'afiliados' => array(
+            'pergunta-publica' => array(
                 'type' => 'literal',
                 'options' => array(
-                    'route' => '/afiliados',
+                    'route' => '/h/pergunta-publica',
                     'defaults' => array(
-                      'controller' => 'Application\Controller\Afiliados',
-                        'action'  => 'index'
+                      'controller' => 'Application\Controller\Pergunta',
+                        'action'  => 'perguntapublica'
                         
                     )
                 )
@@ -108,7 +108,7 @@ return array(
             'quem-somos' => array(
                 'type' => 'literal',
                 'options' => array(
-                    'route' => '/quem-somos',
+                    'route' => '/h/quem-somos',
                     'defaults' => array(
                       'controller' => 'Application\Controller\QuemSomos',
                         'action'  => 'index'
@@ -439,6 +439,7 @@ return array(
             'Application\Controller\Indicado'   => 'Application\Controller\IndicadoController',
             'Application\Controller\Perfil'     => 'Application\Controller\PerfilController',
             'Application\Controller\Conta'      => 'Application\Controller\ContaController',
+            'Application\Controller\Pergunta'   => 'Application\Controller\PerguntaController'
             
         ),
     ),

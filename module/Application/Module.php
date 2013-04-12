@@ -274,6 +274,11 @@ class Module {
                      $form = new \Application\Form\ContaForm();
                      return $form;
                 },
+
+                'pergunta_publica_form' => function ($service) {
+                     $form = new \Application\Form\PerguntaPublicaForm();
+                     return $form;
+                },
                 
 				'service_change_my_data_form' => function ($service) {
                      $form = new \Application\Form\ChangeMyDataForm();

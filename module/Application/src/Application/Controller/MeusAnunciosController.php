@@ -69,9 +69,14 @@ class MeusAnunciosController extends AbstractActionController {
 		
 		$repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
 		$obj_records = $repository->findByUserListAll($sessionLogin['user']->id);
+
 		
 		//var_dump($obj_records->getArrayCopy());
-		return new ViewModel(array('form' => $form,'msg' => $msg,'dados'=>$obj_records,'qtd_anuncio'=>$obj_records_user->qtd_anuncio));     
+		return new ViewModel(array('form' => $form,
+									'msg' => $msg,
+									'username' => $sessionLogin['user']->username,
+									'dados'=>$obj_records,
+									'qtd_anuncio'=>$obj_records_user->qtd_anuncio));     
     }
 
 	public function editAction()
@@ -140,11 +145,14 @@ class MeusAnunciosController extends AbstractActionController {
 		$id_anuncio = $this->params()->fromRoute('id', 0);
 		$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
 		
-		echo $this->listimages($sessionLogin['user']->diretorio,$id_anuncio);
+		$records = $this->listimages($sessionLogin['user']->diretorio,$id_anuncio);
+		//var_dump($records);exit;
 		
-		//var_dump($list_files);
+		//return $this->response;
+		$new_model = new ViewModel(array('dados'=>$records,'id_anuncio'=>$id_anuncio));
+		$new_model->setTerminal(true);
+		return $new_model;
 		
-		return $this->response;
 	}
 	
 	private function listimages($diretorio,$id_anuncio){
@@ -160,7 +168,9 @@ class MeusAnunciosController extends AbstractActionController {
 			if(!empty($list_files)){
 				foreach($list_files as $k => $v){
 					if(file_exists($path_folder."/".$v) && $v != "." && $v != ".."){
-						$strimgs .= "<img src='".$path_host."/".$v."' style='padding:3px;' /><a href=javascript:callAjax('/meus-anuncios/deleteimage/".$id_anuncio."/".$v."',$('#loadfotos".$id_anuncio."'));  ><i class='icon-remove-circle'></i></a> ";
+						$strimgs[$k]['url'] = $path_host."/".$v;
+						$strimgs[$k]['nome'] = $v;
+						//$strimgs .= "<img src='".$path_host."/".$v."' style='padding:3px;' /><a href=javascript:callAjax('/meus-anuncios/deleteimage/".$id_anuncio."/".$v."',$('#loadfotos".$id_anuncio."'));  ><i class='icon-remove-circle'></i></a> ";
 					}
 				}
 			}
@@ -284,9 +294,14 @@ class MeusAnunciosController extends AbstractActionController {
 			}
 		}
 		
-		echo $this->listimages($sessionLogin['user']->diretorio,$id_anuncio);
+		$records = $this->listimages($sessionLogin['user']->diretorio,$id_anuncio);
+
+		$new_model = new ViewModel(array('dados'=>$records,'id_anuncio'=>$id_anuncio));
+		$new_model->setTerminal(true);
+		$new_model->setTemplate('application/meus-anuncios/displayimage');
+		return $new_model;
 		
-		return $this->response;
+		//return $this->response;
 
 	}
 

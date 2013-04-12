@@ -68,7 +68,7 @@ class PerfilController extends AbstractActionController {
 
           $path_host = "/users/".$obj_repo['1']->diretorio.$id_ads;
           $path_folder = "./public".$path_host;
-          
+
           if(file_exists($path_folder))
           {
             $list_files = scandir($path_folder);
@@ -76,8 +76,11 @@ class PerfilController extends AbstractActionController {
             if(!empty($list_files)){
               foreach($list_files as $k => $v){
                 if(file_exists($path_folder."/".$v) && $v != "." && $v != ".."){
-                  $collections_images[$k]['50'] = $path_host."/50/".$v;
-                  $collections_images[$k]['full'] = $path_host."/".$v; 
+                  $notisdir = strstr($v, '.');
+                  if(!empty($notisdir)){
+                    $collections_images[$k]['50'] = $path_host."/50/".$v;
+                    $collections_images[$k]['full'] = $path_host."/".$v; 
+                  }
                 }
               }
               $dados['collections_images'] = $collections_images;
@@ -87,6 +90,8 @@ class PerfilController extends AbstractActionController {
           $dados['titulo'] = $obj_repo['0']->titulo;
           $dados['descricao'] = $obj_repo['0']->descricao;
 
+          $form_pergunta = $this->getServiceLocator()->get("pergunta_publica_form");
+
       }
 
       //var_dump($collections_images);
@@ -94,9 +99,9 @@ class PerfilController extends AbstractActionController {
       $dados['username'] = $username;
       $dados['url_ads'] = $url_ads;
 
-      return new ViewModel(array('form' => $form,'msg' => $msg,'dados' => $dados));
+      return new ViewModel(array('form_pergunta' => $form_pergunta,'msg' => $msg,'dados' => $dados));
 
-    }
+  }
 
   public function displayimageAction(){
     

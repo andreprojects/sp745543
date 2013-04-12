@@ -94,7 +94,7 @@
               	<?php if(!empty($this->dados)) { foreach ($this->dados as $key => $value) { ?>
                 <tr>
                   <td><?php echo $value->id; ?></td>
-                  <td><a href="#" data-toggle="tooltip" data-original-title="Visualizar Anúncio"><?php echo $value->titulo; ?></a></td>
+                  <td><a href="<?php echo $this->url("home",array("username"=>$this->username,"action"=>'a',"id_ads"=>$value->id)); ?>" data-toggle="tooltip" data-original-title="Visualizar Anúncio"><?php echo $value->titulo; ?></a></td>
                   <td>
 
                   
@@ -226,7 +226,7 @@
 				 echo $this->formInput($form->get('id_usuario'));
 				?>
 	            <div class="control-group ">
-				    <label class="control-label" for="inputEmail">Título</label>
+				    <label class="control-label" for="">Título</label>
 				    <div class="controls">
 				      <?php echo $this->formInput($form->get('titulo')); ?>
 				      <?php echo $this->formElementErrors($form->get('titulo')); ?>
