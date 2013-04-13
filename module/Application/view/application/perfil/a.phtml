@@ -7,9 +7,9 @@
     <li class="active"><?php echo $this->dados['titulo']; ?></li>
   </ul> 
 
-    	<?php foreach($this->dados['collections_images'] as $item): ?>
+    	<?php if(!empty($this->dados['collections_images'])): foreach($this->dados['collections_images'] as $item): ?>
         	<a href="<?php echo $item['full']; ?>" class="MagicZoomPlus" rel="hint:false; expand-effect:back; group:effects; zoom-position:top; caption-source:img:alt; expand-speed:1200;"><img src="<?php echo $item['50']; ?>" alt="<?php echo $this->dados['titulo']; ?>"/></a>
-    	<?php endforeach; ?>
+    	<?php endforeach; endif;?>
         <h3><?php echo $this->dados['titulo']; ?></h3>
         <p><?php echo $this->dados['descricao']; ?></p>
 

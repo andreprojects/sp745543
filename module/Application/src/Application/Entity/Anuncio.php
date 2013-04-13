@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @property int      $id_usuario
  * @property string   $titulo
  * @property string   $descricao
+ * @property string   $url
  * @property int      $status
  * @property int      $pageviews
  * @property int      $unique_pageviews
@@ -49,6 +50,12 @@ class Anuncio {
      */  
      
     protected $descricao;
+
+     /**
+     * @ORM\Column(type="string")
+     */  
+     
+    protected $url;
     
 
 	    
@@ -125,6 +132,7 @@ class Anuncio {
 		$this->id_usuario         = $data['id_usuario'];
         $this->titulo             = $data['titulo'];
 		$this->descricao          = $data['descricao'];
+        $this->url                = $data['url'];
 		$this->status             = empty($data['status']) ? 0 : $data['status'];
 		$this->pageviews          = empty($data['pageviews']) ? 0 : $data['status'];
         $this->unique_pageviews   = empty($data['pageviews']) ? 0 : $data['status'];

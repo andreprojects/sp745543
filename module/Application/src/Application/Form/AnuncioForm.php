@@ -41,6 +41,7 @@ class AnuncioForm extends Form
                 'type'  => 'text',
                 'class'  => "span4",
                 'placeholder'=>"O que você oference?",
+                'maxlength' => "50"
             )
 
         ));

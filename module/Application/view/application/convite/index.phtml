@@ -39,7 +39,7 @@ $form = $this->form;
   
   <div class="control-group">
     <div class="controls">
-      <button type="button" class="btn" onclick="callAjax('/convite',$('#loadconvite'),'POST','nome='+$('#convite').find('input[name=nome]').val()+'&email='+$('#convite').find('input[name=email]').val());">Enviar</button> 
+      <button type="button" class="btn" onclick="callAjax('<?php echo $this->url('convite'); ?>',$('#loadconvite'),'POST','nome='+$('#convite').find('input[name=nome]').val()+'&email='+$('#convite').find('input[name=email]').val());">Enviar</button> 
     </div>
   </div>
 </form>

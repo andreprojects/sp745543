@@ -30,6 +30,15 @@ class MeusAnunciosController extends AbstractActionController {
 
         return $this->em;
     }
+
+	public function textoURL($string) 
+	{ 
+        $string    = htmlentities(strtolower($string)); 
+        $string    = preg_replace("/&(.)(acute|cedil|circ|ring|tilde|uml);/", "$1", $string); 
+	    $string    = preg_replace("/([^a-z0-9]+)/", "-", html_entity_decode($string)); 
+	    $string    = trim($string, "-"); 
+	    return $string; 
+	}
 	
     public function indexAction()
     {
@@ -39,15 +48,23 @@ class MeusAnunciosController extends AbstractActionController {
 		
 		$request = $this->getRequest();
 		$obj_records_user = $repository_user->findById($sessionLogin['user']->id);
+
+
         
         if ($request->isPost()) {
             $form->setData($request->getPost());
             
+            if($obj_records_user->qtd_anuncio < 1){
+				return $this->redirect()->toRoute('meus-anuncios');
+			}
+
             if ($form->isValid()) {
             	
                 $service = $this->getServiceLocator()->get("service_meusanuncios");
                 $records = $request->getPost()->toArray();
 				$records['id_usuario'] = $sessionLogin['user']->id;
+ 				
+ 				$records['url'] = $this->textoURL($records['titulo']);
                 //$records['token'] = md5(uniqid(time()));
                 //var_dump($records);
                 $service->insert($records);
@@ -60,7 +77,7 @@ class MeusAnunciosController extends AbstractActionController {
 				$msg['ref'] 	= "meusanuncios";
 				$msg['tipo']	= "success";	
 				$msg['cod_msg'] = "1";
-				$form->setData(array('titulo'=>''));
+				$form->setData(array('titulo'=>'','descricao'=>''));
 				
                 //$service->SendEmail($records);    
 				//return $this->redirect()->toRoute('home-message',array('tipo'=>'fsuccess','ref'=>'register','cod_msg'=>'1'));
@@ -90,10 +107,10 @@ class MeusAnunciosController extends AbstractActionController {
 		
 		$repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
 		//Verificar se o anuncio pertence ao usuario
-		$obj_check_ok = $repository->findByAnuncioAndUser($id_anuncio,$id);
+		$obj_check_ok = $repository->findByAnuncioAndUser($id_anuncio,$sessionLogin['user']->id);
         
 		if(empty($obj_check_ok)){
-			return $this->redirect()->toRoute('home-message');
+			return $this->redirect()->toRoute('meus-anuncios');
 			exit;
 		}
 		
@@ -129,12 +146,17 @@ class MeusAnunciosController extends AbstractActionController {
 		}
 		
 		
-		$obj_records = $repository->findByUser($sessionLogin['user']->id);
+		$obj_records = $repository->findByUserListAll($sessionLogin['user']->id);
 		
-		$repository_user = $this->getEm()->getRepository("Application\Entity\Usuario");
-		$obj_records_user = $repository_user->findById($sessionLogin['user']->id);
+		//$repository_user = $this->getEm()->getRepository("Application\Entity\Usuario");
+		//$obj_records_user = $repository_user->findById($sessionLogin['user']->id);
 		
-		$new_model = new ViewModel(array('form' => $form,'msg' => $msg,'dados'=>$obj_records,'qtd_anuncio'=>$obj_records_user->qtd_anuncio,'action' => $action));
+		$new_model = new ViewModel(array(	'form' => $form,
+											'msg' => $msg,
+											'username' => $sessionLogin['user']->username,
+											'dados'=>$obj_records,
+											//'qtd_anuncio'=>$obj_records_user->qtd_anuncio,
+											'action' => $action));
 		//$new_model->setTerminal(true);
 		$new_model->setTemplate('application/meus-anuncios/index');
 		return $new_model;		
@@ -209,6 +231,17 @@ class MeusAnunciosController extends AbstractActionController {
 				}
 				
 			}
+		
+			//verifica qtd de imagens
+
+			$list_files = scandir($path_folder."/50");
+
+			if((count($list_files)-2) >= 10){
+				echo json_encode(array('files'=>array('error'=>'Maximum of 10 photos')));
+				exit;
+			}
+
+
 		}
 		
 		$file = $this->params()->fromFiles('filesaddfotos');
@@ -371,21 +404,46 @@ class MeusAnunciosController extends AbstractActionController {
 
 	public function deleteAction()
 	{
+		$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
+		
 		$id = $this->params()->fromRoute('id', 0);
 		$cod_action = $this->params()->fromRoute('cod', 0);
+
+
+		$repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
+		$check_records = $repository->findByAnuncioAndUser($id,$sessionLogin['user']->id);
 		
+		if(empty($check_records)){
+			return $this->redirect()->toRoute('meus-anuncios');
+			exit;
+		}
+
 		if($cod_action == 1){
 			$service = $this->getServiceLocator()->get("service_meusanuncios");
 			
 			$set_update['id'] = $id;
 			$set_update['status'] = 4;
  			$service->update($set_update);
+			
+			$repository = $this->getEm()->getRepository("Application\Entity\Usuario");
+			$obj_records_user = $repository->findById($sessionLogin['user']->id);
+			
+			
+			if(!empty($obj_records_user)){
+				
+				$records_user = $obj_records_user->getArrayCopy();
+				$service = $this->getServiceLocator()->get("service_register");
+				$records_user['qtd_anuncio'] = $records_user['qtd_anuncio'] + 1;
+				$service->update($records_user); 	
+				$msg = 1;
+			}
+			
  			//$service->delete($id);
 			//return $this->redirect()->toRoute('meus-anuncios');
-			$new_model = new ViewModel(array('msg'=>1));
+			$new_model = new ViewModel(array('msg'=>$msg));
 			return $new_model;
 		}elseif(!empty($id)){
-			$repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
+			
 			$obj_records = $repository->findByAnuncio($id);
 			
 			$new_model = new ViewModel(array('dados'=>$obj_records));
