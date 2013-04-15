@@ -44,7 +44,7 @@ class PerguntaPublicaForm extends Form
         
         
         $this->add(array(
-            'name' => 'msg',
+            'name' => 'msg_pergunta',
             'attributes' => array(
                 'type'  => 'Zend\Form\Element\Textarea',
                 'rows'  => 5,

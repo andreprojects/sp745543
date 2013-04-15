@@ -159,6 +159,12 @@ class Module {
                     $obj->setMessageRenderer($service->get('Zend\View\Renderer\PhpRenderer'));
                     return $obj;
                 },
+
+                'service_pergunta' => function($service) {
+                    $obj = new \Application\Service\Pergunta($service->get('Doctrine\ORM\EntityManager'));
+                    $obj->setMessageRenderer($service->get('Zend\View\Renderer\PhpRenderer'));
+                    return $obj;
+                },
                 
                 'Login\Auth\Adapter' => function($service) {
                     return new \Login\Auth\Adapter($service->get('Doctrine\ORM\EntityManager'));

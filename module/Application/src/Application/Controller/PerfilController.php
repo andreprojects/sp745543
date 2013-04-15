@@ -87,10 +87,11 @@ class PerfilController extends AbstractActionController {
             }
           }
 
+          $dados['id_ads'] = $id_ads;
           $dados['titulo'] = $obj_repo['0']->titulo;
           $dados['descricao'] = $obj_repo['0']->descricao;
 
-          $form_pergunta = $this->getServiceLocator()->get("pergunta_publica_form");
+          //$form_pergunta = $this->getServiceLocator()->get("pergunta_publica_form");
 
       }
 

@@ -34,48 +34,41 @@ class PerguntaController extends AbstractActionController {
     public function indexAction()
     {
     	$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
-        $form = $this->getServiceLocator()->get("convite_form");
+        $form = $this->getServiceLocator()->get("pergunta_publica_form");
+
+        $id_ads   = $this->params()->fromRoute('id_ads', 0);
+
         $request = $this->getRequest();
         
         if ($request->isPost()) {
             $form->setData($request->getPost());
             
-            if ($form->isValid()) {
+            if ($form->isValid() && !empty($id_ads)) {
             	
-                $service = $this->getServiceLocator()->get("service_convite");
+                $service = $this->getServiceLocator()->get("service_pergunta");
                 $records = $request->getPost()->toArray();
-                $records['id_usuario'] = $sessionLogin['user']->id;
+                $records['id_anuncio'] = $id_ads;
+
+                $service->insert($records);
+
+                //$records['id_usuario'] = $sessionLogin['user']->id;
                 //var_dump($records);
 
-                $repository = $this->getEm()->getRepository("Application\Entity\Convite");
-                $obj_records = $repository->findByEmail($records['email']);
-
-                if(!empty($obj_records))
-                {
-                    $records_prepare = $obj_records->getArrayCopy();
-					$records_email['id'] = $records_prepare['id'];
-					$records_email['token'] = $records_prepare['token'];
-                    $records_prepare['nome'] = $records['nome'];
-                    $service->update($records_prepare);
-                    $msg['ref']     = "convite";
-                    $msg['tipo']    = "success";    
-                    $msg['cod_msg'] = "2";
-                }else{
-                	$records_email['token'] = $records['token'] = md5(uniqid(time()));
-                    $records_email['id'] = $service->insert($records);
-                    $msg['ref']     = "convite";
-                    $msg['tipo']    = "success";    
-                    $msg['cod_msg'] = "1";
-    			}
-                $records_email['nome_remetente'] = $sessionLogin['user']->nome;
-                $records_email['nome'] = $records['nome'];
-                $records_email['email'] = $records['email'];
-
-                $service->setMailSubject($records_email['nome_remetente']." enviou um convite para você");
-                $service->SendEmail($records_email);
-
+                $repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
+                $obj_records = $repository->findByUserWithAds($records['id_anuncio']);
+                
+                if($obj_records){
+                    $records_email['nome_remetente'] = $records['nome'];
+                    $records_email['email']          = $obj_records['1']->email;
+                    $records_email['nome']           = $obj_records['1']->nome;
+                    $records_email['titulo']         = $obj_records['0']->titulo;
+                    $records_email['msg_pergunta']   = $records['msg_pergunta'];
+                
+                    $service->setMailSubject($records_email['nome_remetente']." enviou uma pergunta para seu anúncio");
+                    $service->SendEmail($records_email);
+                }
 				
-				$form->setData(array('nome'=>'','email'=>''));
+				$form->setData(array('nome'=>'','email'=>'','msg_pergunta'=>''));
 				
                     //$service->SendEmail($records);    
     				//return $this->redirect()->toRoute('home-message',array('tipo'=>'fsuccess','ref'=>'register','cod_msg'=>'1'));
@@ -83,7 +76,7 @@ class PerguntaController extends AbstractActionController {
             }
         }
 
-        $result = new ViewModel(array('form' => $form,'msg' => $msg));
+        $result = new ViewModel(array('form_pergunta' => $form,'msg' => $msg,'id_anuncio'=>$id_ads));
     	$result->setTerminal(true);
 		return $result;     
     }

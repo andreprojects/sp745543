@@ -50,7 +50,7 @@ class PerguntaPublicaFilter extends InputFilter{
       
       
       $this->add(array(
-                'name'     => 'msg',
+                'name'     => 'msg_pergunta',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),

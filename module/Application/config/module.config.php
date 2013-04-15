@@ -84,12 +84,12 @@ return array(
                 )
             ),
             'pergunta-publica' => array(
-                'type' => 'literal',
+                'type' => 'segment',
                 'options' => array(
-                    'route' => '/h/pergunta-publica',
+                    'route' => '/h/pergunta-publica[/:id_ads]',
                     'defaults' => array(
                       'controller' => 'Application\Controller\Pergunta',
-                        'action'  => 'perguntapublica'
+                        'action'  => 'index'
                         
                     )
                 )

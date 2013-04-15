@@ -17,42 +17,24 @@
             <legend><i class="icon-list"></i> Perguntas</legend>
         </fieldset>
     </div>
-    <div class="span5">    
-        <?php
-         $form = $this->form_pergunta;            
-         //$action = $form->get('id')->getValue() ? "edit" : "index" ;
-         //$form->setAttribute('action', $this->url('admin/servico',array('action'=>$action)));
-         $form->setAttribute('class', 'form-horizontal');
-         $form->prepare();
-         echo $this->form()->openTag($form) . PHP_EOL;
-        ?>
-          <fieldset>
-            <legend><i class="icon-list"></i> Perguntar ao Anunciante</legend>
-            <label>Mensagem</label>
-                <?php echo $this->formTextarea($form->get('msg')); ?>
-                <?php echo $this->formElementErrors($form->get('msg')); ?>
-            <label>Nome</label>
-             <?php echo $this->formInput($form->get('nome')); ?>
-             <?php echo $this->formElementErrors($form->get('nome')); ?>
-            <label>Email</label>
-             <?php echo $this->formInput($form->get('email')); ?>
-             <?php echo $this->formElementErrors($form->get('email')); ?>
-            <span class="help-block">Example block-level help text here.</span>
-            <button type="submit" class="btn">Submit</button>
-          </fieldset>
-        </form>
-        <p>
-            <strong>Informações Úteis</strong><br>
-            <small>
-                <ul >
-                    <li>Para evitar fraudes, recomendamos fazer transações locais, evitando serviços de pagamentos anônimos e transferências bancárias.</li>
-                    <li>Nunca pague com Western Union, Moneygram ou outros serviços de pagamento anônimos.</li>
-                    <li>Não faça compras nem vendas fora do seu país.</li>
-                    <li>A SharePlaque nunca está envolvida em nenhuma transação, não lida com pagamentos, nem com transporte, não garante transações, não fornece serviços de custódia, não oferece "proteção" ao comprador nem "certifica" o vendedor.</li>
-                    <li>Se parece bom demais para ser verdade é porque provavelmente é.</li>
-                </ul>
-            </small>
-        </p>
+    <div class="span5" id="load-pergunta-publica">    
+
     </div>
 </div>
+<script type="text/javascript">
+  
+!function ($) {
+
+   $(function(){
+
+      callAjax("<?php echo $this->url('pergunta-publica',array('id_ads'=>$this->dados['id_ads'])); ?>",$('#load-pergunta-publica'));
+
+    })
+
+}(window.jQuery)
+
+
+
+
+</script>
 
