@@ -96,4 +96,42 @@ class PerguntaController extends AbstractActionController {
 
     }
 
+
+    public function respostaperguntaAction(){
+        //Verificar se a pergunta pertence ao usuário
+
+        $id_pergunta   = $this->params()->fromRoute('id_pergunta', 0);
+
+        $form = $this->getServiceLocator()->get("resposta_pergunta_form");
+
+
+        $request = $this->getRequest();
+        
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+            
+            if ($form->isValid() && !empty($id_ads)) {
+
+                $service = $this->getServiceLocator()->get("service_pergunta");
+                $records = $request->getPost()->toArray();
+
+                $records['id'] = $id_pergunta;
+
+                $service->update($records);
+
+                //$repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
+                //$or_pergunta = $repository->findByIdAds($id_ads);
+            }
+
+        }
+
+        $repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
+        $or_pergunta = $repository->findById($id_pergunta);
+
+        $result = new ViewModel(array('form' => $form,'dados'=>$or_pergunta));
+        //$result->setTerminal(true);
+        return $result;
+
+    }
+
 }

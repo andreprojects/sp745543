@@ -16,6 +16,12 @@ class PerguntaRepository extends EntityRepository {
 		$entities = $this->findAll();
 		return count($entities);
 	}
+
+	public function findById($id_pergunta)
+	{ 
+		$records = $this->findBy(array('id'=>$id_pergunta));
+		return $records;
+	}
 	
 	public function findByIdAds($id_ads)
 	{ 

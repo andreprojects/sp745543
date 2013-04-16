@@ -104,6 +104,16 @@ return array(
                     )
                 )
             ),
+            'reposta-pergunta' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/h/resposta-pergunta[/:id_pergunta]',
+                    'defaults' => array(
+                      'controller' => 'Application\Controller\Pergunta',
+                        'action'   => 'respostapergunta'
+                    )
+                )
+            ),
             'ganhe' => array(
                 'type' => 'literal',
                 'options' => array(

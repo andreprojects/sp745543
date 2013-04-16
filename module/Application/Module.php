@@ -285,6 +285,11 @@ class Module {
                      $form = new \Application\Form\PerguntaPublicaForm();
                      return $form;
                 },
+
+                'resposta_pergunta_form' => function ($service) {
+                     $form = new \Application\Form\RespostaPerguntaForm();
+                     return $form;
+                },
                 
 				'service_change_my_data_form' => function ($service) {
                      $form = new \Application\Form\ChangeMyDataForm();
