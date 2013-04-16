@@ -94,6 +94,16 @@ return array(
                     )
                 )
             ),
+            'perguntas' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/h/perguntas[/:id_ads]',
+                    'defaults' => array(
+                      'controller' => 'Application\Controller\Pergunta',
+                        'action'   => 'listapergunta'
+                    )
+                )
+            ),
             'ganhe' => array(
                 'type' => 'literal',
                 'options' => array(
