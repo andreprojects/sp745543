@@ -1,0 +1,48 @@
+<div class="row">
+      
+        
+          <ul class="breadcrumb">
+            <li><a href="/">Home</a> <span class="divider">/</span></li>
+            <li class="active">Meus anúncios</li>
+          </ul>
+          <div class="span4">        
+            <?php
+
+           if($this->msg['tipo'] == "error"){
+                echo '<div class="alert alert-error">';
+                switch ($this->msg['cod_msg']) {
+                    case '1':
+                        echo "";
+                        break;
+                    
+                    default:
+                        
+                        break;
+                }
+                echo '</div>';
+            
+           }elseif($this->msg['tipo'] == "success"){
+                echo '<div class="alert alert-success">';
+                switch ($this->msg['cod_msg']) {
+                    case '1':
+                        echo "Mensagem enviada com sucesso";
+                        break;
+                        
+                    case '2':
+                        echo "";
+                        break;
+                    
+                    default:
+                        
+                        break;
+                }
+                echo '</div>';
+           }
+
+
+           ?>
+           
+
+        </div>
+   
+</div>
