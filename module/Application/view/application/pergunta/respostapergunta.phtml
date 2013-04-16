@@ -1,0 +1,26 @@
+<?php
+ $form = $this->form;            
+ //$action = $form->get('id')->getValue() ? "edit" : "index" ;
+ //$form->setAttribute('action', $this->url('admin/servico',array('action'=>$action)));
+ $form->setAttribute('class', 'form-horizontal');
+ $form->prepare();
+ echo $this->form()->openTag($form) . PHP_EOL;
+
+?>
+  <fieldset>
+    <legend><i class="icon-list"></i> Responder</legend>
+    <p>
+        <label>Pergunta</label>
+        <span class="help-block"><?php echo $this->dados[0]->msg_pergunta ?></span>
+    </p>
+    <p>
+        <label>Mensagem</label>
+        <?php echo $this->formTextarea($form->get('msg_resposta')); ?>
+        <?php echo $this->formElementErrors($form->get('msg_resposta')); ?>
+    </p>    
+    <p>
+    <button type="button" class="btn" onclick="callAjax('<?php echo $this->url('reposta-pergunta',array('id_pergunta'=>$this->dados[0]->id)); ?>',$('#load-pergunta'),'POST','msg_resposta='+$('#respostapergunta').find('textarea[name=msg_resposta]').val());">Enviar</button>
+    </p>
+  </fieldset>
+</form>
+
