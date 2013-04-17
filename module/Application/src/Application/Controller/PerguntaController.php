@@ -89,10 +89,50 @@ class PerguntaController extends AbstractActionController {
         $repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
         $or_pergunta = $repository->findByIdAds($id_ads);
 
-
+        //var_dump($or_pergunta);
         $result = new ViewModel(array('form' => $form,'dados'=>$or_pergunta));
         //$result->setTerminal(true);
         return $result;
+
+    }
+
+    public function removeAction(){
+
+        $id_ads   = $this->params()->fromRoute('id_ads', 0);
+        $id_pergunta   = $this->params()->fromRoute('id_pergunta', 0);
+
+        //Verificar se a pergunta pertence ao usuário
+
+        if(!empty($id_ads)&&!empty($id_pergunta))
+        {
+            $service = $this->getServiceLocator()->get("service_pergunta");
+            $records['id'] = $id_pergunta;
+            $records['status'] = 2;
+            $service->update($records);
+
+            return $this->redirect()->toRoute('perguntas',array('id_ads'=>$id_ads));
+
+        }
+
+    }
+
+    public function publicaAction(){
+
+        $id_ads   = $this->params()->fromRoute('id_ads', 0);
+        $id_pergunta   = $this->params()->fromRoute('id_pergunta', 0);
+
+        //Verificar se a pergunta pertence ao usuário
+
+        if(!empty($id_ads)&&!empty($id_pergunta))
+        {
+            $service = $this->getServiceLocator()->get("service_pergunta");
+            $records['id'] = $id_pergunta;
+            $records['status'] = 1;
+            $service->update($records);
+
+            return $this->redirect()->toRoute('perguntas',array('id_ads'=>$id_ads));
+
+        }
 
     }
 
@@ -101,23 +141,32 @@ class PerguntaController extends AbstractActionController {
         //Verificar se a pergunta pertence ao usuário
 
         $id_pergunta   = $this->params()->fromRoute('id_pergunta', 0);
+        $tipo   = $this->params()->fromRoute('tipo', 0);
 
         $form = $this->getServiceLocator()->get("resposta_pergunta_form");
 
+        $repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
+        $or_pergunta = $repository->findById($id_pergunta);
+
+        if($tipo == 1){
+            $form->setData(array('msg_resposta'=>$or_pergunta[0]->msg_resposta));
+        }
 
         $request = $this->getRequest();
         
         if ($request->isPost()) {
             $form->setData($request->getPost());
             
-            if ($form->isValid() && !empty($id_ads)) {
+            if ($form->isValid() && !empty($id_pergunta)) {
 
                 $service = $this->getServiceLocator()->get("service_pergunta");
                 $records = $request->getPost()->toArray();
 
                 $records['id'] = $id_pergunta;
-
+                $records['status'] = 1;
                 $service->update($records);
+
+                $form->setData(array('msg_resposta'=>''));
 
                 //$repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
                 //$or_pergunta = $repository->findByIdAds($id_ads);
@@ -125,11 +174,10 @@ class PerguntaController extends AbstractActionController {
 
         }
 
-        $repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
-        $or_pergunta = $repository->findById($id_pergunta);
+        
 
-        $result = new ViewModel(array('form' => $form,'dados'=>$or_pergunta));
-        //$result->setTerminal(true);
+        $result = new ViewModel(array('form' => $form,'dados'=>$or_pergunta,'tipo'=>$tipo));
+        $result->setTerminal(true);
         return $result;
 
     }

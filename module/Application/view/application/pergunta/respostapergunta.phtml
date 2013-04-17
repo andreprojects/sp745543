@@ -19,8 +19,14 @@
         <?php echo $this->formElementErrors($form->get('msg_resposta')); ?>
     </p>    
     <p>
+    <?php if($this->tipo == 1): ?>
+    <button type="button" class="btn" onclick="callAjax('<?php echo $this->url('reposta-pergunta',array('id_pergunta'=>$this->dados[0]->id,'tipo'=>$this->tipo)); ?>',$('#load-pergunta'),'POST','msg_resposta='+$('#respostapergunta').find('textarea[name=msg_resposta]').val());">Editar</button>
+    <?php else: ?>
     <button type="button" class="btn" onclick="callAjax('<?php echo $this->url('reposta-pergunta',array('id_pergunta'=>$this->dados[0]->id)); ?>',$('#load-pergunta'),'POST','msg_resposta='+$('#respostapergunta').find('textarea[name=msg_resposta]').val());">Enviar</button>
+
+    <?php endif; ?>
     </p>
+    
   </fieldset>
 </form>
 

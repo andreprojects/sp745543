@@ -97,7 +97,7 @@ return array(
             'perguntas' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/h/perguntas[/:id_ads]',
+                    'route' => '/h/perguntas[/:id_ads][/:action][/:id_pergunta]',
                     'defaults' => array(
                       'controller' => 'Application\Controller\Pergunta',
                         'action'   => 'listapergunta'
@@ -107,7 +107,7 @@ return array(
             'reposta-pergunta' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/h/resposta-pergunta[/:id_pergunta]',
+                    'route' => '/h/resposta-pergunta[/:id_pergunta][/:tipo]',
                     'defaults' => array(
                       'controller' => 'Application\Controller\Pergunta',
                         'action'   => 'respostapergunta'
