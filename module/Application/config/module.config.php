@@ -180,6 +180,18 @@ return array(
                     )
                 )
             ),
+            'meus-anuncios2' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/h/meus-anuncios2/page[/:page]',
+                    'defaults' => array(
+                      'controller' => 'Application\Controller\MeusAnuncios',
+                        'action'  => 'index',
+                        'page' => 1
+                        
+                    )
+                )
+            ),
             'convite' => array(
                 'type' => 'segment',
                 'options' => array(

@@ -54,7 +54,7 @@ class MeusAnunciosController extends AbstractActionController {
 		$request = $this->getRequest();
 		$obj_records_user = $repository_user->findById($sessionLogin['user']->id);
 
-		$page = $this->params()->fromRoute('page');
+		
 
 
         if ($request->isPost()) {
@@ -92,11 +92,14 @@ class MeusAnunciosController extends AbstractActionController {
 		
 		$repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
 		$obj_records = $repository->findByUserListAll($sessionLogin['user']->id);
-
-		//$paginator = new Paginator(new ArrayAdapter($obj_records));
-        //$paginator->setCurrentPageNumber($page);
-        //$paginator->setDefaultItemCountPerPage(1);
-
+		
+		//var_dump($obj_records);
+		/*
+		$page = $this->params()->fromRoute('page');
+		$paginator = new Paginator(new ArrayAdapter($obj_records));
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setDefaultItemCountPerPage(3);
+*/
 		
 		//var_dump($obj_records->getArrayCopy());
 		return new ViewModel(array('form' => $form,
