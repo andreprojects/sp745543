@@ -1,3 +1,37 @@
+<?php 
+               
+if($this->msg['tipo'] == "error"){
+    echo '<div class="alert alert-error">';
+    switch ($this->msg['cod_msg']) {
+        case '1':
+            echo "Usuário ou senha inválidos";
+            break;
+        
+        default:
+            
+            break;
+    }
+    echo '</div>';
+
+}elseif($this->msg['tipo'] == "success"){
+    echo '<div class="alert alert-success">';
+    switch ($this->msg['cod_msg']) {
+        case '1':
+            echo "Pergunta respondida e publicada com sucesso";
+            break;
+            
+        case '2':
+            echo "Pergunta atualizada e publicada com sucesso";
+            break;
+        
+        default:
+            
+            break;
+    }
+    echo '</div>';
+}else{
+
+?>
 <?php
  $form = $this->form;            
  //$action = $form->get('id')->getValue() ? "edit" : "index" ;
@@ -20,13 +54,15 @@
     </p>    
     <p>
     <?php if($this->tipo == 1): ?>
-    <button type="button" class="btn" onclick="callAjax('<?php echo $this->url('reposta-pergunta',array('id_pergunta'=>$this->dados[0]->id,'tipo'=>$this->tipo)); ?>',$('#load-pergunta'),'POST','msg_resposta='+$('#respostapergunta').find('textarea[name=msg_resposta]').val());">Editar</button>
+    <button type="button" class="btn" onclick="callAjax('<?php echo $this->url('reposta-pergunta',array('id_pergunta'=>$this->dados[0]->id,'tipo'=>$this->tipo)); ?>',$('#load-pergunta'),'POST','msg_resposta='+$('#respostapergunta').find('textarea[name=msg_resposta]').val(),'<?php echo $this->url('perguntas',array('id_ads'=>$this->dados[0]->id_anuncio,'action'=>'listaperguntaconteudo')); ?>',$('#load-list-pergunta'));">Editar</button>
     <?php else: ?>
-    <button type="button" class="btn" onclick="callAjax('<?php echo $this->url('reposta-pergunta',array('id_pergunta'=>$this->dados[0]->id)); ?>',$('#load-pergunta'),'POST','msg_resposta='+$('#respostapergunta').find('textarea[name=msg_resposta]').val());">Enviar</button>
+    <button type="button" class="btn" onclick="callAjax('<?php echo $this->url('reposta-pergunta',array('id_pergunta'=>$this->dados[0]->id)); ?>',$('#load-pergunta'),'POST','msg_resposta='+$('#respostapergunta').find('textarea[name=msg_resposta]').val(),'<?php echo $this->url('perguntas',array('id_ads'=>$this->dados[0]->id_anuncio,'action'=>'listaperguntaconteudo')); ?>',$('#load-list-pergunta'));">Enviar</button>
 
     <?php endif; ?>
     </p>
     
   </fieldset>
 </form>
+
+<?php } ?>
 

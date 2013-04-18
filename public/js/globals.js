@@ -1,4 +1,4 @@
-function callAjax(domain,div,type_send,data_send){
+function callAjax(domain,div,type_send,data_send,domain_return,div_return){
 	//console.log(domain);
 	//console.log(div);
 	//console.log(type_send);
@@ -24,7 +24,7 @@ function callAjax(domain,div,type_send,data_send){
 	        div.html(html);
 	    },
 	    complete:function() {
-	     
+	     	callAjax(domain_return,div_return);
 	    } 
 	});
 	

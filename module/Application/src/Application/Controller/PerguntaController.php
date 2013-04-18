@@ -82,7 +82,7 @@ class PerguntaController extends AbstractActionController {
     }
 
     public function listaperguntaAction(){
-        //Verificar se a pergunta pertence ao usuário
+        //Verificar se a pergunta pertence ao usuário -ok
         $sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
 
         $id_ads   = $this->params()->fromRoute('id_ads', 0);
@@ -92,14 +92,43 @@ class PerguntaController extends AbstractActionController {
 
         if(empty($or_anuncio)){
             return $this->redirect()->toRoute('meus-anuncios');
+        }else{
+            $ar_anuncio = $or_anuncio->getArrayCopy();
+            $ar_anuncio['username'] = $sessionLogin['user']->username;
         }
 
         $repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
         $or_pergunta = $repository->findByIdAds($id_ads);
 
         //var_dump($or_anuncio);
-        $result = new ViewModel(array('form' => $form,'dados'=>$or_pergunta,'titulo'=>$or_anuncio->titulo));
+        $result = new ViewModel(array('form' => $form,'dados'=>$or_pergunta,'titulo'=>$or_anuncio->titulo,'ads'=>$ar_anuncio));
         //$result->setTerminal(true);
+        return $result;
+
+    }
+
+    public function listaperguntaconteudoAction(){
+
+        $sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
+
+        $id_ads   = $this->params()->fromRoute('id_ads', 0);
+
+        $repository_ads = $this->getEm()->getRepository("Application\Entity\Anuncio");
+        $or_anuncio = $repository_ads->findByAnuncioAndUser($id_ads,$sessionLogin['user']->id);
+
+        if(empty($or_anuncio)){
+            return $this->redirect()->toRoute('meus-anuncios');
+        }else{
+            $ar_anuncio = $or_anuncio->getArrayCopy();
+            $ar_anuncio['username'] = $sessionLogin['user']->username;
+        }
+
+        $repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
+        $or_pergunta = $repository->findByIdAds($id_ads);
+
+        
+        $result = new ViewModel(array('form' => $form,'dados'=>$or_pergunta,'titulo'=>$or_anuncio->titulo,'ads'=>$ar_anuncio));
+        $result->setTerminal(true);
         return $result;
 
     }
@@ -147,6 +176,7 @@ class PerguntaController extends AbstractActionController {
 
     public function respostaperguntaAction(){
         //Verificar se a pergunta pertence ao usuário logado
+        $sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
 
         $id_pergunta   = $this->params()->fromRoute('id_pergunta', 0);
         $tipo   = $this->params()->fromRoute('tipo', 0);
@@ -155,6 +185,13 @@ class PerguntaController extends AbstractActionController {
 
         $repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
         $or_pergunta = $repository->findById($id_pergunta);
+
+        $repository_ads = $this->getEm()->getRepository("Application\Entity\Anuncio");
+        $or_ads = $repository_ads->findByAnuncio($or_pergunta[0]->id_anuncio);
+
+        if($or_ads->id_usuario != $sessionLogin['user']->id){
+            return $this->redirect()->toRoute('meus-anuncios');
+        }
 
         if($tipo == 1){
             $form->setData(array('msg_resposta'=>$or_pergunta[0]->msg_resposta));
@@ -175,9 +212,15 @@ class PerguntaController extends AbstractActionController {
                 if($tipo != 1){
                     $date = new \DateTime("now America/Sao_Paulo");
                     $records['data_resposta'] = $date;
+                    
                 }
                 $service->update($records);
-
+                $msg['tipo'] = "success";
+                if($tipo != 1){
+                    $msg['cod_msg'] = "1";
+                }else{
+                    $msg['cod_msg'] = "2";
+                }      
                 $form->setData(array('msg_resposta'=>''));
 
                 //$repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
@@ -188,7 +231,7 @@ class PerguntaController extends AbstractActionController {
 
         
 
-        $result = new ViewModel(array('form' => $form,'dados'=>$or_pergunta,'tipo'=>$tipo));
+        $result = new ViewModel(array('form' => $form,'dados'=>$or_pergunta,'tipo'=>$tipo,'msg'=>$msg));
         $result->setTerminal(true);
         return $result;
 
