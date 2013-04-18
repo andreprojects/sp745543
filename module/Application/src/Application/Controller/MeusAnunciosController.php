@@ -9,6 +9,10 @@ use Zend\Mvc\Controller\AbstractActionController,
 use Zend\Validator\File\Size;
 use Zend\Validator\File\Extension;
 
+
+use Zend\Paginator\Paginator,
+    Zend\Paginator\Adapter\ArrayAdapter;
+
 class MeusAnunciosController extends AbstractActionController {
     
     /**
@@ -42,6 +46,7 @@ class MeusAnunciosController extends AbstractActionController {
 	
     public function indexAction()
     {
+
     	$repository_user = $this->getEm()->getRepository("Application\Entity\Usuario");
         $form = $this->getServiceLocator()->get("service_meusanuncios_form");
 		$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
@@ -49,8 +54,9 @@ class MeusAnunciosController extends AbstractActionController {
 		$request = $this->getRequest();
 		$obj_records_user = $repository_user->findById($sessionLogin['user']->id);
 
+		$page = $this->params()->fromRoute('page');
 
-        
+
         if ($request->isPost()) {
             $form->setData($request->getPost());
             
@@ -87,13 +93,18 @@ class MeusAnunciosController extends AbstractActionController {
 		$repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
 		$obj_records = $repository->findByUserListAll($sessionLogin['user']->id);
 
+		//$paginator = new Paginator(new ArrayAdapter($obj_records));
+        //$paginator->setCurrentPageNumber($page);
+        //$paginator->setDefaultItemCountPerPage(1);
+
 		
 		//var_dump($obj_records->getArrayCopy());
 		return new ViewModel(array('form' => $form,
 									'msg' => $msg,
 									'username' => $sessionLogin['user']->username,
 									'dados'=>$obj_records,
-									'qtd_anuncio'=>$obj_records_user->qtd_anuncio));     
+									'qtd_anuncio'=>$obj_records_user->qtd_anuncio,
+									'dados_pagination'=>$paginator));     
     }
 
 	public function editAction()
