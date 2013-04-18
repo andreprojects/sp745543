@@ -83,14 +83,22 @@ class PerguntaController extends AbstractActionController {
 
     public function listaperguntaAction(){
         //Verificar se a pergunta pertence ao usuário
+        $sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
 
         $id_ads   = $this->params()->fromRoute('id_ads', 0);
+
+        $repository_ads = $this->getEm()->getRepository("Application\Entity\Anuncio");
+        $or_anuncio = $repository_ads->findByAnuncioAndUser($id_ads,$sessionLogin['user']->id);
+
+        if(empty($or_anuncio)){
+            return $this->redirect()->toRoute('meus-anuncios');
+        }
 
         $repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
         $or_pergunta = $repository->findByIdAds($id_ads);
 
-        //var_dump($or_pergunta);
-        $result = new ViewModel(array('form' => $form,'dados'=>$or_pergunta));
+        //var_dump($or_anuncio);
+        $result = new ViewModel(array('form' => $form,'dados'=>$or_pergunta,'titulo'=>$or_anuncio->titulo));
         //$result->setTerminal(true);
         return $result;
 
@@ -101,7 +109,7 @@ class PerguntaController extends AbstractActionController {
         $id_ads   = $this->params()->fromRoute('id_ads', 0);
         $id_pergunta   = $this->params()->fromRoute('id_pergunta', 0);
 
-        //Verificar se a pergunta pertence ao usuário
+        //Verificar se a pergunta pertence ao usuário logado
 
         if(!empty($id_ads)&&!empty($id_pergunta))
         {
@@ -121,7 +129,7 @@ class PerguntaController extends AbstractActionController {
         $id_ads   = $this->params()->fromRoute('id_ads', 0);
         $id_pergunta   = $this->params()->fromRoute('id_pergunta', 0);
 
-        //Verificar se a pergunta pertence ao usuário
+        //Verificar se a pergunta pertence ao usuário logado
 
         if(!empty($id_ads)&&!empty($id_pergunta))
         {
@@ -138,7 +146,7 @@ class PerguntaController extends AbstractActionController {
 
 
     public function respostaperguntaAction(){
-        //Verificar se a pergunta pertence ao usuário
+        //Verificar se a pergunta pertence ao usuário logado
 
         $id_pergunta   = $this->params()->fromRoute('id_pergunta', 0);
         $tipo   = $this->params()->fromRoute('tipo', 0);
@@ -164,6 +172,10 @@ class PerguntaController extends AbstractActionController {
 
                 $records['id'] = $id_pergunta;
                 $records['status'] = 1;
+                if($tipo != 1){
+                    $date = new \DateTime("now America/Sao_Paulo");
+                    $records['data_resposta'] = $date;
+                }
                 $service->update($records);
 
                 $form->setData(array('msg_resposta'=>''));
