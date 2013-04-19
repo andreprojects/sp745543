@@ -23,9 +23,9 @@ class PerguntaRepository extends EntityRepository {
 		return $records;
 	}
 	
-	public function findByIdAds($id_ads)
+	public function findByIdAds($id_ads, array $orderBy = array('id' => 'ASC'))
 	{ 
-		$records = $this->findBy(array('id_anuncio'=>$id_ads));
+		$records = $this->findBy(array('id_anuncio'=>$id_ads),$orderBy);
 		return $records;
 	}
 

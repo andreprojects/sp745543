@@ -9,6 +9,9 @@ use Zend\Mvc\Controller\AbstractActionController,
 use Zend\Validator\File\Size;
 use Zend\Validator\File\Extension;
 
+use Zend\Paginator\Paginator,
+    Zend\Paginator\Adapter\ArrayAdapter;
+
 class PerguntaController extends AbstractActionController {
     
     /**
@@ -97,11 +100,8 @@ class PerguntaController extends AbstractActionController {
             $ar_anuncio['username'] = $sessionLogin['user']->username;
         }
 
-        $repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
-        $or_pergunta = $repository->findByIdAds($id_ads);
-
         //var_dump($or_anuncio);
-        $result = new ViewModel(array('form' => $form,'dados'=>$or_pergunta,'titulo'=>$or_anuncio->titulo,'ads'=>$ar_anuncio));
+        $result = new ViewModel(array('form' => $form,'titulo'=>$or_anuncio->titulo,'ads'=>$ar_anuncio));
         //$result->setTerminal(true);
         return $result;
 
@@ -112,22 +112,33 @@ class PerguntaController extends AbstractActionController {
         $sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
 
         $id_ads   = $this->params()->fromRoute('id_ads', 0);
+        $col_order   = $this->params()->fromRoute('col_order', 'id');
+        $type_order   = $this->params()->fromRoute('type_order', 'DESC');
+
 
         $repository_ads = $this->getEm()->getRepository("Application\Entity\Anuncio");
         $or_anuncio = $repository_ads->findByAnuncioAndUser($id_ads,$sessionLogin['user']->id);
-
+        //var_dump($id_ads,$sessionLogin['user']->id);exit;
         if(empty($or_anuncio)){
             return $this->redirect()->toRoute('meus-anuncios');
         }else{
             $ar_anuncio = $or_anuncio->getArrayCopy();
             $ar_anuncio['username'] = $sessionLogin['user']->username;
         }
-
+        //var_dump(array($col_order=>$type_order));
         $repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
-        $or_pergunta = $repository->findByIdAds($id_ads);
+        $or_pergunta = $repository->findByIdAds($id_ads,array($col_order=>$type_order));
+
+        $page = $this->params()->fromRoute('page',1);
+        $paginator = new Paginator(new ArrayAdapter($or_pergunta));
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setDefaultItemCountPerPage(2);
 
         
-        $result = new ViewModel(array('form' => $form,'dados'=>$or_pergunta,'titulo'=>$or_anuncio->titulo,'ads'=>$ar_anuncio));
+        $result = new ViewModel(array('form' => $form,
+                                        'dados'=>$paginator,
+                                        'titulo'=>$or_anuncio->titulo,
+                                        'ads'=>$ar_anuncio));
         $result->setTerminal(true);
         return $result;
 
@@ -228,8 +239,6 @@ class PerguntaController extends AbstractActionController {
             }
 
         }
-
-        
 
         $result = new ViewModel(array('form' => $form,'dados'=>$or_pergunta,'tipo'=>$tipo,'msg'=>$msg));
         $result->setTerminal(true);

@@ -1,22 +1,35 @@
 <?php
 $urlPattern = $_SERVER['REQUEST_URI'];
 $formatUrl = function ($page) use ($urlPattern) {
-            if (!preg_match('/page/', $urlPattern))
+
+            $ar_uri = explode("/",$urlPattern);
+            $key_page = array_search('page', $ar_uri);
+            
+            if(empty($key_page)){
+                $ar_uri[count($ar_uri)] = "page";
+                $ar_uri[count($ar_uri)+1] = $page;
+            }else{
+            $ar_uri[$key_page+1] = $page;
+            }
+            return implode("/", $ar_uri);
+            /*if (!preg_match('/page/', $urlPattern))
                 return $urlPattern . "/page/" . $page;
             else
-                return preg_replace('/\d/', $page, $urlPattern);
+                return preg_replace('/\d/', $page, $urlPattern);*/
         };
+
+        //echo $formatUrl(2);
 ?>
 <center>
 <?php if ($this->pageCount): ?>
         <div class="paginationControl">
-        <?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?> de <?php echo $this->totalItemCount; ?> páginas
+        <?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?> de <?php echo $this->totalItemCount; ?> registro(s)
             <br />
 
 
             <!-- First page link -->
     <?php if (isset($this->previous)): ?>
-                <a href="<?php echo $formatUrl($this->previous) ?>">
+                <a href='Javascript:callAjax("<?php echo $formatUrl($this->first) ?>",$("#load-list-pergunta"));'>
                     Primeira
                 </a> |
     <?php else: ?>
@@ -26,7 +39,7 @@ $formatUrl = function ($page) use ($urlPattern) {
 
             <!-- Previous page link -->
     <?php if (isset($this->previous)): ?>
-                <a href="<?php echo $formatUrl($this->previous) ?>">
+                <a href='Javascript:callAjax("<?php echo $formatUrl($this->previous) ?>",$("#load-list-pergunta"));'>
                     < Anterior
                 </a> |
     <?php else: ?>
@@ -36,7 +49,7 @@ $formatUrl = function ($page) use ($urlPattern) {
 
             <!-- Next page link -->
     <?php if (isset($this->next)): ?>
-                <a href="<?php echo $formatUrl($this->next); ?>">
+                <a href='Javascript:callAjax("<?php echo $formatUrl($this->next) ?>",$("#load-list-pergunta"));'>
                     Próximo >
                 </a> |
     <?php else: ?>
@@ -45,8 +58,8 @@ $formatUrl = function ($page) use ($urlPattern) {
 
 
             <!-- Last page link -->
-    <?php if (isset($this->next)): ?>
-                <a href="<?php echo $formatUrl($this->next); ?>">
+    <?php if (isset($this->last)): ?>
+                <a href='Javascript:callAjax("<?php echo $formatUrl($this->last) ?>",$("#load-list-pergunta"));'>
                     Último
                 </a>
     <?php else: ?>

@@ -12,7 +12,7 @@
     <tbody>
       <?php if(!empty($this->dados)) { foreach ($this->dados as $key => $value) { ?>
       <tr>
-        <td><?php echo $value->id; ?></td>
+        <td><?php echo $value->id; ?></td>  
         <td><?php echo substr($value->msg_pergunta, 0, 40); ?></td>
         <td><?php echo $value->data_cadastro->format('d/m/Y H:i'); ?>
         </td>
@@ -60,10 +60,11 @@
       </tr>
       <?php } }else{ ?>
       <tr>
-        <td colspan="4">Nenhum pergunta enviada</td>
+        <td colspan="5">Nenhum pergunta enviada</td>
       </tr>
       
       <?php } ?>
         </tbody>
   </table>
+  <?php echo $this->paginationControl($this->dados,'Sliding','paginator'); ?>
           

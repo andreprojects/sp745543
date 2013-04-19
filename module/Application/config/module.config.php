@@ -104,6 +104,16 @@ return array(
                     )
                 )
             ),
+            'list-pergunta-conteudo' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/h/list-pergunta-conteudo[/:id_ads][/:col_order][/:type_order][/page[/:page]]',
+                    'defaults' => array(
+                      'controller' => 'Application\Controller\Pergunta',
+                        'action'   => 'listaperguntaconteudo'
+                    )
+                )
+            ),
             'reposta-pergunta' => array(
                 'type' => 'segment',
                 'options' => array(

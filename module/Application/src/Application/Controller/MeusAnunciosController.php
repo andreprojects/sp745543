@@ -9,7 +9,6 @@ use Zend\Mvc\Controller\AbstractActionController,
 use Zend\Validator\File\Size;
 use Zend\Validator\File\Extension;
 
-
 use Zend\Paginator\Paginator,
     Zend\Paginator\Adapter\ArrayAdapter;
 
@@ -53,9 +52,6 @@ class MeusAnunciosController extends AbstractActionController {
 		
 		$request = $this->getRequest();
 		$obj_records_user = $repository_user->findById($sessionLogin['user']->id);
-
-		
-
 
         if ($request->isPost()) {
             $form->setData($request->getPost());

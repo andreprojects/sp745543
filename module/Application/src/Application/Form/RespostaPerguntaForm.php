@@ -22,7 +22,8 @@ class RespostaPerguntaForm extends Form
                 'type'  => 'Zend\Form\Element\Textarea',
                 'rows'  => 5,
                 'class' => 'span5',
-                'placeholder' => 'Digite sua Resposta'
+                'placeholder' => 'Digite sua Resposta',
+                'maxlength' => '180'
             ),
             'options' => array(
                 'label' => 'Mensagem',

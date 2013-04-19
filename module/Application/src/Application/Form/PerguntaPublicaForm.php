@@ -22,7 +22,8 @@ class PerguntaPublicaForm extends Form
             'attributes' => array(
                 'type'  => 'text',
                 'class' =>'span3',
-                'placeholder' => 'Digite seu nome'
+                'placeholder' => 'Digite seu nome',
+                'maxlength' => '50'
             ),
             'options' => array(
                 'label' => 'Nome',
@@ -49,7 +50,8 @@ class PerguntaPublicaForm extends Form
                 'type'  => 'Zend\Form\Element\Textarea',
                 'rows'  => 5,
                 'class' => 'span5',
-                'placeholder' => 'Digite sua Pergunta'
+                'placeholder' => 'Digite sua Pergunta',
+                'maxlength' => '180'
             ),
             'options' => array(
                 'label' => 'Mensagem',

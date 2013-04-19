@@ -7,6 +7,22 @@
             <li class="active"><a href="<?php echo $this->url("home",array("username"=>$this->ads['username'],"action"=>'a',"id_ads"=>$this->ads['id'],"url_ads"=>$this->ads['url'])); ?>"><?php echo $this->titulo; ?></a></li>
           </ul>
 
+          <button class="btn btn-mini" type="button" id="btn_filtrar">Filtrar</button>
+          <small>
+            <table class="">
+              <tr>
+                <td>
+                  <ul>
+                    <li>Id <a href='Javascript:callAjax("<?php echo $this->url('perguntas',array('id_ads'=>$this->ads['id'],'action'=>'listaperguntaconteudo','col_order'=>'id','type_order'=>'ASC')); ?>",$("#load-list-pergunta"));'>asc</a> desc</li>
+                    <li>Pergunta asc desc</li>
+                    <li>Enviado em asc desc</li>
+                    <li>Status asc desc</li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+          </small>
+
           <div id="load-list-pergunta">
             
           </div>
@@ -16,6 +32,7 @@
         <div class="span5" id="load-pergunta">    
 
         </div>
+
    
 </div>
 
@@ -25,7 +42,7 @@
 
    $(function(){
 
-      callAjax("<?php echo $this->url('perguntas',array('id_ads'=>$this->dados[0]->id_anuncio,'action'=>'listaperguntaconteudo')); ?>",$('#load-list-pergunta'));
+      callAjax("<?php echo $this->url('list-pergunta-conteudo',array('id_ads'=>$this->ads['id'])); ?>",$('#load-list-pergunta'));
 
     })
 
