@@ -107,6 +107,29 @@ class PerguntaController extends AbstractActionController {
 
     }
 
+    public function listaperguntapublicaAction(){
+        $id_ads   = $this->params()->fromRoute('id_ads', 0);
+        $col_order   = $this->params()->fromRoute('col_order', 'id');
+        $type_order   = $this->params()->fromRoute('type_order', 'DESC');
+
+        $repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
+        $or_pergunta = $repository->findByIdAds($id_ads,array($col_order=>$type_order));
+
+        $page = $this->params()->fromRoute('page',1);
+        $paginator = new Paginator(new ArrayAdapter($or_pergunta));
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setDefaultItemCountPerPage(5);
+
+        
+        $result = new ViewModel(array('dados'=>$paginator
+                                        ));
+        $result->setTerminal(true);
+        return $result;
+
+
+
+    }
+
     public function listaperguntaconteudoAction(){
 
         $sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
@@ -132,7 +155,7 @@ class PerguntaController extends AbstractActionController {
         $page = $this->params()->fromRoute('page',1);
         $paginator = new Paginator(new ArrayAdapter($or_pergunta));
         $paginator->setCurrentPageNumber($page);
-        $paginator->setDefaultItemCountPerPage(2);
+        $paginator->setDefaultItemCountPerPage(10);
 
         
         $result = new ViewModel(array('form' => $form,

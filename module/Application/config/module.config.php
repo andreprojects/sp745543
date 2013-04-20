@@ -94,6 +94,16 @@ return array(
                     )
                 )
             ),
+            'list-pergunta-publica' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/h/listperguntapublica[/:id_ads][/:col_order][/:type_order][/page[/:page]]',
+                    'defaults' => array(
+                      'controller' => 'Application\Controller\Pergunta',
+                        'action'   => 'listaperguntapublica'
+                    )
+                )
+            ),
             'perguntas' => array(
                 'type' => 'segment',
                 'options' => array(
@@ -186,18 +196,6 @@ return array(
                     'defaults' => array(
                       'controller' => 'Application\Controller\MeusAnuncios',
                         'action'  => 'index'
-                        
-                    )
-                )
-            ),
-            'meus-anuncios2' => array(
-                'type' => 'segment',
-                'options' => array(
-                    'route' => '/h/meus-anuncios2/page[/:page]',
-                    'defaults' => array(
-                      'controller' => 'Application\Controller\MeusAnuncios',
-                        'action'  => 'index',
-                        'page' => 1
                         
                     )
                 )

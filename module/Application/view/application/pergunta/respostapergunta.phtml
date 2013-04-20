@@ -61,9 +61,9 @@ if($this->msg['tipo'] == "error"){
     </p>    
     <p>
     <?php if($this->tipo == 1): ?>
-    <button type="button" class="btn" onclick="callAjax('<?php echo $this->url('reposta-pergunta',array('id_pergunta'=>$this->dados[0]->id,'tipo'=>$this->tipo)); ?>',$('#load-pergunta'),'POST','msg_resposta='+$('#respostapergunta').find('textarea[name=msg_resposta]').val(),'<?php echo $this->url('perguntas',array('id_ads'=>$this->dados[0]->id_anuncio,'action'=>'listaperguntaconteudo')); ?>',$('#load-list-pergunta'));">Editar</button>
+    <button type="button" class="btn" onclick="callAjax('<?php echo $this->url('reposta-pergunta',array('id_pergunta'=>$this->dados[0]->id,'tipo'=>$this->tipo)); ?>',$('#load-pergunta'),'POST','msg_resposta='+$('#respostapergunta').find('textarea[name=msg_resposta]').val(),null,last_url,$('#load-list-pergunta-conteudo'));">Editar</button>
     <?php else: ?>
-    <button type="button" class="btn" onclick="callAjax('<?php echo $this->url('reposta-pergunta',array('id_pergunta'=>$this->dados[0]->id)); ?>',$('#load-pergunta'),'POST','msg_resposta='+$('#respostapergunta').find('textarea[name=msg_resposta]').val(),'<?php echo $this->url('perguntas',array('id_ads'=>$this->dados[0]->id_anuncio,'action'=>'listaperguntaconteudo')); ?>',$('#load-list-pergunta'));">Enviar</button>
+    <button type="button" class="btn" onclick="callAjax('<?php echo $this->url('reposta-pergunta',array('id_pergunta'=>$this->dados[0]->id)); ?>',$('#load-pergunta'),'POST','msg_resposta='+$('#respostapergunta').find('textarea[name=msg_resposta]').val(),null,last_url,$('#load-list-pergunta-conteudo'));">Enviar</button>
 
     <?php endif; ?>
     </p>

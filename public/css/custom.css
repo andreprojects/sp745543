@@ -20,3 +20,19 @@
   background-color: transparent;
 }
 
+.table-pergunta-publica td{
+  padding:5px;
+  
+}
+
+.table-pergunta-publica td span{
+  color: #0088cc;
+}
+
+
+
+.table-pergunta-publica td em{
+  color: #999999;
+  
+}
+

@@ -18,6 +18,7 @@ $formatUrl = function ($page) use ($urlPattern) {
                 return preg_replace('/\d/', $page, $urlPattern);*/
         };
 
+$ar_url = explode("/", $urlPattern);
         //echo $formatUrl(2);
 ?>
 <center>
@@ -29,7 +30,7 @@ $formatUrl = function ($page) use ($urlPattern) {
 
             <!-- First page link -->
     <?php if (isset($this->previous)): ?>
-                <a href='Javascript:callAjax("<?php echo $formatUrl($this->first) ?>",$("#load-list-pergunta"));'>
+                <a href='Javascript:callAjax("<?php echo $formatUrl($this->first) ?>",$("#load-<?php echo $ar_url[2]; ?>"),null,null,"true");'>
                     Primeira
                 </a> |
     <?php else: ?>
@@ -39,7 +40,7 @@ $formatUrl = function ($page) use ($urlPattern) {
 
             <!-- Previous page link -->
     <?php if (isset($this->previous)): ?>
-                <a href='Javascript:callAjax("<?php echo $formatUrl($this->previous) ?>",$("#load-list-pergunta"));'>
+                <a href='Javascript:callAjax("<?php echo $formatUrl($this->previous) ?>",$("#load-<?php echo $ar_url[2]; ?>"),null,null,"true");'>
                     < Anterior
                 </a> |
     <?php else: ?>
@@ -49,7 +50,7 @@ $formatUrl = function ($page) use ($urlPattern) {
 
             <!-- Next page link -->
     <?php if (isset($this->next)): ?>
-                <a href='Javascript:callAjax("<?php echo $formatUrl($this->next) ?>",$("#load-list-pergunta"));'>
+                <a href='Javascript:callAjax("<?php echo $formatUrl($this->next) ?>",$("#load-<?php echo $ar_url[2]; ?>"),null,null,"true");'>
                     Próximo >
                 </a> |
     <?php else: ?>
@@ -58,8 +59,8 @@ $formatUrl = function ($page) use ($urlPattern) {
 
 
             <!-- Last page link -->
-    <?php if (isset($this->last)): ?>
-                <a href='Javascript:callAjax("<?php echo $formatUrl($this->last) ?>",$("#load-list-pergunta"));'>
+    <?php if (isset($this->next)): ?>
+                <a href='Javascript:callAjax("<?php echo $formatUrl($this->last) ?>",$("#load-<?php echo $ar_url[2]; ?>"),null,null,"true");'>
                     Último
                 </a>
     <?php else: ?>

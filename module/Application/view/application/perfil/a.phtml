@@ -15,6 +15,8 @@
 
         <fieldset>
             <legend><i class="icon-list"></i> Perguntas</legend>
+            <div id="load-listperguntapublica">
+            </div>
         </fieldset>
     </div>
     <div class="span5" id="load-pergunta-publica">    
@@ -28,6 +30,8 @@
    $(function(){
 
       callAjax("<?php echo $this->url('pergunta-publica',array('id_ads'=>$this->dados['id_ads'])); ?>",$('#load-pergunta-publica'));
+
+      callAjax("<?php echo $this->url('list-pergunta-publica',array('id_ads'=>$this->dados['id_ads'],'col_order'=>'data_resposta','type_order'=>'DESC')); ?>",$('#load-listperguntapublica'));
 
     })
 
