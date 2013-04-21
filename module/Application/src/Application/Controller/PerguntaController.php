@@ -12,6 +12,11 @@ use Zend\Validator\File\Extension;
 use Zend\Paginator\Paginator,
     Zend\Paginator\Adapter\ArrayAdapter;
 
+
+use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\Storage\Session as SessionStorage;
+use Zend\Session\Container;     
+
 class PerguntaController extends AbstractActionController {
     
     /**
@@ -36,7 +41,7 @@ class PerguntaController extends AbstractActionController {
 	
     public function indexAction()
     {
-    	$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
+    	//$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
         $form = $this->getServiceLocator()->get("pergunta_publica_form");
 
         $id_ads   = $this->params()->fromRoute('id_ads', 0);
@@ -52,13 +57,22 @@ class PerguntaController extends AbstractActionController {
                 $records = $request->getPost()->toArray();
                 $records['id_anuncio'] = $id_ads;
 
-                $service->insert($records);
+                $id_pergunta = $service->insert($records);
+
+                //gera token
+                //$rep_user = $this->getEm()->getRepository("Application\Entity\Usuario");
+                
 
                 //$records['id_usuario'] = $sessionLogin['user']->id;
                 //var_dump($records);
 
                 $repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
                 $obj_records = $repository->findByUserWithAds($records['id_anuncio']);
+
+                $service_user = $this->getServiceLocator()->get("service_register");
+                $new_dado_user['token'] = md5(uniqid(time()));
+                $new_dado_user['id']    = $obj_records['1']->id;
+                $service_user->update($new_dado_user);
                 
                 if($obj_records){
                     $records_email['nome_remetente'] = $records['nome'];
@@ -66,7 +80,11 @@ class PerguntaController extends AbstractActionController {
                     $records_email['nome']           = $obj_records['1']->nome;
                     $records_email['titulo']         = $obj_records['0']->titulo;
                     $records_email['msg_pergunta']   = $records['msg_pergunta'];
-                
+                    $records_email['link_auth']      = array('id_anuncio'=>$obj_records['0']->id,
+                                                              'id_pergunta'=>$id_pergunta,
+                                                              'email'=>$obj_records['1']->email,
+                                                              'token'=>$new_dado_user['token']);
+                    
                     $service->setMailSubject($records_email['nome_remetente']." enviou uma pergunta para seu anúncio");
                     $service->SendEmail($records_email);
                 }
@@ -267,6 +285,58 @@ class PerguntaController extends AbstractActionController {
         $result->setTerminal(true);
         return $result;
 
+    }
+
+    public function emailauthAction()
+    {
+        //$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
+
+        //Verificar se já está cadastrado
+        
+        $token    = $this->params('token', false);
+        $email    = $this->params('email', false);
+        $id_anuncio  = $this->params('id_anuncio', false);
+        $id_pergunta  = $this->params('id_pergunta', false);
+                
+
+        $repository  = $this->getEm()->getRepository("Application\Entity\Usuario");
+        $obj_records = $repository->findByTokenAndEmail($token,$email);
+        //var_dump($obj_records);exit;
+
+        if(!empty($obj_records)){
+
+                        
+            $auth = new AuthenticationService;
+
+            $sessionStorage = new SessionStorage("Login");
+            $auth->setStorage($sessionStorage);
+            
+            //$email = "andrework@gmail.com";
+            //$records['senha'] = "0ab478795daa5b428b51e548a69414f94a4da5380ae0cd92198694afc52bd0bb58347762a4037efce9d8b03736aa2250dce454706346893e0ed0b388f13f17d0";
+            
+            //$service = $this->getServiceLocator()->get("service_changepassword");
+            $authAdapter = $this->getServiceLocator()->get('Login\Auth\Adapter');
+            $authAdapter->setUsername($obj_records->email)
+                        ->setPassword($obj_records->senha);
+            
+            $result = $auth->authenticate($authAdapter);
+
+            if ($result->isValid()) {
+                $getIdentity = $result->getIdentity();
+                $getIdentity['user']->senha = null;
+                $session = new Container('user');
+                $session->offsetSet('credito', $getIdentity['user']->credito);
+                    
+                return $this->redirect()->toRoute('perguntas',array('id_ads'=>$id_anuncio,'id_pergunta'=>$id_pergunta));
+                
+            }else{
+                return $this->redirect()->toRoute('home-message');
+            }
+        }
+
+        //$result = new ViewModel(array('form' => $form,'records' => $load_records,'msg' => $msg));
+        //$result->setTerminal(true);
+        return $this->response;     
     }
 
 }

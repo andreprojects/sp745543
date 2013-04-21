@@ -44,7 +44,7 @@
 
    $(function(){
       $('#div_filtra').hide();
-      callAjax("<?php echo $this->url('list-pergunta-conteudo',array('id_ads'=>$this->ads['id'],'col_order'=>'id','type_order'=>'asc')); ?>",$('#load-list-pergunta-conteudo'),null,null,'true');
+      callAjax("<?php echo $this->url('list-pergunta-conteudo',array('id_ads'=>$this->ads['id'],'col_order'=>'id','type_order'=>'desc')); ?>",$('#load-list-pergunta-conteudo'),null,null,'true');
 
     })
 

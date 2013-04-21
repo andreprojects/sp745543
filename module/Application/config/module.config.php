@@ -83,7 +83,17 @@ return array(
                     )
                 )
             ),
-            'pergunta-publica' => array(
+            'email-auth-pergunta' => array(//sem auth
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/h/email-auth-pergunta/:id_anuncio/:id_pergunta/:email/:token',
+                    'defaults' => array(
+                      'controller' => 'Application\Controller\Pergunta',
+                        'action'  => 'emailauth'
+                    )
+                )
+            ),
+            'pergunta-publica' => array(//sem auth
                 'type' => 'segment',
                 'options' => array(
                     'route' => '/h/pergunta-publica[/:id_ads]',
@@ -94,7 +104,7 @@ return array(
                     )
                 )
             ),
-            'list-pergunta-publica' => array(
+            'list-pergunta-publica' => array(//sem auth
                 'type' => 'segment',
                 'options' => array(
                     'route' => '/h/listperguntapublica[/:id_ads][/:col_order][/:type_order][/page[/:page]]',
@@ -107,7 +117,7 @@ return array(
             'perguntas' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/h/perguntas[/:id_ads][/:action][/:id_pergunta]',
+                    'route' => '/h/perguntas[/:id_ads]/:action[/:id_pergunta]',
                     'defaults' => array(
                       'controller' => 'Application\Controller\Pergunta',
                         'action'   => 'listapergunta'
@@ -479,7 +489,8 @@ return array(
             'Application\Controller\Indicado'   => 'Application\Controller\IndicadoController',
             'Application\Controller\Perfil'     => 'Application\Controller\PerfilController',
             'Application\Controller\Conta'      => 'Application\Controller\ContaController',
-            'Application\Controller\Pergunta'   => 'Application\Controller\PerguntaController'
+            'Application\Controller\Pergunta'   => 'Application\Controller\PerguntaController',
+            'Application\Controller\Auth'       => 'Application\Controller\AuthController'
             
         ),
     ),
