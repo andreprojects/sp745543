@@ -173,7 +173,7 @@ class PerguntaController extends AbstractActionController {
         $page = $this->params()->fromRoute('page',1);
         $paginator = new Paginator(new ArrayAdapter($or_pergunta));
         $paginator->setCurrentPageNumber($page);
-        $paginator->setDefaultItemCountPerPage(3);
+        $paginator->setDefaultItemCountPerPage(10);
 
         
         $result = new ViewModel(array('form' => $form,
@@ -199,8 +199,8 @@ class PerguntaController extends AbstractActionController {
             $records['status'] = 2;
             $service->update($records);
 
-            return $this->redirect()->toRoute('perguntas',array('id_ads'=>$id_ads));
-            
+            //return $this->redirect()->toRoute('perguntas',array('id_ads'=>$id_ads));
+            return $this->response;
 
         }
 
@@ -220,8 +220,8 @@ class PerguntaController extends AbstractActionController {
             $records['status'] = 1;
             $service->update($records);
 
-            return $this->redirect()->toRoute('perguntas',array('id_ads'=>$id_ads));
-
+            //return $this->redirect()->toRoute('perguntas',array('id_ads'=>$id_ads));
+             return $this->response;
         }
 
     }

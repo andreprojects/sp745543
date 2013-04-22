@@ -23,10 +23,14 @@ class AnuncioRepository extends EntityRepository {
 		return $records;
 	}
 	
-	public function findByUserListAll($userId)
+	public function findByUserListAll($userId,$sort = "id",$order = "DESC")
 	{
 		$qb = $this->createQueryBuilder('n'); 
-		$records = $qb->where('n.id_usuario = '.$userId,$qb->expr()->in('n.status', array(0,1,2,3)))->getQuery()->getResult();
+		$qb->where('n.id_usuario = '.$userId,$qb->expr()->in('n.status', array(0,1,2,3)));
+		$qb->orderBy("n.".$sort,$order);
+		$query = $qb->getQuery();
+		$records = $query->getResult();
+
 		return $records;
 	}
 	

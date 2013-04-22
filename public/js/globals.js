@@ -33,7 +33,8 @@ function callAjax(domain,div,type_send,data_send,save_url,domain_return,div_retu
 	    	div.html('carregando...');
 	    }, 
 	    success: function(html) {
-	        div.html(html);
+	    	var return_html = $.trim(html);
+	        div.html(return_html);
 	    },
 	    complete:function() {
 	     	if(domain_return!=undefined && div_return!=undefined)
@@ -42,3 +43,5 @@ function callAjax(domain,div,type_send,data_send,save_url,domain_return,div_retu
 	});
 	
 }
+
+

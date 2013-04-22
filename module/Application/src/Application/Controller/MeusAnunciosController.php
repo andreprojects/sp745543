@@ -106,6 +106,30 @@ class MeusAnunciosController extends AbstractActionController {
 									'dados_pagination'=>$paginator));     
     }
 
+    public function listAction(){
+    	$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
+    	
+    	$col_order   = $this->params()->fromRoute('col_order', 'id');
+        $type_order   = $this->params()->fromRoute('type_order', 'DESC');
+
+    	$repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
+		$obj_records = $repository->findByUserListAll($sessionLogin['user']->id,$col_order,$type_order);
+
+
+		$page = $this->params()->fromRoute('page');
+		$paginator = new Paginator(new ArrayAdapter($obj_records));
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setDefaultItemCountPerPage(2);
+
+		$result = new ViewModel(array(
+									'username' => $sessionLogin['user']->username,
+									'dados'=>$paginator,
+									)); 
+		$result->setTerminal(true);
+		return $result;
+
+    }
+
 	public function editAction()
 	{
 		

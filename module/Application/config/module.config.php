@@ -210,6 +210,17 @@ return array(
                     )
                 )
             ),
+            'meus-anuncios-list' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/h/meus-anuncios-list[/:col_order][/:type_order][/page[/:page]]',
+                    'defaults' => array(
+                      'controller' => 'Application\Controller\MeusAnuncios',
+                        'action'   => 'list'
+                    )
+                )
+            ),
+
             'convite' => array(
                 'type' => 'segment',
                 'options' => array(
