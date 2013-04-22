@@ -47,9 +47,9 @@
           <?php if($value->status != 0): ?>
             <a href='javascript:callAjax("<?php echo $this->url('reposta-pergunta',array('id_pergunta'=>$value->id,'tipo'=>'1')); ?>",$("#load-pergunta"));' ><i class="icon-edit"></i> Editar </a>
             <?php if($value->status == 1): ?>
-            <a href='<?php echo $this->url('perguntas',array('id_ads'=>$value->id_anuncio,'action'=>'remove','id_pergunta'=>$value->id)); ?>' ><i class="icon-remove-circle"></i> Retirar </a>
+            <a href='javascript:callAjax("<?php echo $this->url('perguntas',array('id_ads'=>$value->id_anuncio,'action'=>'remove','id_pergunta'=>$value->id)); ?>",$("#load-list-pergunta-conteudo"));' ><i class="icon-remove-circle"></i> Retirar </a>
             <?php elseif($value->status == 2): ?>
-            <a href='<?php echo $this->url('perguntas',array('id_ads'=>$value->id_anuncio,'action'=>'publica','id_pergunta'=>$value->id)); ?>' ><i class="icon-edit"></i> Publicar </a>
+            <a href='javascript:callAjax("<?php echo $this->url('perguntas',array('id_ads'=>$value->id_anuncio,'action'=>'publica','id_pergunta'=>$value->id)); ?>",$("#load-list-pergunta-conteudo"));' ><i class="icon-edit"></i> Publicar </a>
             <?php endif; ?>
 
 

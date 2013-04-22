@@ -131,7 +131,7 @@ class PerguntaController extends AbstractActionController {
         $type_order   = $this->params()->fromRoute('type_order', 'DESC');
 
         $repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
-        $or_pergunta = $repository->findByIdAds($id_ads,array($col_order=>$type_order));
+        $or_pergunta = $repository->findPerguntaPublica($id_ads);//,array($col_order=>$type_order));
 
         $page = $this->params()->fromRoute('page',1);
         $paginator = new Paginator(new ArrayAdapter($or_pergunta));
@@ -173,7 +173,7 @@ class PerguntaController extends AbstractActionController {
         $page = $this->params()->fromRoute('page',1);
         $paginator = new Paginator(new ArrayAdapter($or_pergunta));
         $paginator->setCurrentPageNumber($page);
-        $paginator->setDefaultItemCountPerPage(10);
+        $paginator->setDefaultItemCountPerPage(3);
 
         
         $result = new ViewModel(array('form' => $form,
@@ -200,6 +200,7 @@ class PerguntaController extends AbstractActionController {
             $service->update($records);
 
             return $this->redirect()->toRoute('perguntas',array('id_ads'=>$id_ads));
+            
 
         }
 
