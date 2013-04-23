@@ -10,6 +10,10 @@ use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Storage\Session as SessionStorage;
 use Zend\Session\Container;
 
+
+use Zend\Paginator\Paginator,
+    Zend\Paginator\Adapter\ArrayAdapter;
+
 class PerfilController extends AbstractActionController {
     
     /**
@@ -40,9 +44,40 @@ class PerfilController extends AbstractActionController {
           return $this->redirect()->toRoute("home-message");
         }
 
+        
+        $repository = $this->getEm()->getRepository("Application\Entity\Usuario");
+        $obj_records = $repository->findByUsername($username);
+
+        $dados['id_usuario'] = $obj_records->id;
         $dados['username'] = $username;
         return new ViewModel(array('form' => $form,'msg' => $msg,'dados' => $dados));    
 
+    }
+
+    public function listadsAction(){
+        //$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
+        //sem auth
+        $username  = $this->params()->fromRoute('username', 0);
+        $id_usuario  = $this->params()->fromRoute('id_usuario', 0);
+        $col_order   = $this->params()->fromRoute('col_order', 'id');
+        $type_order   = $this->params()->fromRoute('type_order', 'DESC');
+
+        $repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
+        $obj_records = $repository->findByUserListAll($id_usuario,$col_order,$type_order);
+
+
+        $page = $this->params()->fromRoute('page');
+        $paginator = new Paginator(new ArrayAdapter($obj_records));
+            $paginator->setCurrentPageNumber($page);
+            $paginator->setDefaultItemCountPerPage(2);
+
+        $result = new ViewModel(array(
+                      'username' =>  $username,
+                      'dados'=>$paginator,
+                      )); 
+        
+        $result->setTerminal(true);
+        return $result;
     }
 
     public function aAction(){

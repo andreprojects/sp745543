@@ -7,9 +7,22 @@
 		  <li class="active">Anúncios</li>
 		</ul>
 
-		<h4>Anúncios de <?php echo $this->dados['username']; ?></h4>
+		<h5>Anúncios de <i class="icon-user"></i> <?php echo $this->dados['username']; ?></h5>
+
+		<div id="load-listadsperfil">
+		</div>
 
 	</div>
 </div>
+<script type="text/javascript">
+ !function ($) {
+
+     $(function(){
+     		$('#div_filtra').hide();
+     		callAjax("<?php echo $this->url('list-ads-perfil',array('id_usuario'=>$this->dados['id_usuario'],'username'=>$this->dados['username'],'col_order'=>'id','type_order'=>'desc')); ?>",$('#load-listadsperfil'));
+    })
+
+}(window.jQuery)
+</script>
 
 

@@ -61,6 +61,19 @@ return array(
                     ),
                 ),
             ),
+
+            'list-ads-perfil' => array(//sem auth
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/h/listadsperfil[/:id_usuario][/:username][/:col_order][/:type_order][/page[/:page]]',
+                    'defaults' => array(
+                      'controller' => 'Application\Controller\Perfil',
+                        'action'   => 'listads'
+                    )
+                )
+            ),
+
+
             'faleconosco' => array(
                 'type' => 'literal',
                 'options' => array(

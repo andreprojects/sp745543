@@ -199,13 +199,15 @@ class MeusAnunciosController extends AbstractActionController {
 	public function displayimageAction(){
 		
 		$id_anuncio = $this->params()->fromRoute('id', 0);
+		$opcao = $this->params()->fromRoute('cod', 0);
+		
 		$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
 		
 		$records = $this->listimages($sessionLogin['user']->diretorio,$id_anuncio);
 		//var_dump($records);exit;
 		
 		//return $this->response;
-		$new_model = new ViewModel(array('dados'=>$records,'id_anuncio'=>$id_anuncio));
+		$new_model = new ViewModel(array('dados'=>$records,'id_anuncio'=>$id_anuncio,'opcao'=>$opcao));
 		$new_model->setTerminal(true);
 		return $new_model;
 		

@@ -2,7 +2,11 @@
 if(!empty($this->dados)):
 
 	foreach($this->dados as $item): ?>
-<img src='<?php echo $item['url']; ?>' style='padding:3px;' /><a href=javascript:callAjax('<?php echo $this->url("meus-anuncios",array('action'=>'deleteimage','id'=>$this->id_anuncio,'cod'=>$item['nome'])); ?>',$('#loadfotos<?php echo $this->id_anuncio; ?>'));  ><i class='icon-remove-circle'></i></a>
+<img src='<?php echo $item['url']; ?>' style='padding:3px;' />
+<?php if($this->opcao == 0): ?>
+<a href=javascript:callAjax('<?php echo $this->url("meus-anuncios",array('action'=>'deleteimage','id'=>$this->id_anuncio,'cod'=>$item['nome'])); ?>',$('#loadfotos<?php echo $this->id_anuncio; ?>'));  ><i class='icon-remove-circle'></i></a>
+<?php endif; ?>
+
 
 <?php endforeach; 
 endif;

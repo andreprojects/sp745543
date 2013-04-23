@@ -35,6 +35,12 @@ class UsuarioRepository extends EntityRepository {
     $records_users = $this->findOneById($id);
     return $records_users;
   }
+
+  public function findByUsername($username){
+    
+    $records = $this->findOneBy(array('username'=>$username));
+    return $records;
+  }
   
   public function findByTokenAndEmail($token,$email){
     
