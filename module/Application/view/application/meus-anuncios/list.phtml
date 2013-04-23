@@ -1,19 +1,4 @@
-<button class="btn btn-mini" type="button" id="btn_filtrar" onclick="displayDivDinamic($('#div_filtra'));">Filtrar</button>
-            <div id='div_filtra'>
-            <small >
-              <table class="">
-                <tr>
-                  <td>
-                    <ul>
-                      <li>Id <a href='Javascript:callAjax("<?php echo $this->url('list-pergunta-conteudo',array('id_ads'=>$this->ads['id'],'col_order'=>'id','type_order'=>'ASC')); ?>",$("#load-list-pergunta-conteudo"));'><img src="/img/order/gtk-sort-ascending.png" alt="descending, gtk, sort icon"></a> <a href='Javascript:callAjax("<?php echo $this->url('list-pergunta-conteudo',array('id_ads'=>$this->ads['id'],'col_order'=>'id','type_order'=>'DESC')); ?>",$("#load-list-pergunta-conteudo"));'><img src="/img/order/gtk-sort-descending.png" alt=""></a></li>
-                      <li>Título <a href='Javascript:callAjax("<?php echo $this->url('list-pergunta-conteudo',array('id_ads'=>$this->ads['id'],'col_order'=>'msg_pergunta','type_order'=>'ASC')); ?>",$("#load-list-pergunta-conteudo"));'><img src="/img/order/gtk-sort-ascending.png" alt=""></a> <a href='Javascript:callAjax("<?php echo $this->url('list-pergunta-conteudo',array('id_ads'=>$this->ads['id'],'col_order'=>'msg_pergunta','type_order'=>'DESC')); ?>",$("#load-list-pergunta-conteudo"));'><img src="/img/order/gtk-sort-descending.png" alt=""></a></li>
-                      <li>Status <a href='Javascript:callAjax("<?php echo $this->url('list-pergunta-conteudo',array('id_ads'=>$this->ads['id'],'col_order'=>'status','type_order'=>'ASC')); ?>",$("#load-list-pergunta-conteudo"));'><img src="/img/order/gtk-sort-ascending.png" alt=""></a> <a href='Javascript:callAjax("<?php echo $this->url('list-pergunta-conteudo',array('id_ads'=>$this->ads['id'],'col_order'=>'status','type_order'=>'DESC')); ?>",$("#load-list-pergunta-conteudo"));'><img src="/img/order/gtk-sort-descending.png" alt=""></a></li>
-                    </ul>
-                  </td>
-                </tr>
-              </table>
-            </small>
-          </div>
+
           
 <table class="table table-hover">
   <thead>
@@ -119,7 +104,7 @@
 		     $(function(){
 
 		     		//callAjax("<?php echo $this->url('convite'); ?>",$('#loadconvite'));
-					$('#div_filtra').hide();
+					
 				    $('.fileupload').fileupload({
 				        // Uncomment the following to send cross-domain cookies:
 				        //xhrFields: {withCredentials: true},

@@ -48,7 +48,22 @@
 			  <li><a href="/">Home</a> <span class="divider">/</span></li>
 			  <li class="active">Meus Anúncios</li>
 			</ul>
-          
+          	<button class="btn btn-mini" type="button" id="btn_filtrar" onclick="displayDivDinamic($('#div_filtra'));">Filtrar</button> <small><a href="<?php echo $this->url('home',array('username'=>$this->username)); ?>"><i class="icon-user"></i> <?php echo $this->username; ?></a></small>
+            <div id='div_filtra'>
+            <small >
+              <table class="">
+                <tr>
+                  <td>
+                    <ul>
+                      <li>Id <a href='Javascript:callAjax("<?php echo $this->url('meus-anuncios-list',array('col_order'=>'id','type_order'=>'ASC')); ?>",$("#load-meus-anuncios-list"));'><img src="/img/order/gtk-sort-ascending.png" alt="descending, gtk, sort icon"></a> <a href='Javascript:callAjax("<?php echo $this->url('meus-anuncios-list',array('col_order'=>'id','type_order'=>'DESC')); ?>",$("#load-meus-anuncios-list"));'><img src="/img/order/gtk-sort-descending.png" alt=""></a></li>
+                      <li>Título <a href='Javascript:callAjax("<?php echo $this->url('meus-anuncios-list',array('col_order'=>'titulo','type_order'=>'ASC')); ?>",$("#load-meus-anuncios-list"));'><img src="/img/order/gtk-sort-ascending.png" alt=""></a> <a href='Javascript:callAjax("<?php echo $this->url('meus-anuncios-list',array('col_order'=>'titulo','type_order'=>'DESC')); ?>",$("#load-meus-anuncios-list"));'><img src="/img/order/gtk-sort-descending.png" alt=""></a></li>
+                      <li>Status <a href='Javascript:callAjax("<?php echo $this->url('meus-anuncios-list',array('col_order'=>'status','type_order'=>'ASC')); ?>",$("#load-meus-anuncios-list"));'><img src="/img/order/gtk-sort-ascending.png" alt=""></a> <a href='Javascript:callAjax("<?php echo $this->url('meus-anuncios-list',array('col_order'=>'status','type_order'=>'DESC')); ?>",$("#load-meus-anuncios-list"));'><img src="/img/order/gtk-sort-descending.png" alt=""></a></li>
+                    </ul>
+                  </td>
+                </tr>
+              </table>
+            </small>
+          </div>
 			<div id="load-meus-anuncios-list">
 			</div>
        </div>
@@ -148,7 +163,7 @@
 		 !function ($) {
 		
 		     $(function(){
-
+		     		$('#div_filtra').hide();
 		     		callAjax("<?php echo $this->url('convite'); ?>",$('#loadconvite'));
 		     		callAjax("<?php echo $this->url('meus-anuncios-list',array('col_order'=>'id','type_order'=>'desc')); ?>",$('#load-meus-anuncios-list'));
 		
