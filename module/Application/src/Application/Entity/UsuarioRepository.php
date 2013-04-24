@@ -50,7 +50,7 @@ class UsuarioRepository extends EntityRepository {
   
   public function findAllUser(){
   	$entities = $this->findAll();
-	return $entities;
+	  return $entities;
   }
   
   

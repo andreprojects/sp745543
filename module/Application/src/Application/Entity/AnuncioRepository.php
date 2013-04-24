@@ -65,5 +65,13 @@ class AnuncioRepository extends EntityRepository {
 		return $records;
 	}
 
+	public function findByWord($word){
+		$qb = $this->createQueryBuilder('a');
+		$qb->where($qb->expr()->like('a.titulo', $qb->expr()->literal('%vendo%')));
+		$query = $qb->getQuery();
+		$records = $query->getResult();
+		return $records;
+	}
+
     
 }

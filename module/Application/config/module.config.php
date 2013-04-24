@@ -73,6 +73,18 @@ return array(
                 )
             ),
 
+            'search' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/h/search',
+                    'defaults' => array(
+                      'controller' => 'Application\Controller\Search',
+                        'action'  => 'index'
+                        
+                    )
+                )
+            ),
+
 
             'faleconosco' => array(
                 'type' => 'literal',
@@ -514,7 +526,7 @@ return array(
             'Application\Controller\Perfil'     => 'Application\Controller\PerfilController',
             'Application\Controller\Conta'      => 'Application\Controller\ContaController',
             'Application\Controller\Pergunta'   => 'Application\Controller\PerguntaController',
-            'Application\Controller\Auth'       => 'Application\Controller\AuthController'
+            'Application\Controller\Search'       => 'Application\Controller\SearchController'
             
         ),
     ),

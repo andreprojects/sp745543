@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Shareplaque - Solução em anúncio</title>
+    <title>Shareplaque - Soluções em anúncios</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -26,12 +26,12 @@
       <script src="../assets/js/html5shiv.js"></script>
     <![endif]-->
 
-    <!-- Fav and touch icons -->
+    <!-- Fav and touch icons 
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
                     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">
+                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">-->
                                    
    <script src="/js/jquery-1.7.2.min.js"></script>
    <script src="/js/jquery.ui.widget.js"></script>
@@ -67,15 +67,28 @@
               <?php endif; ?>
               <li class=""><a href="<?php echo $this->url('faleconosco'); ?>">Fale Conosco</a></li>
               <li class=""><a href="<?php echo $this->url('faq'); ?>">Faq</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Olá,  <?php echo $sessionUser['user']->nome; ?> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="<?php echo $this->url('conta'); ?>">Editar</a></li>
+                  <li><a href="<?php echo $this->url('logout'); ?>">Sair</a></li>
+                </ul>
+              </li>
             </ul>
-            
+            <!--
             <ul class="nav pull-right">
               <?php if($sessionUser): ?>
               <li class="">
                 <span >Olá,  <?php echo $sessionUser['user']->nome; ?><br><spaN><a href="<?php echo $this->url('conta'); ?>">Editar</a> | <a href="<?php echo $this->url('logout'); ?>">Sair</a></spaN></span>
               </li>
               <?php endif; ?>
-            </ul>
+            </ul> -->
+            <form class="navbar-form pull-right" action="" method="post">
+              <div class="input-append">
+                <input class="span2" id="appendedInputButton" type="text">
+                <button class="btn" type="button">Buscar</button>
+              </div>
+             </form>
              
              
            
@@ -97,10 +110,18 @@
       </footer>
 
     </div> <!-- /container -->
-    
-    <script src="/js/bootstrap-dropdown.js"></script>
-    <script src="/js/bootstrap-tooltip.js"></script>
-    <script src="/js/bootstrap-alert.js"></script>
+    <script src="/js/bootstrap/bootstrap-transition.js"></script>
+    <script src="/js/bootstrap/bootstrap-alert.js"></script>
+    <script src="/js/bootstrap/bootstrap-modal.js"></script>
+    <script src="/js/bootstrap/bootstrap-dropdown.js"></script>
+    <script src="/js/bootstrap/bootstrap-scrollspy.js"></script>
+    <script src="/js/bootstrap/bootstrap-tab.js"></script>
+    <script src="/js/bootstrap/bootstrap-tooltip.js"></script>
+    <script src="/js/bootstrap/bootstrap-popover.js"></script>
+    <script src="/js/bootstrap/bootstrap-button.js"></script>
+    <script src="/js/bootstrap/bootstrap-collapse.js"></script>
+    <script src="/js/bootstrap/bootstrap-carousel.js"></script>
+    <script src="/js/bootstrap/bootstrap-typeahead.js"></script>
     <script>
     !function ($) {
 
