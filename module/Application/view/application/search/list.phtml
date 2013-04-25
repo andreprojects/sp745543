@@ -1,93 +1,40 @@
 
           
-<table class="table table-hover">
+<table class="table-search" width="100%">
   <thead>
     <tr>
-      <th>#</th>
-      <th>Título</th>
-      <th>Status</th>
-      <th>Ações</th>
+      
+      <td></td>
     </tr>
   </thead>
   <tbody>
-  	<?php if(!empty($this->dados)) { foreach ($this->dados as $key => $value) { ?>
+    <?php if(!empty($this->dados)) { //var_dump($this->dados);exit;
+      foreach ($this->dados as $key => $value) { ?>
     <tr>
-      <td><?php echo $value->id; ?></td>
-      <td><a href="<?php echo $this->url("home",array("username"=>$this->username,"action"=>'a',"id_ads"=>$value->id,"url_ads"=>$value->url)); ?>" data-toggle="tooltip" data-original-title="Visualizar Anúncio"><?php echo $value->titulo; ?></a></td>
-      <td>
-
-      
-      <?php
-      	switch ($value->status) {
-      		case '0':
-      			$src= "/img/status/status_mod.png";
-      			$txt_tooltip= "Moderação";
-      			break;
-
-      		case '1':
-      			$src= "/img/status/status_ok.png";
-      			$txt_tooltip= "Ativo";
-      			break;
-      		
-      		case '2':
-      			$src= "/img/status/status_rep.png";
-      			$txt_tooltip= "Reprovado";
-      			break;		
-      		
-      		default:
-      			# code...
-      			break;
-      	}
-      ?>
-       <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="No momento este anúncio está em <?php echo $txt_tooltip; ?>"><img src="<?php echo $src; ?>" /></a>
-   	  </td>
-      <td><a href="<?php echo $this->url("meus-anuncios",array('action'=>'edit','id'=>$value->id)); ?>"><i class="icon-edit"></i> Editar</a> <a href="<?php echo $this->url("meus-anuncios",array('action'=>'delete','id'=>$value->id)); ?>"><i class="icon-remove-circle"></i> Excluir</a></td>
+      <td><small><?php echo $value['a_data_cadastro']->format('d/m/Y H:i'); ?></small></td>
     </tr>
     <tr>
-    	<td colspan="4">
-    		<table class="table table-bordered">
-            <tr>
-            	<td colspan="4">
-            		<div class="alert alert-error hide">
-			            <button type="button" class="close" data-dismiss="alert">×</button>
-			            <span></span>
-			          </div>
-            	</td>
-            </tr>
-            <tr>
-            	
-            	<td>
-            		<form class="fileupload" action="<?php echo $this->url("meus-anuncios",array('action'=>'addimage','id'=>$value->id)); ?>" method="POST" enctype="multipart/form-data">
-                		<span class="label label-important"></span>
-                		<span class="btn btn-success fileinput-button" >
-		                    <i class="icon-plus icon-white"></i>
-		                    <span>Adicionar fotos</span>
-		                    <input type="file" name="filesaddfotos" multiple="">
-		                </span>
-		                <span class="loading"></span>
-            		</form>
-            	</td>
-            	<td colspan="2">
-            		<a href="<?php echo $this->url("perguntas",array('id_ads'=>$value->id)); ?>" class="btn btn-info"><i class="icon-list icon-white"></i> Perguntas</a>
-            	</td>
-            		
-            </tr>
-            <tr>
-            	
-            	<td id="loadfotos<?php echo $value->id; ?>" width="60%">
-            		<script>callAjax("<?php echo $this->url("meus-anuncios",array('action'=>'displayimage','id'=>$value->id)); ?>",$('#loadfotos<?php echo $value->id; ?>'));</script>
-            	</td>
-            	<td></td>
-            	<td></td>
-            		
-            </tr>
-   			</table>
-   </td>
-  </tr>
- 
+      <td><a href="<?php echo $this->url("home",array("username"=>$value['u_username'],"action"=>'a',"id_ads"=>$value['a_id'],"url_ads"=>$value['a_url'])); ?>" data-toggle="tooltip" data-original-title="Visualizar Anúncio"><?php echo $value['a_titulo']; ?></a></td>
+    </tr>
+    <tr>
+      
+      <td><small><?php echo substr($value['a_descricao'],0,255)."..."; ?></small></td>
+    </tr>
+    <tr>
+      <td id="loadfotos<?php echo $value['a_id']; ?>">
+<script>callAjax("<?php echo $this->url('meus-anuncios',array('action'=>'displayimage','id'=>$value['a_id'],'cod'=>1)); ?>",$("#loadfotos<?php echo $value['a_id']; ?>"));</script>
+      </td>
+    </tr>
+    <tr>
+      <td><small><i class="icon-user"></i> <?php echo $value['u_username']; ?></small></td>
+    </tr>
+     <tr>
+      <td><hr></td>
+    </tr>
+    
     <?php } }else{ ?>
     <tr>
-    	<td colspan="4">Nenhum anúncio cadastro</td>
+      <td colspan="4">Nenhum anúncio cadastro</td>
     </tr>
     
     <?php } ?>
@@ -98,63 +45,19 @@
       <script type="text/javascript">
       
 
-      	
-		 !function ($) {
-		
-		     $(function(){
+        
+     !function ($) {
+    
+         $(function(){
 
-		     		//callAjax("<?php echo $this->url('convite'); ?>",$('#loadconvite'));
-					
-				    $('.fileupload').fileupload({
-				        // Uncomment the following to send cross-domain cookies:
-				        //xhrFields: {withCredentials: true},
-				        url: $(this).attr('action'),
-				        autoupload: true,
-				        add: function (e, data) {
-				        	//console.dir(data);
-				        	//console.dir(data.files);
-				        	var valid = true;
-	                        var re = /^.+\.((jpg)|(png)|(gif)|(jpeg))$/i;
-	                        var form_current = $(this); 
-	                        
-	                        form_current.find('.loading').html("<img src='/img/loading/loading.gif' />");
-				            
-	                        $.each(data.files, function (index, file) {
-	                        	if (!re.test(file.name)) {
-	                            	form_current.find('.loading').html("");
-			                        $('.alert').find('span').html('This file type is not supported');
-			                        $('.alert').show();
-	                                valid = false;
-	                            }
-	                        });
-	                        if (valid)
-	                            data.submit();
-				        	
-				        },
-	                    done: function (e, data) {
-	                    	var obj = JSON.parse(data.result);
-	                        $(this).find('.loading').html("");
-	                        if(obj.files.error != undefined){
-	                        	
-	                        	$('.alert').find('span').html(obj.files.error);
-	                        	$('.alert').show();
-	                        	//$('.alert').alert();
-	                        }else{
-	                        	callAjax("<?php echo $this->url("meus-anuncios",array('action'=>'displayimage')); ?>/"+obj.files[0].id,$('#loadfotos'+obj.files[0].id));
-	                        }	
-	                        
-	                    },
-	                    error: function () {
-	                        $(this).find('.label-important').html('An error occured while uploading the document.');
-	                    }
-				    });
-		
-		    })
-		
-		}(window.jQuery)
-		
+           
+    
+        })
+    
+    }(window.jQuery)
+    
 
-		
+    
 
       </script>
 

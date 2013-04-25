@@ -36,3 +36,16 @@
   
 }
 
+.table-search td{
+  padding: 3px;
+}
+
+.table-search td span{
+  color: #0088cc;
+}
+
+.table-search td em{
+  color: #999999;
+  
+}
+

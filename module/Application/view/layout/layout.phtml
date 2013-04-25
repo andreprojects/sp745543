@@ -67,6 +67,7 @@
               <?php endif; ?>
               <li class=""><a href="<?php echo $this->url('faleconosco'); ?>">Fale Conosco</a></li>
               <li class=""><a href="<?php echo $this->url('faq'); ?>">Faq</a></li>
+              <?php if($sessionUser): ?>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Olá,  <?php echo $sessionUser['user']->nome; ?> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -74,6 +75,7 @@
                   <li><a href="<?php echo $this->url('logout'); ?>">Sair</a></li>
                 </ul>
               </li>
+              <?php endif; ?>
             </ul>
             <!--
             <ul class="nav pull-right">
@@ -83,10 +85,10 @@
               </li>
               <?php endif; ?>
             </ul> -->
-            <form class="navbar-form pull-right" action="" method="post">
+            <form class="navbar-form pull-right" action="<?php echo $this->url('search'); ?>" method="post">
               <div class="input-append">
-                <input class="span2" id="appendedInputButton" type="text">
-                <button class="btn" type="button">Buscar</button>
+                <input class="span2" type="text" name="word" placeholder="Procuro por">
+                <input class="btn" type="submit" value="Buscar">
               </div>
              </form>
              

@@ -85,6 +85,18 @@ return array(
                 )
             ),
 
+            'list-search' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/h/listsearch[/:word][/:col_order][/:type_order][/page[/:page]]',
+                    'defaults' => array(
+                      'controller' => 'Application\Controller\Search',
+                        'action'  => 'list'
+                        
+                    )
+                )
+            ),
+
 
             'faleconosco' => array(
                 'type' => 'literal',

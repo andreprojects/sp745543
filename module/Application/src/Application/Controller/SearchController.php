@@ -10,6 +10,9 @@ use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Storage\Session as SessionStorage;
 use Zend\Session\Container; 
 
+use Zend\Paginator\Paginator,
+    Zend\Paginator\Adapter\ArrayAdapter;
+
 class SearchController extends AbstractActionController {
     
     /**
@@ -34,22 +37,63 @@ class SearchController extends AbstractActionController {
     public function indexAction()
     {
     	//$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
-        $word = $this->params('word', 'vendo');
+        //$dados['word'] = $this->params()->fromRoute('word', 0);
+        $request = $this->getRequest()->getPost();
 
-        $validator_alpha = new \Zend\Validator\Alpha(array('allowWhiteSpace' => true));
-
-        if ($validator->isValid($word)) {
-            $
+        if(!empty($request)){
+            $post = $request->toArray();
         }
+        //var_dump($post);
+        $result = new ViewModel(array('dados' => $post));
+    	//$result->setTerminal(true);
+		return $result;   
+        //return $this->response;     
+    }
+
+    public function textoURL($string,$escape="-") 
+    { 
+        $string    = htmlentities(strtolower($string)); 
+        $string    = preg_replace("/&(.)(acute|cedil|circ|ring|tilde|uml);/", "$1", $string); 
+        $string    = preg_replace("/([^a-z0-9]+)/", $escape, html_entity_decode($string)); 
+        $string    = trim($string, $escape); 
+        return $string; 
+    }
+
+
+    public function listAction()
+    {
+        //$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
+
+        /*$validator_alpha = new \Zend\Validator\Alpha(array('allowWhiteSpace' => true));
+
+        if (!$validator->isValid(trim(strip_tags($word)))) {
+            $msg['error'] = 1;
+        }else{*/
+        
+        $word = $this->params('word', 'casa');
+        $word = trim(strip_tags($word));
+        $word = $this->textoURL($word,'%');
 
         $repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
         $obj_records = $repository->findByWord($word);
-        
-        var_dump($obj_records);
 
-        $result = new ViewModel(array('form' => $form,'records' => $load_records,'msg' => $msg));
-    	//$result->setTerminal(true);
-		return $result;   
+        //var_dump($obj_records);exit;
+
+        if(!empty($obj_records))
+        {
+            $ar_full = $obj_records;
+            //$ar_full = $obj_records[0]->getArrayCopy()+$obj_records[1]->getArrayCopy();
+        
+            $page = $this->params()->fromRoute('page');
+            $paginator = new Paginator(new ArrayAdapter($ar_full));
+            $paginator->setCurrentPageNumber($page);
+            $paginator->setDefaultItemCountPerPage(2);
+        }
+        //var_dump($paginator);
+
+        $result = new ViewModel(array('dados' => $paginator,'msg' => $msg));
+        $result->setTerminal(true);
+        return $result;   
         //return $this->response;     
     }
 

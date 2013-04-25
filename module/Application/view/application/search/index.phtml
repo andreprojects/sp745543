@@ -6,7 +6,11 @@
 	  <li><a href="/">Home</a> <span class="divider">/</span></li>
 	  <li class="active">Busca</li>
 	</ul>
-  	<button class="btn btn-mini" type="button" id="btn_filtrar" onclick="displayDivDinamic($('#div_filtra'));">Filtrar</button> <small><a href="<?php echo $this->url('home',array('username'=>$this->username)); ?>"><i class="icon-user"></i> <?php echo $this->username; ?></a></small>
+  <p>
+    Procurando por <b><?php echo $this->dados['word']; ?></b>
+  </p>
+  <p>
+  	<button class="btn btn-mini" type="button" id="btn_filtrar" onclick="displayDivDinamic($('#div_filtra'));">Filtrar</button> 
     <div id='div_filtra'>
     <small >
       <table class="">
@@ -22,7 +26,8 @@
       </table>
     </small>
   </div>
-	<div id="load-meus-anuncios-list">
+</p>
+	<div id="load-listsearch">
 	</div>
 </div>
 
@@ -36,7 +41,7 @@
      $(function(){
      		$('#div_filtra').hide();
      		//callAjax("<?php echo $this->url('convite'); ?>",$('#loadconvite'));
-     		//callAjax("<?php echo $this->url('meus-anuncios-list',array('col_order'=>'id','type_order'=>'desc')); ?>",$('#load-meus-anuncios-list'));
+     		callAjax("<?php echo $this->url('list-search',array('word'=>$this->dados['word'],'col_order'=>'id','type_order'=>'desc')); ?>",$('#load-listsearch'));
 
 		    
 

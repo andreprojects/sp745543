@@ -42,50 +42,6 @@
 		     $(function(){
 
 		     		//callAjax("<?php echo $this->url('convite'); ?>",$('#loadconvite'));
-					
-				    $('.fileupload').fileupload({
-				        // Uncomment the following to send cross-domain cookies:
-				        //xhrFields: {withCredentials: true},
-				        url: $(this).attr('action'),
-				        autoupload: true,
-				        add: function (e, data) {
-				        	//console.dir(data);
-				        	//console.dir(data.files);
-				        	var valid = true;
-	                        var re = /^.+\.((jpg)|(png)|(gif)|(jpeg))$/i;
-	                        var form_current = $(this); 
-	                        
-	                        form_current.find('.loading').html("<img src='/img/loading/loading.gif' />");
-				            
-	                        $.each(data.files, function (index, file) {
-	                        	if (!re.test(file.name)) {
-	                            	form_current.find('.loading').html("");
-			                        $('.alert').find('span').html('This file type is not supported');
-			                        $('.alert').show();
-	                                valid = false;
-	                            }
-	                        });
-	                        if (valid)
-	                            data.submit();
-				        	
-				        },
-	                    done: function (e, data) {
-	                    	var obj = JSON.parse(data.result);
-	                        $(this).find('.loading').html("");
-	                        if(obj.files.error != undefined){
-	                        	
-	                        	$('.alert').find('span').html(obj.files.error);
-	                        	$('.alert').show();
-	                        	//$('.alert').alert();
-	                        }else{
-	                        	callAjax("<?php echo $this->url("meus-anuncios",array('action'=>'displayimage')); ?>/"+obj.files[0].id,$('#loadfotos'+obj.files[0].id));
-	                        }	
-	                        
-	                    },
-	                    error: function () {
-	                        $(this).find('.label-important').html('An error occured while uploading the document.');
-	                    }
-				    });
 		
 		    })
 		

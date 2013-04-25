@@ -67,9 +67,11 @@ class AnuncioRepository extends EntityRepository {
 
 	public function findByWord($word){
 		$qb = $this->createQueryBuilder('a');
-		$qb->where($qb->expr()->like('a.titulo', $qb->expr()->literal('%vendo%')));
+		$qb ->select(array('u','a'))
+			->innerJoin('Application\Entity\Usuario', 'u', 'WITH', 'u.id = a.id_usuario');
+		$qb->where($qb->expr()->like('a.titulo', $qb->expr()->literal('%'.$word.'%')));
 		$query = $qb->getQuery();
-		$records = $query->getResult();
+		$records = $query->getScalarResult();
 		return $records;
 	}
 
