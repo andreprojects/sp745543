@@ -7,7 +7,7 @@
 	  <li class="active">Busca</li>
 	</ul>
   <p>
-    Procurando por <b><?php echo $this->dados['word']; ?></b>
+    Procurando por <b>"<?php echo $this->dados['word']; ?>"</b>
   </p>
   <p>
   	<button class="btn btn-mini" type="button" id="btn_filtrar" onclick="displayDivDinamic($('#div_filtra'));">Filtrar</button> 
@@ -17,9 +17,9 @@
         <tr>
           <td>
             <ul>
-              <li>Id <a href='Javascript:callAjax("<?php echo $this->url('meus-anuncios-list',array('col_order'=>'id','type_order'=>'ASC')); ?>",$("#load-meus-anuncios-list"));'><img src="/img/order/gtk-sort-ascending.png" alt="descending, gtk, sort icon"></a> <a href='Javascript:callAjax("<?php echo $this->url('meus-anuncios-list',array('col_order'=>'id','type_order'=>'DESC')); ?>",$("#load-meus-anuncios-list"));'><img src="/img/order/gtk-sort-descending.png" alt=""></a></li>
-              <li>Título <a href='Javascript:callAjax("<?php echo $this->url('meus-anuncios-list',array('col_order'=>'titulo','type_order'=>'ASC')); ?>",$("#load-meus-anuncios-list"));'><img src="/img/order/gtk-sort-ascending.png" alt=""></a> <a href='Javascript:callAjax("<?php echo $this->url('meus-anuncios-list',array('col_order'=>'titulo','type_order'=>'DESC')); ?>",$("#load-meus-anuncios-list"));'><img src="/img/order/gtk-sort-descending.png" alt=""></a></li>
-              <li>Status <a href='Javascript:callAjax("<?php echo $this->url('meus-anuncios-list',array('col_order'=>'status','type_order'=>'ASC')); ?>",$("#load-meus-anuncios-list"));'><img src="/img/order/gtk-sort-ascending.png" alt=""></a> <a href='Javascript:callAjax("<?php echo $this->url('meus-anuncios-list',array('col_order'=>'status','type_order'=>'DESC')); ?>",$("#load-meus-anuncios-list"));'><img src="/img/order/gtk-sort-descending.png" alt=""></a></li>
+              <li>Cadastro <a href='Javascript:callAjax("<?php echo $this->url('list-search',array('word'=>$this->dados['word'],'col_order'=>'id','type_order'=>'ASC')); ?>",$("#load-listsearch"));'><img src="/img/order/gtk-sort-ascending.png" alt="descending, gtk, sort icon"></a> <a href='Javascript:callAjax("<?php echo $this->url('list-search',array('word'=>$this->dados['word'],'col_order'=>'id','type_order'=>'DESC')); ?>",$("#load-listsearch"));'><img src="/img/order/gtk-sort-descending.png" alt=""></a></li>
+              <li>Título <a href='Javascript:callAjax("<?php echo $this->url('list-search',array('word'=>$this->dados['word'],'col_order'=>'titulo','type_order'=>'ASC')); ?>",$("#load-listsearch"));'><img src="/img/order/gtk-sort-ascending.png" alt=""></a> <a href='Javascript:callAjax("<?php echo $this->url('list-search',array('word'=>$this->dados['word'],'col_order'=>'titulo','type_order'=>'DESC')); ?>",$("#load-listsearch"));'><img src="/img/order/gtk-sort-descending.png" alt=""></a></li>
+              <li>Descrição <a href='Javascript:callAjax("<?php echo $this->url('list-search',array('word'=>$this->dados['word'],'col_order'=>'descricao','type_order'=>'ASC')); ?>",$("#load-listsearch"));'><img src="/img/order/gtk-sort-ascending.png" alt=""></a> <a href='Javascript:callAjax("<?php echo $this->url('list-search',array('word'=>$this->dados['word'],'col_order'=>'descricao','type_order'=>'DESC')); ?>",$("#load-listsearch"));'><img src="/img/order/gtk-sort-descending.png" alt=""></a></li>
             </ul>
           </td>
         </tr>

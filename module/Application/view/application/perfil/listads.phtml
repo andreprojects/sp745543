@@ -1,31 +1,21 @@
 
           
 <table class="table-pergunta-publica">
-  <thead>
-    <tr>
-      <td>#</td>
-      <td>Título</td>
-    </tr>
-  </thead>
-  <tbody>
   	<?php if(!empty($this->dados)) { foreach ($this->dados as $key => $value) { ?>
     <tr>
-      <td width="5%"><?php echo $value->id; ?></td>
       <td><a href="<?php echo $this->url("home",array("username"=>$this->username,"action"=>'a',"id_ads"=>$value->id,"url_ads"=>$value->url)); ?>" data-toggle="tooltip" data-original-title="Visualizar Anúncio"><?php echo $value->titulo; ?></a></td>
     </tr>
     <tr>
-      <td width="5%"></td>
-      <td><?php echo substr($value->descricao,0,50)."..."; ?></td>
+      <td><small><?php if(strlen($value->descricao)>=255) {echo substr($value->descricao,0,255)."...";}else{ echo $value->descricao;} ?></small></td>
     </tr>
     <tr>
-      <td width="5%"></td>
       <td id="loadfotos<?php echo $value->id; ?>">
-<script>callAjax("<?php echo $this->url("meus-anuncios",array('action'=>'displayimage','id'=>$value->id,'cod'=>1)); ?>",$('#loadfotos<?php echo $value->id; ?>'));</script>
+<script>callAjax("<?php echo $this->url("display-images",array('id'=>$value->id,'cod'=>1)); ?>",$('#loadfotos<?php echo $value->id; ?>'));</script>
       </td>
     </tr>
     <?php } }else{ ?>
     <tr>
-    	<td colspan="4">Nenhum anúncio cadastro</td>
+    	<td colspan="">Nenhum anúncio cadastro</td>
     </tr>
     
     <?php } ?>

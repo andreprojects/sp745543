@@ -69,13 +69,16 @@ class SearchController extends AbstractActionController {
         if (!$validator->isValid(trim(strip_tags($word)))) {
             $msg['error'] = 1;
         }else{*/
+
+        $col_order   = $this->params()->fromRoute('col_order', 'id');
+        $type_order   = $this->params()->fromRoute('type_order', 'DESC');
         
         $word = $this->params('word', 'casa');
         $word = trim(strip_tags($word));
         $word = $this->textoURL($word,'%');
 
         $repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
-        $obj_records = $repository->findByWord($word);
+        $obj_records = $repository->findByWord($word,$col_order,$type_order);
 
         //var_dump($obj_records);exit;
 

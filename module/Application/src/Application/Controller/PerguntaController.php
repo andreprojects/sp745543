@@ -90,6 +90,8 @@ class PerguntaController extends AbstractActionController {
                 }
 				
 				$form->setData(array('nome'=>'','email'=>'','msg_pergunta'=>''));
+                $msg['tipo'] = "success";
+                $msg['cod_msg'] = 1;
 				
                     //$service->SendEmail($records);    
     				//return $this->redirect()->toRoute('home-message',array('tipo'=>'fsuccess','ref'=>'register','cod_msg'=>'1'));

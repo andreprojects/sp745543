@@ -1,3 +1,36 @@
+<?php 
+               
+if($this->msg['tipo'] == "error"){
+    echo '<div class="alert alert-error">';
+    switch ($this->msg['cod_msg']) {
+        case '1':
+            echo "Usuário ou senha inválidos";
+            break;
+        
+        default:
+            
+            break;
+    }
+    echo '</div>';
+
+}elseif($this->msg['tipo'] == "success"){
+    echo '<div class="alert alert-success">';
+    switch ($this->msg['cod_msg']) {
+        case '1':
+            echo "Pergunta enviada com sucesso";
+            break;
+            
+        case '2':
+            break;
+        
+        default:
+            
+            break;
+    }
+    echo '</div>';
+}
+
+?>
 <?php
  $form = $this->form_pergunta;            
  //$action = $form->get('id')->getValue() ? "edit" : "index" ;
@@ -17,7 +50,7 @@
     <label>Email</label>
      <?php echo $this->formInput($form->get('email')); ?>
      <?php echo $this->formElementErrors($form->get('email')); ?>
-    <span class="help-block">Example block-level help text here.</span>
+    <span class="help-block"></span>
     <button type="button" class="btn" onclick="callAjax('<?php echo $this->url('pergunta-publica',array('id_ads'=>$id_anuncio)); ?>',$('#load-pergunta-publica'),'POST','msg_pergunta='+$('#perguntapublica').find('textarea[name=msg_pergunta]').val()+'&nome='+$('#perguntapublica').find('input[name=nome]').val()+'&email='+$('#perguntapublica').find('input[name=email]').val());">Enviar</button>
   </fieldset>
 </form>

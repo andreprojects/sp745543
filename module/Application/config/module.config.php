@@ -236,6 +236,17 @@ return array(
                     )
                 )
             ),
+            'display-images' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/h/display-images[/:id][/:cod]',
+                    'defaults' => array(
+                      'controller' => 'Application\Controller\MeusAnuncios',
+                        'action'  => 'displayimage'
+                        
+                    )
+                )
+            ),
             'meus-anuncios' => array(
                 'type' => 'segment',
                 'options' => array(

@@ -4,7 +4,7 @@
         <ul class="breadcrumb">
     <li><a href="/">Home</a> <span class="divider">/</span></li>
     <li><a href="<?php echo $this->url("meus-anuncios"); ?>">Meus Anúncios</a> <span class="divider">/</span></li>
-    <li class="active"><?php echo $this->dados['titulo']; ?></li>
+    <li class="active"><a href="<?php echo $this->url("home",array('username'=>$this->dados['username'])); ?>"><i class="icon-user"></i> <?php echo $this->dados['username']; ?></a></li>
   </ul> 
 
     	<?php if(!empty($this->dados['collections_images'])): foreach($this->dados['collections_images'] as $item): ?>

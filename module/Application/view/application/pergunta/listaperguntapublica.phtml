@@ -10,9 +10,12 @@
         <td></td>
         <td><img src="/img/pergunta/user_resp.gif"> <?php echo $value->msg_resposta;//echo substr($value->msg_pergunta, 0, 40); ?> <em><small>- Respondido em: <?php echo $value->data_resposta->format('d/m/Y H:i'); ?></small></em></td>
       </tr>
-      <?php } } ?>
-       
-   
+      <?php } }else{ ?>
+      <tr>
+        <td colspan="2">Nenhuma pergunta enviada</td>
+      </tr>
+      <?php } ?>
+      
   </table>
   <p>
   <?php echo $this->paginationControl($this->dados,'Sliding','paginator'); ?>
