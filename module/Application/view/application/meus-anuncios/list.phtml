@@ -76,9 +76,11 @@
             </tr>
             <tr>
             	
-            	<td id="loadfotos<?php echo $value->id; ?>" width="" colspan="4">
+            	<td  width="" colspan="4">
+                <div id="loadfotos<?php echo $value->id; ?>" style="overflow:auto;width:100%;max-height:60px;">
             		<script>callAjax("<?php echo $this->url("meus-anuncios",array('action'=>'displayimage','id'=>$value->id)); ?>",$('#loadfotos<?php echo $value->id; ?>'));</script>
-            	</td>
+            	   </div>
+              </td>
             		
             </tr>
    			</table>
