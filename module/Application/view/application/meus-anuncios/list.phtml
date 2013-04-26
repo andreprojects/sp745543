@@ -12,7 +12,7 @@
   	<?php if(!empty($this->dados)) { foreach ($this->dados as $key => $value) { ?>
     <tr>
      
-      <td><a href="<?php echo $this->url("home",array("username"=>$this->username,"action"=>'a',"id_ads"=>$value->id,"url_ads"=>$value->url)); ?>" data-toggle="tooltip" data-original-title="Visualizar Anúncio"><?php echo $value->titulo; ?></a></td>
+      <td width="95%"><a href="<?php echo $this->url("home",array("username"=>$this->username,"action"=>'a',"id_ads"=>$value->id,"url_ads"=>$value->url)); ?>" data-toggle="tooltip" data-original-title="Visualizar Anúncio"><?php echo $value->titulo; ?></a></td>
       <td>
       <?php
       	switch ($value->status) {
@@ -94,14 +94,16 @@
   </tbody>
 </table>
 <?php echo $this->paginationControl($this->dados,'Sliding','paginator'); ?>
+<script type="text/javascript">
 
-      <script type="text/javascript">
-      
-
-      	
 		 !function ($) {
 		
 		     $(function(){
+
+              // tooltip demo
+              $('.table').tooltip({
+                selector: "a[data-toggle=tooltip]"
+              })
 
 		     		//callAjax("<?php echo $this->url('convite'); ?>",$('#loadconvite'));
 					
@@ -152,11 +154,8 @@
 		    })
 		
 		}(window.jQuery)
-		
 
-		
-
-      </script>
+</script>
 
 
 
