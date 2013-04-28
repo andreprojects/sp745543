@@ -1,0 +1,98 @@
+<!-- Example row of columns -->
+<div class="row">
+
+    <div class="span7">
+      <ul class="breadcrumb">
+          <li><a href="/">Home</a> <span class="divider">/</span></li>
+          <li><a href="/">Meus Anúncios</a> <span class="divider">/</span></li>
+          <li class="active">AdWords</li>
+      </ul>
+      
+      <h4>Otimize seu anúncio com especialistas</h4>
+      <p>
+        Seu anúncio <b>"XXXXX"</b> na primeira página do google, entre as primeiras posições exibidas nos resultados das buscas.
+        Clientes potenciais interessados encontram rapidamente seu anúncio.
+      </p>
+
+      <p>
+        Aproveite agora mesmo ative uma campanha com nosso serviço de divulgação.
+      </P>
+
+      <table class="table table-servico-adwords" style="">
+            <tbody><tr>
+              <td colspan="5" align="center" style="background-color: #f5f5f5;font-size: 14px;"><em>Detalhes do Serviço</em></td>
+            </tr>
+            <tr>
+              <td rowspan="4"><img src="/img/servicos/exemplo-busca-google.png"></td>
+              <td style="background-color: #FFF8E7;"><b>Tipo</b></td>
+              <td style="background-color: #FFF8E7;;"><b>Posições na exibição</b>&sup1;</td>
+              <td style="background-color: #FFF8E7;"><b>Média de clicks</b>&sup2;</td>
+              <td style="background-color: #FFF8E7;"><b>Valor</b></td>
+             
+            </tr>
+                          <tr>
+                <td>cm60</td>
+                <td>Entre 1º a 7º <img src="/img/servicos/line_chart.png"></td>
+                <td>60 <img src="/img/servicos/mini_mouse.png"></td>
+                <td><b>R$ 100,00</b><br><span style="font-size: 10px;"><a href="index.php?pag=doacao&amp;chk=5f1659c14d3ae9239701397e15a41086">(Inserir Créditos)</a></span></td>
+              </tr>
+               <tr>
+                <td>cm30</td>
+                <td>Entre 1º a 7º <img src="/img/servicos/line_chart.png"></td>
+                <td>30 <img src="/img/servicos/mini_mouse.png"></td>
+                <td><b>R$ 50,00</b><br><span style="font-size: 10px;"><a href="index.php?pag=doacao&amp;chk=5f1659c14d3ae9239701397e15a41086">(Inserir Créditos)</a></span></td>
+              </tr>
+              <tr>
+                <td colspan="4">
+                    &sup1; Intervalo de posições na exibição do anúncio no buscador<br>
+                    &sup2; Média de clicks únicos recebidos
+                </td>
+              </tr>
+          </tbody>
+      </table>
+
+      <h5>Perguntas e Respostas</h5>
+
+      <p><b>Como acompanho o rendimento da minha campanha?</b></p>
+      <p>Após encerrar a campanha, na sessão meus anúncios abaixo das fotos em cada anúncio ativado será exibido o resultado com os seguinte dados: média do intervalo das posições, clicks únicos e impressões.</p>
+
+      <p><b>Após ativar uma campanha, quando ela termina?</b></p>
+      <p>A campanha será concluída quando a média de cliques únicos for superior a 30 clicks para o tipo m30 e 60 clicks para m60, assim respectivamente para outros tipos de campanhas, podendo ser reativada a qualquer momento.</p>
+
+      <p><b>Como faço para reativar minha campanha?</b></p>
+     <p>Após a campanha ser concluída, na sessão meus anúncios será exibido o botão “Retivar”, clique no mesmo.</p>
+
+    </div>
+
+    <div class="span5">
+        <img src="/img/servicos/executivos.jpg" />
+    </div>
+
+
+</div>
+<script type="text/javascript">
+
+
+	
+ !function ($) {
+
+     $(function(){
+     		$('#div_filtra').hide();
+     		//callAjax("<?php echo $this->url('convite'); ?>",$('#loadconvite'));
+     		callAjax("<?php echo $this->url('list-search',array('word'=>$this->dados['word'],'col_order'=>'id','type_order'=>'desc')); ?>",$('#load-listsearch'));
+
+		    
+
+    })
+
+}(window.jQuery)
+
+
+
+
+</script>
+
+
+
+
+

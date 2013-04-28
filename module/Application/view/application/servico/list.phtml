@@ -1,0 +1,64 @@
+
+          
+<table class="table-search" width="100%">
+  <thead>
+    <tr>
+      
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <?php if(!empty($this->dados)) { //var_dump($this->dados);exit;
+      foreach ($this->dados as $key => $value) { ?>
+    <tr>
+      <td><small><?php echo $value['a_data_cadastro']->format('d/m/Y H:i'); ?> - <a href="<?php echo $this->url('home',array('username'=>$value['u_username'])); ?>"><i class="icon-user"></i> <?php echo $value['u_username']; ?></small></a></small></td>
+    </tr>
+    <tr>
+      <td><a href="<?php echo $this->url("home",array("username"=>$value['u_username'],"action"=>'a',"id_ads"=>$value['a_id'],"url_ads"=>$value['a_url'])); ?>" data-toggle="tooltip" data-original-title="Visualizar Anúncio"><?php echo $value['a_titulo']; ?></a></td>
+    </tr>
+    <tr>
+      
+      <td><small><?php if(strlen($value['a_descricao'])>=255) {echo substr($value['a_descricao'],0,255)."...";}else{ echo $value['a_descricao'];} ?></small></td>
+    </tr>
+    <tr>
+      <td id="loadfotos<?php echo $value['a_id']; ?>">
+<script>callAjax("<?php echo $this->url('display-images',array('id'=>$value['a_id'],'cod'=>1)); ?>",$("#loadfotos<?php echo $value['a_id']; ?>"));</script>
+      </td>
+    </tr>
+     <tr>
+      <td><hr></td>
+    </tr>
+    
+    <?php } }else{ ?>
+    <tr>
+      <td colspan="4">Nenhum anúncio cadastro</td>
+    </tr>
+    
+    <?php } ?>
+  </tbody>
+</table>
+<?php echo $this->paginationControl($this->dados,'Sliding','paginator'); ?>
+
+      <script type="text/javascript">
+      
+
+        
+     !function ($) {
+    
+         $(function(){
+
+           
+    
+        })
+    
+    }(window.jQuery)
+    
+
+    
+
+      </script>
+
+
+
+
+
