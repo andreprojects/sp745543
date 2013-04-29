@@ -1,0 +1,75 @@
+<div class="row">
+       <div class="span7">  
+          <ul class="breadcrumb">
+            <li><a href="/">Home</a> <span class="divider">/</span></li>
+            <li class="active">Crédito</li>
+          </ul>     
+
+          <?php
+
+           if($this->msg['id'] == "1"){
+                
+                echo '<div class="alert alert-success">';
+                echo "Obrigado, seu pagamento está sendo analisado pela nossa equipe. Logo você receberá um e-mail com a confirmação.";
+                echo '</div>';
+           }
+
+
+           ?> 
+            
+           <h4>Crédito</h4>
+
+           <small>Saldo Atual</small>
+           <h3>(BRL R$ 50,00)</h3>
+
+           <label for="" id="compra_credito"><img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/pagamentos/205x30-comprar.gif" /></label>
+            <table class="table-credito">
+                <tr>
+                    <td>
+                        
+                        <form target="pagseguro" action="https://pagseguro.uol.com.br/security/webpagamentos/webpagto.aspx" method="post" onsubmit="">
+                      <input type="hidden" name="email_cobranca" value="andrework@gmail.com">
+                      <input type="hidden" name="tipo" value="CP">
+                      <input type="hidden" name="moeda" value="BRL">
+                      <input type="hidden" name="item_id_1" value="444">
+                      <input type="hidden" name="item_valor_1" value="<?php echo number_format(40, 2, ',', '.'); ?>">
+                      <input type="hidden" name="item_descr_1" value="Credito COD:<?php echo $sessionUser['user']->id; ?> - R$ 3,00">
+                      <input type="hidden" name="item_quant_1" value="1">
+                      <input type="hidden" name="item_frete_1" value="000">
+                      <input type="submit" class="btn" value=" R$ 40,00 " title="Clique aqui para comprar R$ 40,00 de crédito" id=""/>
+                        </form>
+                        
+                    </td>
+                    <td>
+                        <form target="pagseguro" action="https://pagseguro.uol.com.br/security/webpagamentos/webpagto.aspx" method="post" onsubmit="">
+                      <input type="hidden" name="email_cobranca" value="andrework@gmail.com">
+                      <input type="hidden" name="tipo" value="CP">
+                      <input type="hidden" name="moeda" value="BRL">
+                      <input type="hidden" name="item_id_1" value="<?php echo $sessionUser['user']->id; ?>">
+                      <input type="hidden" name="item_valor_1" value="<?php echo number_format(60, 2, ',', '.'); ?>">
+                      <input type="hidden" name="item_descr_1" value="Credito COD:<?php echo $sessionUser['user']->id; ?> - R$ 6,00">
+                      <input type="hidden" name="item_quant_1" value="1">
+                      <input type="hidden" name="item_frete_1" value="000">
+                      <input type="submit" class="btn" value=" R$ 80,00 " title="Clique aqui para comprar R$ 80,00 de crédito" id=""/>
+                        </form>
+                    </td>
+                    <td>
+                        <form target="pagseguro" action="https://pagseguro.uol.com.br/security/webpagamentos/webpagto.aspx" method="post" onsubmit="">
+                      <input type="hidden" name="email_cobranca" value="andrework@gmail.com">
+                      <input type="hidden" name="tipo" value="CP">
+                      <input type="hidden" name="moeda" value="BRL">
+                      <input type="hidden" name="item_id_1" value="<?php echo $sessionUser['user']->id; ?>">
+                      <input type="hidden" name="item_valor_1" value="<?php echo number_format(160, 2, ',', '.'); ?>">
+                      <input type="hidden" name="item_descr_1" value="Credito COD:<?php echo $sessionUser['user']->id; ?> - R$ 9,00">
+                      <input type="hidden" name="item_quant_1" value="1">
+                      <input type="hidden" name="item_frete_1" value="000">
+                      <input type="submit" class="btn" value=" R$ 160,00 " title="Clique aqui para comprar R$ 160,00 de crédito" id=""/>
+                        </form>
+                    </td>
+                </tr>
+                
+            </table>
+           
+        </div>
+   
+</div>
