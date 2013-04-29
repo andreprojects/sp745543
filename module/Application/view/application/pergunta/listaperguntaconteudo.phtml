@@ -67,4 +67,19 @@
         </tbody>
   </table>
   <?php echo $this->paginationControl($this->dados,'Sliding','paginator'); ?>
-          
+  <script type="text/javascript">
+
+     !function ($) {
+    
+         $(function(){
+
+              // tooltip demo
+              $('.table').tooltip({
+                selector: "a[data-toggle=tooltip]"
+              });
+
+        })
+    
+    }(window.jQuery)
+
+</script>        

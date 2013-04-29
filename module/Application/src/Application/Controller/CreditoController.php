@@ -38,8 +38,17 @@ class CreditoController extends AbstractActionController {
 		return $str;
 
 	} 
-    
+
+
 	public function indexAction(){
+
+		$msg['id']   = $this->params()->fromRoute('id_msg', 0);
+
+		return new ViewModel(array('msg' => $msg));
+
+	}
+    
+	public function pagseguroAction(){
 		
 		//$request = $this->getRequest();
 		//$post 	 = $request->getPost();
@@ -63,7 +72,7 @@ class CreditoController extends AbstractActionController {
 			$cod_status 	= $obj_result->status;
 			if($cod_status == 3)
 			{
-				$repository = $this->getEm()->getRepository("Application\Entity\Users");
+				$repository = $this->getEm()->getRepository("Application\Entity\Usuario");
 				$obj_records = $repository->findById($id_user);
 		
 		        if(!empty($obj_records))

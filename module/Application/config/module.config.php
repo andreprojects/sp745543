@@ -132,6 +132,17 @@ return array(
                     )
                 )
             ),
+            'credito' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/h/credito[/:action][/:id_msg]',
+                    'defaults' => array(
+                      'controller' => 'Application\Controller\Credito',
+                        'action'  => 'index'
+                        
+                    )
+                )
+            ),
             'email-auth-pergunta' => array(//sem auth
                 'type' => 'segment',
                 'options' => array(
@@ -563,6 +574,7 @@ return array(
             'Application\Controller\Pergunta'   => 'Application\Controller\PerguntaController',
             'Application\Controller\Search'     => 'Application\Controller\SearchController',
             'Application\Controller\Servico'    => 'Application\Controller\ServicoController',
+            'Application\Controller\Credito'    => 'Application\Controller\CreditoController',
             
         ),
     ),
