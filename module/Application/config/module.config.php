@@ -97,6 +97,18 @@ return array(
                 )
             ),
 
+            'servico-app' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/h/servico[/:action]',
+                    'defaults' => array(
+                      'controller' => 'Application\Controller\Servico',
+                        'action'  => 'adwords'
+                        
+                    )
+                )
+            ),
+
 
             'faleconosco' => array(
                 'type' => 'literal',
@@ -549,7 +561,8 @@ return array(
             'Application\Controller\Perfil'     => 'Application\Controller\PerfilController',
             'Application\Controller\Conta'      => 'Application\Controller\ContaController',
             'Application\Controller\Pergunta'   => 'Application\Controller\PerguntaController',
-            'Application\Controller\Search'       => 'Application\Controller\SearchController'
+            'Application\Controller\Search'     => 'Application\Controller\SearchController',
+            'Application\Controller\Servico'    => 'Application\Controller\ServicoController',
             
         ),
     ),
