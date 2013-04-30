@@ -133,7 +133,7 @@ return array(
                 )
             ),
             'credito' => array(
-                'type' => 'literal',
+                'type' => 'segment',
                 'options' => array(
                     'route' => '/h/credito[/:action][/:id_msg]',
                     'defaults' => array(

@@ -41,10 +41,13 @@ class CreditoController extends AbstractActionController {
 
 
 	public function indexAction(){
-
+		$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
 		$msg['id']   = $this->params()->fromRoute('id_msg', 0);
 
-		return new ViewModel(array('msg' => $msg));
+		$repository = $this->getEm()->getRepository("Application\Entity\Usuario");
+		$obj_user = $repository->findById($sessionLogin['user']->id);
+
+		return new ViewModel(array('msg' => $msg,'dados'=>$obj_user));
 
 	}
     

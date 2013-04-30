@@ -10,7 +10,7 @@
            if($this->msg['id'] == "1"){
                 
                 echo '<div class="alert alert-success">';
-                echo "Obrigado, seu pagamento está sendo analisado pela nossa equipe. Logo você receberá um e-mail com a confirmação.";
+                echo "Obrigado pela preferencia, seu pagamento está sendo analisado pela nossa equipe. Logo você receberá um e-mail com a confirmação.";
                 echo '</div>';
            }
 
@@ -20,7 +20,7 @@
            <h4>Crédito</h4>
 
            <small>Saldo Atual</small>
-           <h3>(BRL R$ 50,00)</h3>
+           <h3>(BRL R$ <?php echo number_format($this->dados->credito, 2, ',', '.'); ?>)</h3>
 
            <label for="" id="compra_credito"><img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/pagamentos/205x30-comprar.gif" /></label>
             <table class="table-credito">

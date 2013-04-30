@@ -28,7 +28,7 @@ class LoginFilter extends InputFilter{
                         ),
                         'name'    => 'EmailAddress',
                         'options' => array(
-                            'useMxCheck' => true
+                            'useMxCheck' => false
                         ),
                        
                     ),
