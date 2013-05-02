@@ -55,7 +55,7 @@ class ServicoController extends AbstractActionController {
         $id_anuncio = $this->params()->fromRoute('id_anuncio', 0);
 
         $repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
-        $obj_records = $repository->findById($id_anuncio);
+        $obj_records = $repository->findByUserWithAds($id_anuncio);
 
          $result = new ViewModel(array('dados' => $obj_records));
         //$result->setTerminal(true);

@@ -1,3 +1,26 @@
+<script type="text/javascript">
+
+function modoDilvuga(valor){
+  
+  switch(valor){
+    case '1':
+      $("#urlsel").html("<a href='<?php echo $this->serverUrl($this->url("home",array("username"=>$this->dados[1]->username,"action"=>'a',"id_ads"=>$this->dados[0]->id,"url_ads"=>$this->dados[0]->url))); ?>'><?php echo $this->serverUrl($this->url("home",array("username"=>$this->dados[1]->username,"action"=>'a',"id_ads"=>$this->dados[0]->id,"url_ads"=>$this->dados[0]->url))); ?></a>");
+    break;
+
+    case '2':
+      $("#urlsel").html("<a href='<?php echo $this->serverUrl($this->url('home',array('username'=>$this->dados[1]->username))); ?>'><?php echo $this->serverUrl($this->url('home',array('username'=>$this->dados[1]->username))); ?></a>");
+    break;
+
+    case '3':
+      $("#urlsel").html('');
+    break;
+
+    default:
+
+  }
+}
+
+</script>
 <!-- Example row of columns -->
 <div class="row">
 
@@ -66,13 +89,13 @@
 
      <h5>Selecione a URL que você deseja divulgar</h5>
 
-     <select>
-      <option>Próprio anúncio</option>
-      <option>Meus anúncios</option>
-      <option>Meu site</option>
+     <select onchange="modoDilvuga(this.value);">
+      <option value="1">Próprio anúncio</option>
+      <option value="2">Meus anúncios</option>
+      <option value="3">Meu site</option>
      </select>
      <p>
-      URL: <span><?php echo $this->dados[0]->url; ?></span>
+      URL: <span id="urlsel"><a href='<?php echo $this->serverUrl($this->url("home",array("username"=>$this->dados[1]->username,"action"=>'a',"id_ads"=>$this->dados[0]->id,"url_ads"=>$this->dados[0]->url))); ?>'><?php echo $this->serverUrl($this->url("home",array("username"=>$this->dados[1]->username,"action"=>'a',"id_ads"=>$this->dados[0]->id,"url_ads"=>$this->dados[0]->url))); ?></a></span>
      </p>
     </div>
 
@@ -83,15 +106,13 @@
 
 </div>
 <script type="text/javascript">
-
-
 	
  !function ($) {
 
      $(function(){
-     		$('#div_filtra').hide();
+     		//$('#div_filtra').hide();
      		//callAjax("<?php echo $this->url('convite'); ?>",$('#loadconvite'));
-     		callAjax("<?php echo $this->url('list-search',array('word'=>$this->dados['word'],'col_order'=>'id','type_order'=>'desc')); ?>",$('#load-listsearch'));
+     		//callAjax("<?php echo $this->url('list-search',array('word'=>$this->dados['word'],'col_order'=>'id','type_order'=>'desc')); ?>",$('#load-listsearch'));
 
 		    
 
