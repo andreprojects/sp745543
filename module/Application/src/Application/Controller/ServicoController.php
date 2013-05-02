@@ -52,6 +52,15 @@ class ServicoController extends AbstractActionController {
 
     public function adwordsAction(){
         
+        $id_anuncio = $this->params()->fromRoute('id_anuncio', 0);
+
+        $repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
+        $obj_records = $repository->findById($id_anuncio);
+
+         $result = new ViewModel(array('dados' => $obj_records));
+        //$result->setTerminal(true);
+        return $result;   
+
     }
 
 

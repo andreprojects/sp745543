@@ -4,13 +4,13 @@
     <div class="span7">
       <ul class="breadcrumb">
           <li><a href="/">Home</a> <span class="divider">/</span></li>
-          <li><a href="/">Meus Anúncios</a> <span class="divider">/</span></li>
+          <li><a href="<?php echo $this->url("meus-anuncios"); ?>">Meus Anúncios</a> <span class="divider">/</span></li>
           <li class="active">AdWords</li>
       </ul>
       
       <h4>Otimize seu anúncio com especialistas</h4>
       <p>
-        Seu anúncio <b>"XXXXX"</b> na primeira página do google, entre as primeiras posições exibidas nos resultados das buscas.
+        Seu anúncio <b>"<?php echo $this->dados[0]->titulo; ?>"</b> na primeira página do google, entre as primeiras posições exibidas nos resultados das buscas.
         Clientes potenciais interessados encontram rapidamente seu anúncio.
       </p>
 
@@ -62,6 +62,18 @@
       <p><b>Como faço para reativar minha campanha?</b></p>
      <p>Após a campanha ser concluída, na sessão meus anúncios será exibido o botão “Retivar”, clique no mesmo.</p>
 
+     <hr>
+
+     <h5>Selecione a URL que você deseja divulgar</h5>
+
+     <select>
+      <option>Próprio anúncio</option>
+      <option>Meus anúncios</option>
+      <option>Meu site</option>
+     </select>
+     <p>
+      URL: <span><?php echo $this->dados[0]->url; ?></span>
+     </p>
     </div>
 
     <div class="span5">

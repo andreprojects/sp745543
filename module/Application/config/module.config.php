@@ -100,10 +100,9 @@ return array(
             'servico-app' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/h/servico[/:action]',
+                    'route' => '/h/servico[/:action][/:id_anuncio]',
                     'defaults' => array(
-                      'controller' => 'Application\Controller\Servico',
-                        'action'  => 'adwords'
+                      'controller' => 'Application\Controller\Servico'
                         
                     )
                 )
