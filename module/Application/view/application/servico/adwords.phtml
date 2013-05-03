@@ -5,13 +5,16 @@ function modoDilvuga(valor){
   switch(valor){
     case '1':
       $("#urlsel").html("<a href='<?php echo $this->serverUrl($this->url("home",array("username"=>$this->dados[1]->username,"action"=>'a',"id_ads"=>$this->dados[0]->id,"url_ads"=>$this->dados[0]->url))); ?>'><?php echo $this->serverUrl($this->url("home",array("username"=>$this->dados[1]->username,"action"=>'a',"id_ads"=>$this->dados[0]->id,"url_ads"=>$this->dados[0]->url))); ?></a>");
+      $('#areaSite').hide();
     break;
 
     case '2':
       $("#urlsel").html("<a href='<?php echo $this->serverUrl($this->url('home',array('username'=>$this->dados[1]->username))); ?>'><?php echo $this->serverUrl($this->url('home',array('username'=>$this->dados[1]->username))); ?></a>");
+      $('#areaSite').hide();
     break;
 
     case '3':
+      $('#areaSite').show();
       $("#urlsel").html('');
     break;
 
@@ -88,15 +91,40 @@ function modoDilvuga(valor){
      <hr>
 
      <h5>Selecione a URL que você deseja divulgar</h5>
-
-     <select onchange="modoDilvuga(this.value);">
+     <?php
+       $form = $this->form;
+       $form->prepare();
+       echo $this->form()->openTag($form) . PHP_EOL;
+     ?>
+     <select onchange="modoDilvuga(this.value);" name="tipo">
       <option value="1">Próprio anúncio</option>
       <option value="2">Meus anúncios</option>
       <option value="3">Meu site</option>
      </select>
+     <div class="control-group " id="areaSite">
+      <label class="control-label" for="">Site</label>
+      <div class="controls">
+        <?php echo $this->formInput($form->get('site')); ?>
+        <?php echo $this->formElementErrors($form->get('site')); ?>
+      </div>
+    </div>
      <p>
       URL: <span id="urlsel"><a href='<?php echo $this->serverUrl($this->url("home",array("username"=>$this->dados[1]->username,"action"=>'a',"id_ads"=>$this->dados[0]->id,"url_ads"=>$this->dados[0]->url))); ?>'><?php echo $this->serverUrl($this->url("home",array("username"=>$this->dados[1]->username,"action"=>'a',"id_ads"=>$this->dados[0]->id,"url_ads"=>$this->dados[0]->url))); ?></a></span>
      </p>
+
+     <h5>Selecione o plano</h5>
+
+     <select onchange="" name="plano">
+      <option value="1">cm30 - R$ 50,00</option>
+      <option value="2">cm60 - $$ 100,00</option>
+     </select>
+
+     <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn">Solicitar</button> 
+        </div>
+      </div>
+    </form>
     </div>
 
     <div class="span5">
@@ -110,7 +138,7 @@ function modoDilvuga(valor){
  !function ($) {
 
      $(function(){
-     		//$('#div_filtra').hide();
+     		$('#areaSite').hide();
      		//callAjax("<?php echo $this->url('convite'); ?>",$('#loadconvite'));
      		//callAjax("<?php echo $this->url('list-search',array('word'=>$this->dados['word'],'col_order'=>'id','type_order'=>'desc')); ?>",$('#load-listsearch'));
 

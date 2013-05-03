@@ -1,9 +1,9 @@
 <?php
-namespace Admin\Form;
+namespace Application\Form;
 
 
 use Zend\Form\Form;
-use Admin\Form\LoginFilter;
+use Application\Form\PlanoFilter;
 
 
 class PlanoForm extends Form
@@ -14,16 +14,15 @@ class PlanoForm extends Form
         parent::__construct('plano');
 
         $this->setAttribute('method', 'post');
-        $this->setInputFilter(new ServicoFilter);
+        $this->setInputFilter(new PlanoFilter);
 		
 		$this->add(array(
             'name' => 'id',
             'attributes' => array(
                 'type'  => 'hidden'
             )
-
         ));
-
+/*
         $this->add(array(
 
             'type' => 'Zend\Form\Element\Select',
@@ -38,41 +37,15 @@ class PlanoForm extends Form
              // 'value' => '1' //set selected to '1'
             )
 
-        ));
+        ));*/
 
 
         $this->add(array(
-            'name' => 'nome',
+            'name' => 'site',
             'attributes' => array(
                 'type'  => 'text',
-                'placeholder'=>"Nome do Plano",
-            )
-
-        ));
-
-        $this->add(array(
-            'name' => 'descricao',
-            'attributes' => array(
-                'type'  => 'Zend\Form\Element\Textarea',
-                'rows'  => "3"
-            )
-
-        ));
-
-         $this->add(array(
-            'name' => 'preco',
-            'attributes' => array(
-                'type'  => 'text',
-                'placeholder'=>"Preço",
-            )
-
-        ));
-
-          $this->add(array(
-            'name' => 'dia_publicacao',
-            'attributes' => array(
-                'type'  => 'text',
-                'placeholder'=>"Dia da Publicação",
+                'placeholder'=>"Digite a URL do seu site",
+                'onkeyup'=>'$("#urlsel").html(this.value);',
             )
 
         ));

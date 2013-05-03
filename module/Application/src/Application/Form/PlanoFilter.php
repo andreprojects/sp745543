@@ -1,5 +1,5 @@
 <?php
-namespace Admin\Form;
+namespace Application\Form;
 
 use Zend\InputFilter\InputFilter;
 
@@ -11,46 +11,7 @@ class PlanoFilter extends InputFilter{
     {
 
         $this->add(array(
-            'name'     => 'nome',
-            'required' => true,
-            'filters'  => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim')
-                
-            ),
-            
-        ));
-
-        $this->add(array(
-            'name'     => 'descricao',
-            'required' => true,
-            'filters'  => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim')
-                
-            ),
-            
-        ));
-
-        $this->add(array(
-            'name'     => 'preco',
-            'required' => true,
-            'filters'  => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim')
-                
-            ),
-            
-            'validators' => array(
-                array(
-                    'name'    => 'Zend\I18n\Validator\Float',
-                ),
-            ),
-            
-        ));
-
-        $this->add(array(
-            'name'     => 'dia_publicacao',
+            'name'     => 'site',
             'required' => false,
             'filters'  => array(
                 array('name' => 'StripTags'),
@@ -59,5 +20,7 @@ class PlanoFilter extends InputFilter{
             ),
             
         ));
+
+       
     }
 }

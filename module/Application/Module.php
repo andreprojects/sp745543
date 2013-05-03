@@ -313,6 +313,12 @@ class Module {
                      return $form;
                 },
 
+                'servico_plano_form_app' => function ($service){
+                    $form = new \Application\Form\PlanoForm();
+                    return $form;
+
+                },
+
                 'service_meusanuncios_form' => function ($service) {
                      $form = new \Application\Form\AnuncioForm();
                      $helper = $service->get('viewhelpermanager')->get('UserIdentity');

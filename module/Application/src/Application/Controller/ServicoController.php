@@ -51,13 +51,44 @@ class ServicoController extends AbstractActionController {
     }
 
     public function adwordsAction(){
-        
+        //verifica se o anuncio pertence ao usuario
         $id_anuncio = $this->params()->fromRoute('id_anuncio', 0);
+
+        $form = $this->getServiceLocator()->get("servico_plano_form_app");
+
+        $request = $this->getRequest();
+
+        if ($request->isPost()) {
+            //var_dump($request->getPost());
+            $form->setData($request->getPost());
+
+            if ($form->isValid()) {
+
+                $service = $this->getServiceLocator()->get("service_plano");
+                $records = $request->getPost()->toArray();
+
+                if(!empty($records['tipo']) && !empty($records['plano'])){
+
+                    if($records['tipo'] == 1){
+                        $records['url_site'] = $records['site'];
+                    }
+
+                }else{
+                    $msg['error'] = 1;
+                }
+
+            }
+
+
+        }
+
+
+
 
         $repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
         $obj_records = $repository->findByUserWithAds($id_anuncio);
 
-         $result = new ViewModel(array('dados' => $obj_records));
+         $result = new ViewModel(array('form' => $form,'dados' => $obj_records));
         //$result->setTerminal(true);
         return $result;   
 
