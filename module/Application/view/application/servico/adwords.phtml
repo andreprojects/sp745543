@@ -33,6 +33,21 @@ function modoDilvuga(valor){
           <li><a href="<?php echo $this->url("meus-anuncios"); ?>">Meus Anúncios</a> <span class="divider">/</span></li>
           <li class="active">AdWords</li>
       </ul>
+
+      <?php
+
+      switch($this->msg):
+        case 1:
+          echo "<div class='alert alert-success'>Sua campanha foi solicitada com sucesso em 48 horas será publicado. <br>Obrigado</div>";
+        break;
+
+        case 2:
+          echo "<div class='alert'>Serviço já habilitado, por favor selecione outro anúncio.</div>"; 
+        break;
+
+        default:
+
+      ?>
       
       <h4>Otimize seu anúncio com especialistas</h4>
       <p>
@@ -125,6 +140,8 @@ function modoDilvuga(valor){
         </div>
       </div>
     </form>
+    <?php endswitch; ?>
+
     </div>
 
     <div class="span5">

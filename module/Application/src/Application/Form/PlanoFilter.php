@@ -4,7 +4,7 @@ namespace Application\Form;
 use Zend\InputFilter\InputFilter;
 
 
-class PlanoFilter extends InputFilter{
+class PlanoAnuncioFilter extends InputFilter{
     
      
     public function __construct()

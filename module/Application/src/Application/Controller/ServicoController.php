@@ -51,10 +51,28 @@ class ServicoController extends AbstractActionController {
     }
 
     public function adwordsAction(){
-        //verifica se o anuncio pertence ao usuario
+        $sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
+       
         $id_anuncio = $this->params()->fromRoute('id_anuncio', 0);
 
-        $form = $this->getServiceLocator()->get("servico_plano_form_app");
+        $repository_ads = $this->getEm()->getRepository("Application\Entity\Anuncio");
+        $obj_ads = $repository_ads->findByAnuncioAndUser($id_anuncio,$sessionLogin['user']->id);
+         //verifica se o anuncio pertence ao usuario
+        if(empty($obj_ads)){
+            return $this->redirect()->toRoute('meus-anuncios');
+        }
+
+        //verifica se o servico ja foi ativado
+        $repository_plano_ads = $this->getEm()->getRepository("Application\Entity\PlanoAnuncio");
+        $obj_plano_ads = $repository_plano_ads->findByAnuncio($id_anuncio);
+
+        if(!empty($obj_plano_ads)){
+            //return $this->redirect()->toRoute('meus-anuncios');
+            $msg = 2;
+        }
+
+
+        $form = $this->getServiceLocator()->get("servico_plano_anuncio_form");
 
         $request = $this->getRequest();
 
@@ -62,19 +80,49 @@ class ServicoController extends AbstractActionController {
             //var_dump($request->getPost());
             $form->setData($request->getPost());
 
-            if ($form->isValid()) {
+            if ($form->isValid() && empty($msg)) {
 
-                $service = $this->getServiceLocator()->get("service_plano");
+                $service = $this->getServiceLocator()->get("service_plano_anuncio");
                 $records = $request->getPost()->toArray();
 
                 if(!empty($records['tipo']) && !empty($records['plano'])){
+
+                    /*preco temporario*/
+                    switch ($records['plano']) {
+                        case '1':
+                            $valor_plano = 40;
+                            break;
+                        
+                        case '2':
+                            $valor_plano = 80;
+                        break;
+                        
+                        default:
+                            return $this->redirect()->toRoute('meus-anuncios');
+                        break;
+                    }
+
+                    $records['id_plano'] = $records['plano'];
+                    $records['id_anuncio'] = $id_anuncio;
+                    $records['status'] = 0;
 
                     if($records['tipo'] == 1){
                         $records['url_site'] = $records['site'];
                     }
 
+                    $service->insert($records);
+
+                    $service_user = $this->getServiceLocator()->get("service_register");
+                    $records_user['id'] = $sessionLogin['user']->id;
+                    $records_user['credito'] = $sessionLogin['user']->credito-$valor_plano;
+                    $service_user->update($records_user);
+                    //atualizar novo credito na sessão
+
+                    $msg = 1;
+
+
                 }else{
-                    $msg['error'] = 1;
+                    $msg = 3;
                 }
 
             }
@@ -88,7 +136,7 @@ class ServicoController extends AbstractActionController {
         $repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
         $obj_records = $repository->findByUserWithAds($id_anuncio);
 
-         $result = new ViewModel(array('form' => $form,'dados' => $obj_records));
+         $result = new ViewModel(array('form' => $form,'dados' => $obj_records,'msg'=>$msg));
         //$result->setTerminal(true);
         return $result;   
 

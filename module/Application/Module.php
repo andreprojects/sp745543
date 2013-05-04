@@ -147,6 +147,12 @@ class Module {
                     return $obj;
                 },
 
+                'service_plano_anuncio' => function($service) {
+                    $obj = new \Application\Service\PlanoAnuncio($service->get('Doctrine\ORM\EntityManager'));
+                    $obj->setMessageRenderer($service->get('Zend\View\Renderer\PhpRenderer'));
+                    return $obj;
+                },
+
                 'service_meusanuncios' => function($service) {
                     $obj = new \Application\Service\Anuncio($service->get('Doctrine\ORM\EntityManager'));
                     $obj->setMessageRenderer($service->get('Zend\View\Renderer\PhpRenderer'));
@@ -313,8 +319,8 @@ class Module {
                      return $form;
                 },
 
-                'servico_plano_form_app' => function ($service){
-                    $form = new \Application\Form\PlanoForm();
+                'servico_plano_anuncio_form' => function ($service){
+                    $form = new \Application\Form\PlanoAnuncioForm();
                     return $form;
 
                 },
