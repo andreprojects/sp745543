@@ -4,11 +4,11 @@
       <?php if(!empty($this->dados)) { foreach ($this->dados as $key => $value) { ?>
       <tr>
         <td width="5%" align="right"><img src="/img/pergunta/user_ask.gif"></td>
-        <td align=""><span class="help-inline"><?php echo $value->msg_pergunta; ?></span></td>  
+        <td align=""><span class="help-inline"><?php echo $value->msg_pergunta; ?></span> <small class="denucie"> - Denunciar</small></td>  
       </tr>
       <tr>
         <td></td>
-        <td><img src="/img/pergunta/user_resp.gif"> <?php echo $value->msg_resposta;//echo substr($value->msg_pergunta, 0, 40); ?> <em><small>- Respondido em: <?php echo $value->data_resposta->format('d/m/Y H:i'); ?></small></em></td>
+        <td><img src="/img/pergunta/user_resp.gif"> <?php echo $value->msg_resposta;//echo substr($value->msg_pergunta, 0, 40); ?> <em><small>- Respondido em: <?php echo $value->data_resposta->format('d/m/Y H:i'); ?></small></em> <small class="denucie"> - Denunciar</small></td>
       </tr>
       <?php } }else{ ?>
       <tr>
@@ -19,4 +19,25 @@
   </table>
   <p>
   <?php echo $this->paginationControl($this->dados,'Sliding','paginator'); ?>
-   </p>       
+   </p>
+
+   <script type="text/javascript">
+  
+!function ($) {
+
+   $(function(){
+
+      $('.table-pergunta-publica').mouseover(function() {
+        $('.denucie').show();
+      }).mouseout(function(){
+        $('.denucie').hide();
+      });
+
+    })
+
+}(window.jQuery)
+
+
+
+
+</script>      

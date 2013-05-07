@@ -51,14 +51,21 @@ class ServicoController extends AbstractActionController {
     }
 
     public function adwordsAction(){
+
         $sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
        
         $id_anuncio = $this->params()->fromRoute('id_anuncio', 0);
 
         $repository_ads = $this->getEm()->getRepository("Application\Entity\Anuncio");
-        $obj_ads = $repository_ads->findByAnuncioAndUser($id_anuncio,$sessionLogin['user']->id);
-         //verifica se o anuncio pertence ao usuario
-        if(empty($obj_ads)){
+        $obj_ads = $repository_ads->findByUserWithAds($id_anuncio);
+
+        //verifica se o anuncio pertence ao usuario
+
+        if(!empty($obj_ads)){
+            if($obj_ads[1]->id != $sessionLogin['user']->id){
+                return $this->redirect()->toRoute('meus-anuncios');
+            }
+        }else{
             return $this->redirect()->toRoute('meus-anuncios');
         }
 
@@ -70,7 +77,6 @@ class ServicoController extends AbstractActionController {
             //return $this->redirect()->toRoute('meus-anuncios');
             $msg = 2;
         }
-
 
         $form = $this->getServiceLocator()->get("servico_plano_anuncio_form");
 
@@ -102,23 +108,29 @@ class ServicoController extends AbstractActionController {
                         break;
                     }
 
-                    $records['id_plano'] = $records['plano'];
-                    $records['id_anuncio'] = $id_anuncio;
-                    $records['status'] = 0;
+                    //verifica se credito do usuario é maior que valor do plano
+                    if($valor_plano > $obj_ads[1]->credito){
+                        $msg = 4;
+                    }else{
 
-                    if($records['tipo'] == 1){
-                        $records['url_site'] = $records['site'];
+                        $records['id_plano'] = $records['plano'];
+                        $records['id_anuncio'] = $id_anuncio;
+                        $records['status'] = 0;
+
+                        if($records['tipo'] == 1){
+                            $records['url_site'] = $records['site'];
+                        }
+
+                        $service->insert($records);
+
+                        $service_user = $this->getServiceLocator()->get("service_register");
+                        $records_user['id'] = $sessionLogin['user']->id;
+                        $records_user['credito'] = $obj_ads[1]->credito-$valor_plano;
+                        $service_user->update($records_user);
+                        //atualizar novo credito na sessão
+
+                        $msg = 1;
                     }
-
-                    $service->insert($records);
-
-                    $service_user = $this->getServiceLocator()->get("service_register");
-                    $records_user['id'] = $sessionLogin['user']->id;
-                    $records_user['credito'] = $sessionLogin['user']->credito-$valor_plano;
-                    $service_user->update($records_user);
-                    //atualizar novo credito na sessão
-
-                    $msg = 1;
 
 
                 }else{

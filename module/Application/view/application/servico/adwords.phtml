@@ -35,14 +35,18 @@ function modoDilvuga(valor){
       </ul>
 
       <?php
-
+      $btn_voltar = '<a class="btn" href="'.$this->url("meus-anuncios").'">Voltar</a>';
       switch($this->msg):
         case 1:
-          echo "<div class='alert alert-success'>Sua campanha foi solicitada com sucesso em 48 horas será publicado. <br>Obrigado</div>";
+          echo "<div class='alert alert-success'>Sua campanha foi solicitada com sucesso em até 72 horas será analisada e publicada pelos nossos consultores. Obrigado. </div> ".$btn_voltar;
         break;
 
         case 2:
-          echo "<div class='alert'>Serviço já habilitado, por favor selecione outro anúncio.</div>"; 
+          echo "<div class='alert'>Serviço já habilitado, por favor selecione outro anúncio.</div> ".$btn_voltar; 
+        break;
+
+        case 4:
+          echo "<div class='alert'>No momento você não possui crédito suficiente para o plano escolhido, por favor <a href='".$this->url("credito")."'>clique aqui para adicionar</a>.</div> ".$btn_voltar; 
         break;
 
         default:
