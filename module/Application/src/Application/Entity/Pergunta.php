@@ -18,6 +18,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @property string   $msg_pergunta
  * @property string   $msg_resposta
  * @property int      $status
+  * @property int      $denuncia
  * @property datetime $data_cadastro
  * @property datetime $data_resposta
  */
@@ -69,6 +70,13 @@ class Pergunta {
      */  
      
     protected $status;
+
+
+            /**
+     * @ORM\Column(type="integer")
+     */  
+     
+    protected $denuncia;
     
     /**
         * @ORM\Column(type="datetime")
@@ -127,6 +135,7 @@ class Pergunta {
         $this->msg_pergunta       = $data['msg_pergunta'];
 		$this->msg_resposta       = $data['msg_resposta'];
         $this->status             = !empty($data['status']) ? $data['status'] : 0;
+        $this->denuncia             = !empty($data['denuncia']) ? $data['denuncia'] : 0;
         $date                     = new \DateTime("now America/Sao_Paulo");
         $this->data_cadastro      = $date;
         $this->data_resposta     = !empty($data['id']) ? $date : null;

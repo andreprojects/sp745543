@@ -1,14 +1,14 @@
-
+<div id="denuncia-pergunta"></div>
 <table class="table-pergunta-publica">
   
       <?php if(!empty($this->dados)) { foreach ($this->dados as $key => $value) { ?>
       <tr>
         <td width="5%" align="right"><img src="/img/pergunta/user_ask.gif"></td>
-        <td align=""><span class="help-inline"><?php echo $value->msg_pergunta; ?></span> <small class="denucie"> - Denunciar</small></td>  
+        <td align=""><span class="help-inline"><?php echo $value->msg_pergunta; ?></span> <small class="denucie"> - <a href='Javascript:callAjax("<?php echo $this->url('perguntas',array('id_ads'=>$value->id_anuncio,'action'=>'denuncia','id_pergunta'=>$value->id)); ?>",$("#denuncia-pergunta"));'>Denunciar</a></small></td>  
       </tr>
       <tr>
         <td></td>
-        <td><img src="/img/pergunta/user_resp.gif"> <?php echo $value->msg_resposta;//echo substr($value->msg_pergunta, 0, 40); ?> <em><small>- Respondido em: <?php echo $value->data_resposta->format('d/m/Y H:i'); ?></small></em> <small class="denucie"> - Denunciar</small></td>
+        <td><img src="/img/pergunta/user_resp.gif"> <?php echo $value->msg_resposta;//echo substr($value->msg_pergunta, 0, 40); ?> <em><small>- Respondido em: <?php echo $value->data_resposta->format('d/m/Y H:i'); ?></small></em> <small class="denucie"> - <a href='Javascript:callAjax("<?php echo $this->url('perguntas',array('id_ads'=>$value->id_anuncio,'action'=>'denuncia','id_pergunta'=>$value->id)); ?>",$("#denuncia-pergunta"));'>Denunciar</a></small></td>
       </tr>
       <?php } }else{ ?>
       <tr>

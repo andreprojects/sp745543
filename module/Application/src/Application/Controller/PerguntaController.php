@@ -104,6 +104,24 @@ class PerguntaController extends AbstractActionController {
 		return $result;     
     }
 
+    public function denunciaAction(){
+        //caso existir um robo aplicar captcha
+        $id_pergunta   = $this->params()->fromRoute('id_pergunta', 0);
+        $id_ads   = $this->params()->fromRoute('id_ads', 0);
+
+        if(!empty($id_ads) && !empty($id_pergunta)){
+
+            $service = $this->getServiceLocator()->get("service_pergunta");
+            $records['id'] = $id_pergunta;
+            $records['id_anuncio'] = $id_ads;
+            $records['denuncia'] = 1;
+            $service->update($records);
+            echo "<div class='alert'>Denúncia registrada com sucesso.</div>";
+        }
+
+        return $this->response;
+    }
+
     public function listaperguntaAction(){
         //Verificar se a pergunta pertence ao usuário -ok
         $sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
