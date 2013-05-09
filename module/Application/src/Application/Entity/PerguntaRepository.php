@@ -52,6 +52,11 @@ class PerguntaRepository extends EntityRepository {
 		return $records;
 	}
 
+	public function findByDenuncia(array $orderBy = array('id' => 'ASC')){
+		$records = $this->findBy(array('denuncia'=>1),$orderBy);
+		return $records;
+	}
+
 	public function findByEmail($email)
 	{ 
 		$records = $this->findOneBy(array('email'=>$email));

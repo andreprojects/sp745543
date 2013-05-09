@@ -345,6 +345,31 @@ return array(
                             )
                         )
                     ),
+
+
+                    'pergunta-denuncia' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '/pergunta-denuncia',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\PerguntaDenuncia',
+                                'action' => 'index'
+                            )
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'list' => array(
+                                'type' => 'segment',
+                                'options' => array(
+                                    'route' => '/list[/:id_ads][/:col_order][/:type_order][/page[/:page]]',
+                                    'defaults' => array(
+                                      'controller' => 'Admin\Controller\PerguntaDenuncia',
+                                        'action'   => 'list'
+                                    )
+                                )
+                            )
+                        ),
+                    ),
                    
                 )
             ),
@@ -565,6 +590,7 @@ return array(
             'Admin\Controller\Index' 			 => 'Admin\Controller\IndexController',
             'Admin\Controller\Servico' 			 => 'Admin\Controller\ServicoController',
             'Admin\Controller\Plano'             => 'Admin\Controller\PlanoController',
+            'Admin\Controller\PerguntaDenuncia'  => 'Admin\Controller\PerguntaDenunciaController',
             'Application\Controller\MeusAnuncios'=> 'Application\Controller\MeusAnunciosController',
             'Application\Controller\Convite'     => 'Application\Controller\ConviteController',
             'Application\Controller\Indicado'   => 'Application\Controller\IndicadoController',

@@ -17,6 +17,9 @@
     </style>
     <link href="/css/bootstrap-responsive.css" rel="stylesheet">
 
+    <script src="/js/jquery-1.7.2.min.js"></script>
+    <script src="/js/globals.js"></script>
+
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="../assets/js/html5shiv.js"></script>
@@ -53,7 +56,7 @@
                   <li><a href="/admin/plano">Planos</a></li>
                   <li class="divider"></li>
                   <li class="nav-header">Perguntas</li>
-                  <li><a href="#">Denuncias</a></li>
+                  <li><a href="<?php echo $this->url('admin/pergunta-denuncia'); ?>">Denuncias</a></li>
                   <li><a href="#"></a></li>
                 </ul>
               </li>
@@ -77,7 +80,7 @@
       </footer>
 
     </div> <!-- /container -->
-    <script src="/js/jquery-1.7.2.min.js"></script>
+
     <script src="/js/bootstrap/bootstrap-transition.js"></script>
     <script src="/js/bootstrap/bootstrap-alert.js"></script>
     <script src="/js/bootstrap/bootstrap-modal.js"></script>
