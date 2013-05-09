@@ -69,7 +69,7 @@ class PerguntaDenunciaController extends AbstractActionController {
         $type_order   = $this->params()->fromRoute('type_order', 'DESC');
 
         $repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
-        $or_pergunta = $repository->findByDenuncia(array($col_order=>$type_order));//,array($col_order=>$type_order));
+        $or_pergunta = $repository->findByDenuncia($col_order,$type_order);//,array($col_order=>$type_order));
 
         $page = $this->params()->fromRoute('page',1);
         $paginator = new Paginator(new ArrayAdapter($or_pergunta));
@@ -80,6 +80,48 @@ class PerguntaDenunciaController extends AbstractActionController {
         $result = new ViewModel(array('dados'=>$paginator));
         $result->setTerminal(true);
         return $result;
+    }
+
+    public function removeAction(){
+
+        $id_ads   = $this->params()->fromRoute('id_ads', 0);
+        $id_pergunta   = $this->params()->fromRoute('id_pergunta', 0);
+
+        //Verificar se a pergunta pertence ao usuário logado
+
+        if(!empty($id_ads)&&!empty($id_pergunta))
+        {
+            $service = $this->getServiceLocator()->get("service_pergunta");
+            $records['id'] = $id_pergunta;
+            $records['status'] = 4;
+            $service->update($records);
+
+            //return $this->redirect()->toRoute('perguntas',array('id_ads'=>$id_ads));
+            return $this->response;
+
+        }
+
+    }
+
+    public function publicaAction(){
+
+        $id_ads   = $this->params()->fromRoute('id_ads', 0);
+        $id_pergunta   = $this->params()->fromRoute('id_pergunta', 0);
+
+        //Verificar se a pergunta pertence ao usuário logado
+
+        if(!empty($id_ads)&&!empty($id_pergunta))
+        {
+            $service = $this->getServiceLocator()->get("service_pergunta");
+            $records['id'] = $id_pergunta;
+            $records['status'] = 1;
+            $service->update($records);
+
+            //return $this->redirect()->toRoute('perguntas',array('id_ads'=>$id_ads));
+            return $this->response;
+
+        }
+
     }
 
 	public function editAction()

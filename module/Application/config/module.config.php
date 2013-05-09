@@ -346,6 +346,39 @@ return array(
                         )
                     ),
 
+                    'solicitacao-servico' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '/solicitacao-servico',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\SolicitacaoServico',
+                                'action' => 'index'
+                            )
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'action' => array(
+                                'type' => 'segment',
+                                'options' => array(
+                                    'route' => '/:action[/:id_plano_anuncio]',
+                                    'defaults' => array(
+                                      'controller' => 'Admin\Controller\SolicitacaoServico'
+                                    )
+                                )
+                            ),
+                            'list' => array(
+                                'type' => 'segment',
+                                'options' => array(
+                                    'route' => '/list[/:col_order][/:type_order][/page[/:page]]',
+                                    'defaults' => array(
+                                      'controller' => 'Admin\Controller\SolicitacaoServico',
+                                        'action'   => 'list'
+                                    )
+                                )
+                            )
+                        ),
+                    ),
+
 
                     'pergunta-denuncia' => array(
                         'type' => 'segment',
@@ -358,10 +391,19 @@ return array(
                         ),
                         'may_terminate' => true,
                         'child_routes' => array(
+                            'action' => array(
+                                'type' => 'segment',
+                                'options' => array(
+                                    'route' => '/:action[/:id_ads][/:id_pergunta]',
+                                    'defaults' => array(
+                                      'controller' => 'Admin\Controller\PerguntaDenuncia'
+                                    )
+                                )
+                            ),
                             'list' => array(
                                 'type' => 'segment',
                                 'options' => array(
-                                    'route' => '/list[/:id_ads][/:col_order][/:type_order][/page[/:page]]',
+                                    'route' => '/list[/:col_order][/:type_order][/page[/:page]]',
                                     'defaults' => array(
                                       'controller' => 'Admin\Controller\PerguntaDenuncia',
                                         'action'   => 'list'
@@ -591,6 +633,7 @@ return array(
             'Admin\Controller\Servico' 			 => 'Admin\Controller\ServicoController',
             'Admin\Controller\Plano'             => 'Admin\Controller\PlanoController',
             'Admin\Controller\PerguntaDenuncia'  => 'Admin\Controller\PerguntaDenunciaController',
+            'Admin\Controller\SolicitacaoServico' => 'Admin\Controller\SolicitacaoServicoController',
             'Application\Controller\MeusAnuncios'=> 'Application\Controller\MeusAnunciosController',
             'Application\Controller\Convite'     => 'Application\Controller\ConviteController',
             'Application\Controller\Indicado'   => 'Application\Controller\IndicadoController',

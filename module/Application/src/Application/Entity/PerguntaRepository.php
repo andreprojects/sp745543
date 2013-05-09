@@ -37,7 +37,7 @@ class PerguntaRepository extends EntityRepository {
 	public function findPerguntaPublica($id_ads){
 		
 		$qb = $this->createQueryBuilder('n');
-		$qb ->where("n.id_anuncio = :id_anuncio AND n.msg_resposta != '' AND n.data_resposta is not null ")
+		$qb ->where("n.id_anuncio = :id_anuncio AND n.msg_resposta != '' AND n.data_resposta is not null AND n.status = 1")
 			->setParameter('id_anuncio', $id_ads);
 		$query = $qb->getQuery();
 		/*
@@ -52,8 +52,13 @@ class PerguntaRepository extends EntityRepository {
 		return $records;
 	}
 
-	public function findByDenuncia(array $orderBy = array('id' => 'ASC')){
-		$records = $this->findBy(array('denuncia'=>1),$orderBy);
+	public function findByDenuncia($col_order = 'id',$type_order = 'ASC'){
+
+		$qb = $this->createQueryBuilder('n'); 
+		$qb->where('n.denuncia = 1',$qb->expr()->in('n.status', array(1,4)));
+		$qb->orderBy("n.".$col_order,$type_order);
+		$query = $qb->getQuery();
+		$records = $query->getResult();
 		return $records;
 	}
 

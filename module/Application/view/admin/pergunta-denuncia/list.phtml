@@ -13,7 +13,7 @@
       <?php if(!empty($this->dados)) { foreach ($this->dados as $key => $value) { ?>
       <tr>
         <td><?php echo $value->id; ?></td>  
-        <td><?php echo $value->msg_pergunta; echo "<br><br>"; echo $value->msg_resposta; ?></td>
+        <td width="65%"><?php echo $value->msg_pergunta; echo "<br><br>"; echo $value->msg_resposta; ?></td>
         <td><?php echo $value->data_cadastro->format('d/m/Y H:i'); ?>
         </td>
         <td>
@@ -49,19 +49,13 @@
          <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Pergunta <?php echo $txt_tooltip; ?>"><img src="<?php echo $src; ?>" /></a>
         </td>
         <td>
-          <?php if($value->status != 0): ?>
-            <a href='javascript:callAjax("<?php echo $this->url('reposta-pergunta',array('id_pergunta'=>$value->id,'tipo'=>'1')); ?>",$("#load-pergunta"));' ><i class="icon-edit"></i> Editar </a>
-            <?php if($value->status == 1): ?>
-            <a href='javascript:callAjax("<?php echo $this->url('perguntas',array('id_ads'=>$value->id_anuncio,'action'=>'remove','id_pergunta'=>$value->id)); ?>",$("#load-list-pergunta-conteudo"),null,null,null,last_url,$("#load-list-pergunta-conteudo"));' ><i class="icon-remove-circle"></i> Retirar </a>
-            <?php elseif($value->status == 2): ?>
-            <a href='javascript:callAjax("<?php echo $this->url('perguntas',array('id_ads'=>$value->id_anuncio,'action'=>'publica','id_pergunta'=>$value->id)); ?>",$("#load-list-pergunta-conteudo"),null,null,null,last_url,$("#load-list-pergunta-conteudo"));' ><i class="icon-edit"></i> Publicar </a>
+          <?php if($value->status == 1): ?>
+            <a href='javascript:callAjax("<?php echo $this->url('admin/pergunta-denuncia/action',array('id_ads'=>$value->id_anuncio,'action'=>'remove','id_pergunta'=>$value->id)); ?>",$("#load-list-pergunta-denuncia"),null,null,null,last_url,$("#load-list-pergunta-denuncia"));' ><i class="icon-remove-circle"></i> Retirar </a>
+            <?php elseif($value->status == 4): ?>
+            <a href='javascript:callAjax("<?php echo $this->url('admin/pergunta-denuncia/action',array('id_ads'=>$value->id_anuncio,'action'=>'publica','id_pergunta'=>$value->id)); ?>",$("#load-list-pergunta-denuncia"),null,null,null,last_url,$("#load-list-pergunta-denuncia"));' ><i class="icon-edit"></i> Publicar </a>
             <?php endif; ?>
 
-
-          <?php else: ?>
-             <a href='javascript:callAjax("<?php echo $this->url('reposta-pergunta',array('id_pergunta'=>$value->id)); ?>",$("#load-pergunta"));' ><i class="icon-list"></i> Responder </a>
-          <?php endif; ?>
-        </td>
+          </td>
       </tr>
       <?php } }else{ ?>
       <tr>
