@@ -360,7 +360,7 @@ return array(
                             'action' => array(
                                 'type' => 'segment',
                                 'options' => array(
-                                    'route' => '/:action[/:id_plano_anuncio]',
+                                    'route' => '/:action[/:id_plano_anuncio][/:id_ads]',
                                     'defaults' => array(
                                       'controller' => 'Admin\Controller\SolicitacaoServico'
                                     )

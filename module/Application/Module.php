@@ -312,6 +312,11 @@ class Module {
                      return $form;
                 },
 
+                'service_finaliza_servico_form' => function ($service) {
+                     $form = new \Admin\Form\FinalizaServicoForm();
+                     return $form;
+                },
+
                 'service_plano_form' => function ($service) {
                      $form = new \Admin\Form\PlanoForm();
                      $opt= $service->get('Doctrine\ORM\EntityManager')->getRepository('Application\Entity\Servico')->getServicoToCombobox();

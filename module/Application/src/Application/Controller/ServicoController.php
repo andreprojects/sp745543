@@ -117,7 +117,7 @@ class ServicoController extends AbstractActionController {
                         $records['id_anuncio'] = $id_anuncio;
                         $records['status'] = 0;
 
-                        if($records['tipo'] == 1){
+                        if($records['tipo'] == 3){
                             $records['url_site'] = $records['site'];
                         }
 

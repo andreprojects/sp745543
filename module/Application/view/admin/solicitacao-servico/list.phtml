@@ -3,42 +3,29 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>Pergunta</th>
-        <th>Enviado em</th>
+        <th>Divulgar</th>
         <th>Status</th>
+        <th>Enviado em</th>
         <th>Ações</th>
       </tr>
     </thead>
     <tbody>
       <?php if(!empty($this->dados)) { foreach ($this->dados as $key => $value) { ?>
       <tr>
-        <td><?php echo $value->id; ?></td>  
-        <td width="65%"><?php echo $value->msg_pergunta; echo "<br><br>"; echo $value->msg_resposta; ?></td>
-        <td><?php echo $value->data_cadastro->format('d/m/Y H:i'); ?>
-        </td>
+        <td><?php echo $value['pa_id']; ?></td>  
         <td>
-
-        
         <?php
-          switch ($value->status) {
-            case '0':
-              $src= "/img/status/status_mod.png";
-              $txt_tooltip= "aguardando resposta";
-              break;
-
+          switch ($value['pa_tipo']) {
             case '1':
-              $src= "/img/status/status_ok.png";
-              $txt_tooltip= "publicada";
+              ?>  <a href="<?php echo $this->url("home",array("username"=>$value['u_username'],"action"=>'a',"id_ads"=>$value['pa_id_anuncio'],"url_ads"=>$value['a_url'])); ?>" target="_blank"><?php echo $this->url("home",array("username"=>$value['u_username'],"action"=>'a',"id_ads"=>$value['pa_id_anuncio'],"url_ads"=>$value['a_url'])); ?></a> <?php
               break;
             
             case '2':
-              $src= "/img/status/status_rep.png";
-              $txt_tooltip= "retirada do anúncio";
+             ?> <a href="<?php echo $this->url('home',array('username'=>$value['u_username'])); ?>" target="_blank"><?php echo $this->url('home',array('username'=>$value['u_username'])); ?></a> <?php
               break;  
 
-            case '4':
-              $src= "/img/status/status_rep.png";
-              $txt_tooltip= "removida por denuncia";
+            case '3':
+              ?> <a href="javascript:window.location='<?php echo $value['pa_url_site']; ?>';" target="_blank"><?php echo $value['pa_url_site']; ?></a> <?php
               break;  
             
             default:
@@ -46,15 +33,51 @@
               break;
           }
         ?>
-         <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Pergunta <?php echo $txt_tooltip; ?>"><img src="<?php echo $src; ?>" /></a>
         </td>
         <td>
-          <?php if($value->status == 1): ?>
-            <a href='javascript:callAjax("<?php echo $this->url('admin/pergunta-denuncia/action',array('id_ads'=>$value->id_anuncio,'action'=>'remove','id_pergunta'=>$value->id)); ?>",$("#load-list-pergunta-denuncia"),null,null,null,last_url,$("#load-list-pergunta-denuncia"));' ><i class="icon-remove-circle"></i> Retirar </a>
-            <?php elseif($value->status == 4): ?>
-            <a href='javascript:callAjax("<?php echo $this->url('admin/pergunta-denuncia/action',array('id_ads'=>$value->id_anuncio,'action'=>'publica','id_pergunta'=>$value->id)); ?>",$("#load-list-pergunta-denuncia"),null,null,null,last_url,$("#load-list-pergunta-denuncia"));' ><i class="icon-edit"></i> Publicar </a>
-            <?php endif; ?>
+        <?php
+          switch ($value['pa_status']) {
+            case '0':
+              ?>  Em análise <?php
+              break;
+            
+            case '1':
+             ?>  Divulgado <?php
+              break;  
 
+            case '2':
+              ?>  Terminado <?php
+              break;  
+            
+            default:
+              # code...
+              break;
+          }
+        ?>
+        </td>
+        <td><?php echo $value['pa_data_cadastro']->format('d/m/Y H:i'); ?></td>
+        <td>
+
+          <?php
+            switch ($value['pa_status']) {
+              case '0':
+                ?>  <a href='javascript:callAjax("<?php echo $this->url('admin/solicitacao-servico/action',array('action'=>'publica','id_plano_anuncio'=>$value['pa_id'],'id_ads'=>$value['pa_id_anuncio'])); ?>",$("#load-list1"),null,null,null,last_url,$("#load-list1"));' ><i class="icon-edit"></i> Publicar </a> <?php
+                break;
+              
+              case '1':
+               ?>  <a href='javascript:callAjax("<?php echo $this->url('admin/solicitacao-servico/action',array('action'=>'finalizaservico','id_plano_anuncio'=>$value['pa_id'],'id_ads'=>$value['pa_id_anuncio'])); ?>",$("#load-list2"));' ><i class="icon-remove-circle"></i> Finalizar </a> <?php
+                break;  
+
+              case '2':
+                ?>   <?php
+                break;  
+              
+              default:
+                # code...
+                break;
+            }
+          ?>
+            
           </td>
       </tr>
       <?php } }else{ ?>

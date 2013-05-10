@@ -63,6 +63,42 @@ class SolicitacaoServicoController extends AbstractActionController {
 		return new ViewModel(array('form' => $form,'msg' => $msg,'dados'=>$obj_records));     
     }
 
+    public function finalizaservicoAction()
+    {
+        
+        $form = $this->getServiceLocator()->get("service_finaliza_servico_form");
+        $request = $this->getRequest();
+        
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+            
+            if ($form->isValid()) {
+                
+                $service = $this->getServiceLocator()->get("service_servico");
+                $records = $request->getPost()->toArray();
+                //$records['token'] = md5(uniqid(time()));
+                //var_dump($records);
+                $service->insert($records);
+                
+                $msg['ref']     = "servico";
+                $msg['tipo']    = "success";    
+                $msg['cod_msg'] = "1";
+                $form->setData(array('nome'=>''));
+                
+                //$service->SendEmail($records);    
+                //return $this->redirect()->toRoute('home-message',array('tipo'=>'fsuccess','ref'=>'register','cod_msg'=>'1'));
+            }
+        }
+        
+        $repository = $this->getEm()->getRepository("Application\Entity\Servico");
+        $obj_records = $repository->fetchPairs();
+        
+        //var_dump($obj_records->getArrayCopy());
+        $result = new ViewModel(array('form' => $form,'msg' => $msg,'dados'=>$obj_records));
+        $result->setTerminal(true);
+        return $result;     
+    }
+
     public function listAction(){
         //$id_ads   = $this->params()->fromRoute('id_ads', 0);
         $col_order   = $this->params()->fromRoute('col_order', 'pa.id');
@@ -70,7 +106,7 @@ class SolicitacaoServicoController extends AbstractActionController {
 
         $repository = $this->getEm()->getRepository("Application\Entity\PlanoAnuncio");
         $or_result = $repository->findBySolicitacao($col_order,$type_order);//,array($col_order=>$type_order));
-    var_dump($or_result);
+    //var_dump($or_result);
         $page = $this->params()->fromRoute('page',1);
         $paginator = new Paginator(new ArrayAdapter($or_result));
         $paginator->setCurrentPageNumber($page);
@@ -91,7 +127,7 @@ class SolicitacaoServicoController extends AbstractActionController {
 
         if(!empty($id_ads)&&!empty($id_pergunta))
         {
-            $service = $this->getServiceLocator()->get("service_pergunta");
+            $service = $this->getServiceLocator()->get("service_plano_anuncio");
             $records['id'] = $id_pergunta;
             $records['status'] = 4;
             $service->update($records);
@@ -106,14 +142,15 @@ class SolicitacaoServicoController extends AbstractActionController {
     public function publicaAction(){
 
         $id_ads   = $this->params()->fromRoute('id_ads', 0);
-        $id_pergunta   = $this->params()->fromRoute('id_pergunta', 0);
+        $id_plano_anuncio   = $this->params()->fromRoute('id_plano_anuncio', 0);
 
         //Verificar se a pergunta pertence ao usuário logado
 
-        if(!empty($id_ads)&&!empty($id_pergunta))
+        if(!empty($id_ads)&&!empty($id_plano_anuncio))
         {
-            $service = $this->getServiceLocator()->get("service_pergunta");
-            $records['id'] = $id_pergunta;
+            $service = $this->getServiceLocator()->get("service_plano_anuncio");
+            $records['id'] = $id_plano_anuncio;
+            $records['data_alteracao'] = new \DateTime("now America/Sao_Paulo");
             $records['status'] = 1;
             $service->update($records);
 

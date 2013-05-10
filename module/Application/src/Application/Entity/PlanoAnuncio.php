@@ -93,6 +93,14 @@ class PlanoAnuncio {
     protected $tipo;
 
 
+
+        /**
+     * @ORM\Column(type="string")
+     */  
+     
+    protected $url_site;
+
+
     /**
         * @ORM\Column(type="datetime")
         */
@@ -152,6 +160,7 @@ class PlanoAnuncio {
 		$this->media_clique    = $data['media_clique'];
         $this->posicao_media   = $data['posicao_media'];
 		$this->tipo            = $data['tipo'];
+        $this->url_site            = $data['url_site'];
 		$date = new \DateTime("now America/Sao_Paulo");
         $this->data_cadastro    = $date;
         $this->data_alteracao   = $data['data_alteracao'];
