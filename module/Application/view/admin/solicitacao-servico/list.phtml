@@ -12,7 +12,7 @@
     <tbody>
       <?php if(!empty($this->dados)) { foreach ($this->dados as $key => $value) { ?>
       <tr>
-        <td><?php echo $value['pa_id']; ?></td>  
+        <td><?php echo $value['u_username']; ?></td>
         <td>
         <?php
           switch ($value['pa_tipo']) {
@@ -42,11 +42,11 @@
               break;
             
             case '1':
-             ?>  Divulgado <?php
+             ?>  Publicado <?php
               break;  
 
             case '2':
-              ?>  Terminado <?php
+              ?>  Finalizado <?php
               break;  
             
             default:
@@ -69,7 +69,7 @@
                 break;  
 
               case '2':
-                ?>   <?php
+                ?> <i class="icon-remove-circle"></i> Histório   <?php
                 break;  
               
               default:
@@ -80,7 +80,17 @@
             
           </td>
       </tr>
-      <?php } }else{ ?>
+      <?php if($value['pa_status'] == 2){ ?>
+
+       <tr>
+           <td colspan="5">
+            <small>
+              <?php echo 'Data inicio: '.$value['pa_data_inicio']->format('d/m/Y').' / Data fim: '.$value['pa_data_fim']->format('d/m/Y')." / Média clique: ".$value['pa_media_clique']." / posicao média: ".$value['pa_posicao_media']." / Impressões: ".$value['pa_impressao']; ?>
+            </small>
+           </td>
+       </tr>
+
+      <?php } } }else{ ?>
       <tr>
         <td colspan="5">Nenhum pergunta enviada</td>
       </tr>

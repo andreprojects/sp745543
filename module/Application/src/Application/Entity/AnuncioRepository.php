@@ -25,11 +25,13 @@ class AnuncioRepository extends EntityRepository {
 	
 	public function findByUserListAll($userId,$sort = "id",$order = "DESC")
 	{
-		$qb = $this->createQueryBuilder('n'); 
-		$qb->where('n.id_usuario = '.$userId,$qb->expr()->in('n.status', array(0,1,2,3)));
-		$qb->orderBy("n.".$sort,$order);
+		$qb = $this->createQueryBuilder('a');
+        $qb ->select(array('a','pa'))
+            ->leftJoin('Application\Entity\PlanoAnuncio', 'pa', 'WITH', 'pa.id_anuncio = a.id')
+		    ->where('a.id_usuario = '.$userId,$qb->expr()->in('a.status', array(0,1,2,3)))
+            ->orderBy("a.".$sort,$order);
 		$query = $qb->getQuery();
-		$records = $query->getResult();
+		$records = $query->getScalarResult();
 
 		return $records;
 	}

@@ -24,6 +24,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @property string   $url_site
  * @property datetime $data_cadastro
  * @property datetime $data_alteracao
+ * @property datetime $data_finalizado
  */
 
 class PlanoAnuncio {
@@ -110,6 +111,11 @@ class PlanoAnuncio {
     * @ORM\Column(type="datetime")
     */
     protected $data_alteracao;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $data_finalizado;
     
     
     /**
@@ -164,6 +170,7 @@ class PlanoAnuncio {
 		$date = new \DateTime("now America/Sao_Paulo");
         $this->data_cadastro    = $date;
         $this->data_alteracao   = $data['data_alteracao'];
+        $this->data_finalizado   = $data['data_finalizado'];
   
     }
 }

@@ -115,7 +115,7 @@ class MeusAnunciosController extends AbstractActionController {
     	$repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
 		$obj_records = $repository->findByUserListAll($sessionLogin['user']->id,$col_order,$type_order);
 
-
+        //var_dump($obj_records);exit;
 		$page = $this->params()->fromRoute('page');
 		$paginator = new Paginator(new ArrayAdapter($obj_records));
         $paginator->setCurrentPageNumber($page);

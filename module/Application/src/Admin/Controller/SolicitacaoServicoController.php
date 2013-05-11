@@ -65,38 +65,55 @@ class SolicitacaoServicoController extends AbstractActionController {
 
     public function finalizaservicoAction()
     {
-        
+        $id_plano_anuncio   = $this->params()->fromRoute('id_plano_anuncio', 0);
         $form = $this->getServiceLocator()->get("service_finaliza_servico_form");
         $request = $this->getRequest();
         
         if ($request->isPost()) {
             $form->setData($request->getPost());
             
-            if ($form->isValid()) {
+            if ($form->isValid() && !empty($id_plano_anuncio)) {
                 
-                $service = $this->getServiceLocator()->get("service_servico");
+                $service = $this->getServiceLocator()->get("service_plano_anuncio");
                 $records = $request->getPost()->toArray();
+
+
+                $records['id'] = $id_plano_anuncio;
+                $records['data_inicio'] = new \DateTime($records['data_inicio']);
+                $records['data_fim'] = new \DateTime($records['data_fim']);
+                $records['data_finalizado'] = new \DateTime("now America/Sao_Paulo");
+                $records['status'] = 2;
+
                 //$records['token'] = md5(uniqid(time()));
                 //var_dump($records);
-                $service->insert($records);
+                $service->update($records);
                 
                 $msg['ref']     = "servico";
                 $msg['tipo']    = "success";    
                 $msg['cod_msg'] = "1";
-                $form->setData(array('nome'=>''));
+                //$form->setData(array('data_inicio'=>''));
                 
                 //$service->SendEmail($records);    
                 //return $this->redirect()->toRoute('home-message',array('tipo'=>'fsuccess','ref'=>'register','cod_msg'=>'1'));
             }
         }
         
-        $repository = $this->getEm()->getRepository("Application\Entity\Servico");
-        $obj_records = $repository->fetchPairs();
+        //$repository = $this->getEm()->getRepository("Application\Entity\Servico");
+        //$obj_records = $repository->fetchPairs();
         
         //var_dump($obj_records->getArrayCopy());
-        $result = new ViewModel(array('form' => $form,'msg' => $msg,'dados'=>$obj_records));
+        $dados['id_plano_anuncio'] = $id_plano_anuncio;
+
+        $result = new ViewModel(array('form' => $form,'msg' => $msg,'dados'=>$dados));
         $result->setTerminal(true);
         return $result;     
+    }
+
+    public function historioAction(){
+
+
+
+
     }
 
     public function listAction(){

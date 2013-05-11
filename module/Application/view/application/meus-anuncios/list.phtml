@@ -12,10 +12,10 @@
   	<?php if(!empty($this->dados)) { foreach ($this->dados as $key => $value) { ?>
     <tr>
      
-      <td width="95%"><a href="<?php echo $this->url("home",array("username"=>$this->username,"action"=>'a',"id_ads"=>$value->id,"url_ads"=>$value->url)); ?>" data-toggle="tooltip" data-original-title="Visualizar Anúncio"><i class="icon-eye-open"></i> <?php echo $value->titulo; ?></a></td>
+      <td width="95%"><a href="<?php echo $this->url("home",array("username"=>$this->username,"action"=>'a',"id_ads"=>$value['a_id'],"url_ads"=>$value['a_url'])); ?>" data-toggle="tooltip" data-original-title="Visualizar Anúncio"><i class="icon-eye-open"></i> <?php echo $value['a_titulo']; ?></a></td>
       <td>
       <?php
-      	switch ($value->status) {
+      	switch ($value['a_status']) {
       		case '0':
       			$src= "/img/status/status_mod.png";
       			$txt_tooltip= "Moderação";
@@ -45,7 +45,7 @@
     		<table class="table table-condensed table-bordered">
            <tr>
               <td colspan="4">
-                <a href="<?php echo $this->url("meus-anuncios",array('action'=>'edit','id'=>$value->id)); ?>"><i class="icon-edit"></i> Editar</a> <a href="<?php echo $this->url("meus-anuncios",array('action'=>'delete','id'=>$value->id)); ?>"><i class="icon-remove-circle"></i> Excluir</a>
+                <a href="<?php echo $this->url("meus-anuncios",array('action'=>'edit','id'=>$value['a_id'])); ?>"><i class="icon-edit"></i> Editar</a> <a href="<?php echo $this->url("meus-anuncios",array('action'=>'delete','id'=>$value['a_id'])); ?>"><i class="icon-remove-circle"></i> Excluir</a>
               </td>
             </tr>
             <tr>
@@ -59,7 +59,7 @@
             <tr>
             	
             	<td>
-            		<form class="fileupload" action="<?php echo $this->url("meus-anuncios",array('action'=>'addimage','id'=>$value->id)); ?>" method="POST" enctype="multipart/form-data">
+            		<form class="fileupload" action="<?php echo $this->url("meus-anuncios",array('action'=>'addimage','id'=>$value['a_id'])); ?>" method="POST" enctype="multipart/form-data">
                 		<span class="label label-important"></span>
                 		<span class="btn btn-success fileinput-button" >
 		                    <i class="icon-plus icon-white"></i>
@@ -70,15 +70,15 @@
             		</form>
             	</td>
             	<td colspan="2">
-            		<a href="<?php echo $this->url("perguntas",array('id_ads'=>$value->id)); ?>" class="btn btn-info"><i class="icon-list icon-white"></i> Perguntas</a>
+            		<a href="<?php echo $this->url("perguntas",array('id_ads'=>$value['a_id'])); ?>" class="btn btn-info"><i class="icon-list icon-white"></i> Perguntas</a>
             	</td>
             		
             </tr>
             <tr>
             	
             	<td  width="" colspan="4">
-                <div id="loadfotos<?php echo $value->id; ?>" style="overflow:auto;width:100%;max-height:60px;">
-            		<script>callAjax("<?php echo $this->url("meus-anuncios",array('action'=>'displayimage','id'=>$value->id)); ?>",$('#loadfotos<?php echo $value->id; ?>'));</script>
+                <div id="loadfotos<?php echo $value['a_id']; ?>" style="overflow:auto;width:100%;max-height:60px;">
+            		<script>callAjax("<?php echo $this->url("meus-anuncios",array('action'=>'displayimage','id'=>$value['a_id'])); ?>",$('#loadfotos<?php echo $value['a_id']; ?>'));</script>
             	   </div>
               </td>
             		
@@ -89,9 +89,78 @@
                   <tr>
                     <td width="12%"><img src="/img/servicos/perifericos60x60.png" /></td>
                     <td>
-                      <div style="overflow:auto;width:100%;max-height:70px;">
-                      <small>Você sabia que os anúncios e sites publicados no serviço <b>Google AdWords</b> (Links patrocinados do google) tem mas chances de serem clicados que os outros anúncios publicados no buscador do google? <br>Para atender suas necessidades como anunciante, oferecemos um serviço de divulgação diferenciado com consultores especializados em analizar e otimizar seus anúncios. Com objetivo de publicar entre os 7 primeiros resultados na busca efetuada pelos usuários no buscador google.</small></div><br>
-                      <a href="<?php echo $this->url("servico-app",array('action'=>'adwords','id_anuncio'=>$value->id)); ?>"><i class="icon-globe"></i> Clique aqui e saiba mais como ativar sua campanha no google</a>
+                        <?php switch($value['pa_status']){
+
+                            case 0:
+                                ?> <small>Consultoria Adwords</small> <br> Em análise <img src="/img/status/status_mod.png" /><br> Aguarde a ativação da campanha. <?php
+                                break;
+
+                            case 1:
+                                ?> <small>Consultoria Adwords</small> <br> Campanha Ativa <img src="/img/status/status_ok.png" /><br> Aguarde a conclusão desta campanha para exibição dos resultados  <?php
+                                break;
+
+                            case 2:
+
+                                ?> <small>Consultoria Adwords</small> <br> Campanha Finalizada <img src="/img/status/status_rep.png" /> <a href="">[ Reativar ]</a><br>
+                        <small>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            Iniciando em:
+                                        </td>
+                                        <td>
+                                            <?php echo $value['pa_data_inicio']->format('d/m/Y'); ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Finalizado em:
+                                        </td>
+                                        <td>
+                                            <?php echo $value['pa_data_fim']->format('d/m/Y'); ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Média de Click Únicos:
+                                        </td>
+                                        <td>
+                                            <?php echo $value['pa_media_clique']; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Posição média:
+                                        </td>
+                                        <td>
+                                            <?php echo $value['pa_posicao_media']; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Impressões:
+                                        </td>
+                                        <td>
+                                            <?php echo $value['pa_impressao']; ?>
+                                        </td>
+                                    </tr>
+                                 </table></small>
+                                 <?php
+                                break;
+
+
+                             default:
+
+                                ?>
+                                    <div style="overflow:auto;width:100%;max-height:70px;">
+                                        <small>Você sabia que entre anúncios e sites publicados no serviço <b>Google AdWords</b> (Links patrocinados do google) tem mas chances de serem clicados sobre outros anúncios exibidos no buscador do google? <br>Para atender suas necessidades como anunciante, oferecemos um serviço de divulgação diferenciado com consultores especializados em analizar e otimizar seus anúncios. Com objetivo de publicar entre os 7 primeiros resultados na busca efetuada pelos usuários no buscador google.</small></div><br>
+                                    <a href="<?php echo $this->url("servico-app",array('action'=>'adwords','id_anuncio'=>$value['a_id'])); ?>"><i class="icon-globe"></i> Clique aqui e saiba mais como ativar sua campanha no google</a>
+
+                                <?php
+                        }
+                        ?>
+
+
                     </td>
                   </tr>
                 </table>
