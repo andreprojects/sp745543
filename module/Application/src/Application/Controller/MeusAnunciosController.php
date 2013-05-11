@@ -229,7 +229,7 @@ class MeusAnunciosController extends AbstractActionController {
 					if(file_exists($path_folder."/".$v) && $v != "." && $v != ".."){
 						$strimgs[$k]['url'] = $path_host."/".$v;
 						$strimgs[$k]['nome'] = $v;
-						//$strimgs .= "<img src='".$path_host."/".$v."' style='padding:3px;' /><a href=javascript:callAjax('/meus-anuncios/deleteimage/".$id_anuncio."/".$v."',$('#loadfotos".$id_anuncio."'));  ><i class='icon-remove-circle'></i></a> ";
+						//$strimgs .= "<img src='".$path_host."/".$v."' style='padding:3px;' /><a href=javascript:callAjax('/meus-anuncios/deleteimage/".$id_anuncio."/".$v."',$('#loadfotos".$id_anuncio."'));  ><i class='icon-remove-circle'></i></a> ";//dd
 					}
 				}
 			}
