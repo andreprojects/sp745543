@@ -17,7 +17,7 @@ class PlanoAnuncioRepository extends EntityRepository {
 		return count($entities);
 	}
 	
-	public function findByAnuncio($idAds,array $status = array('status' => '0'))
+	public function findByPlanoAnuncio($idAds)
 	{ 
 		$records = $this->findBy(array('id_anuncio'=>$idAds));
 		return $records;

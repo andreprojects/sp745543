@@ -71,7 +71,7 @@ class ServicoController extends AbstractActionController {
 
         //verifica se o servico ja foi ativado
         $repository_plano_ads = $this->getEm()->getRepository("Application\Entity\PlanoAnuncio");
-        $obj_plano_ads = $repository_plano_ads->findByAnuncio($id_anuncio);
+        $obj_plano_ads = $repository_plano_ads->findByPlanoAnuncio($id_anuncio);
 
         if(!empty($obj_plano_ads)){
             //return $this->redirect()->toRoute('meus-anuncios');
