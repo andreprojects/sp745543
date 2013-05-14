@@ -73,7 +73,8 @@ class ServicoController extends AbstractActionController {
         $repository_plano_ads = $this->getEm()->getRepository("Application\Entity\PlanoAnuncio");
         $obj_plano_ads = $repository_plano_ads->findByPlanoAnuncio($id_anuncio);
 
-        if(!empty($obj_plano_ads)){
+        //var_dump($obj_plano_ads);
+        if(!empty($obj_plano_ads) && $obj_plano_ads['0']->status != 2){
             //return $this->redirect()->toRoute('meus-anuncios');
             $msg = 2;
         }
@@ -121,7 +122,12 @@ class ServicoController extends AbstractActionController {
                             $records['url_site'] = $records['site'];
                         }
 
-                        $service->insert($records);
+                        if(!empty($obj_plano_ads) && $obj_plano_ads['0']->status == 2){
+                            $records['id'] = $obj_plano_ads['0']->id;
+                            $service->update($records);
+                        }else{
+                            $service->insert($records);
+                        }
 
                         $service_user = $this->getServiceLocator()->get("service_register");
                         $records_user['id'] = $sessionLogin['user']->id;
