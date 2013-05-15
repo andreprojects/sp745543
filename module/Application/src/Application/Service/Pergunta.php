@@ -27,6 +27,10 @@ class Pergunta extends AbstractService {
     public function setMailSubject($subject){
         $this->mail_subject = $subject;
     }
+
+    public function setMailTemplate($template){
+        $this->mail_template = $template;
+    }
     
     
 

@@ -248,6 +248,7 @@ class PerguntaController extends AbstractActionController {
 
 
     public function respostaperguntaAction(){
+
         //Verificar se a pergunta pertence ao usuário logado
         $sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
 
@@ -258,10 +259,12 @@ class PerguntaController extends AbstractActionController {
 
         $repository = $this->getEm()->getRepository("Application\Entity\Pergunta");
         $or_pergunta = $repository->findById($id_pergunta);
+        //var_dump($or_pergunta);
 
         $repository_ads = $this->getEm()->getRepository("Application\Entity\Anuncio");
         $or_ads = $repository_ads->findByAnuncio($or_pergunta[0]->id_anuncio);
 
+        //var_dump($or_ads);
         if($or_ads->id_usuario != $sessionLogin['user']->id){
             return $this->redirect()->toRoute('meus-anuncios');
         }
@@ -288,6 +291,26 @@ class PerguntaController extends AbstractActionController {
                     
                 }
                 $service->update($records);
+
+
+                if($or_pergunta){
+
+                    $records_email['nome_remetente'] = $sessionLogin['user']->nome;
+                    $records_email['email']          = $or_pergunta['0']->email;
+                    $records_email['nome']           = $or_pergunta['0']->nome;
+                    $records_email['titulo']         = $or_ads->titulo;
+                    $records_email['msg_pergunta']   = $or_pergunta['0']->msg_pergunta;
+                    $records_email['msg_resposta']   = $or_pergunta['0']->msg_resposta;
+                    $records_email['link_ads']      = array('username'=>$sessionLogin['user']->username,'id_ads'=>$or_ads->id,'url_ads'=>$or_ads->url);
+
+                    $service->setMailSubject($records_email['nome_remetente']." respondeu sua pergunta referente ao anúncio");
+                    $service->setMailTemplate("application/pergunta/resposta-email");
+                    //var_dump($records_email);
+                    $service->SendEmail($records_email);
+                }
+
+
+
                 $msg['tipo'] = "success";
                 if($tipo != 1){
                     $msg['cod_msg'] = "1";

@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-  	<?php if(!empty($this->dados)) { foreach ($this->dados as $key => $value) { ?>
+  	<?php if(!empty($this->dados) && $this->dados->count() != 0) { foreach ($this->dados as $key => $value) {  ?>
     <tr>
      
       <td width="95%"><a href="<?php echo $this->url("home",array("username"=>$this->username,"action"=>'a',"id_ads"=>$value['a_id'],"url_ads"=>$value['a_url'])); ?>" data-toggle="tooltip" data-original-title="Visualizar Anúncio"><i class="icon-eye-open"></i> <?php echo $value['a_titulo']; ?></a></td>
