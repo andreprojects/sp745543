@@ -1,0 +1,98 @@
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Anuncio</th>
+        <th>Status</th>
+        <th>Enviado em</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php if(!empty($this->dados)) { foreach ($this->dados as $key => $value) { ?>
+      <tr>
+        <td><?php echo $value['u_username']; ?></td>
+        <td>
+            <a href="<?php echo $this->url("home",array("username"=>$value['u_username'],"action"=>'a',"id_ads"=>$value['a_id'],"url_ads"=>$value['a_url'])); ?>" target="_blank"><?php echo $this->url("home",array("username"=>$value['u_username'],"action"=>'a',"id_ads"=>$value['a_id'],"url_ads"=>$value['a_url'])); ?></a> 
+        </td>
+        <td>
+        <?php
+          switch ($value['a_status']) {
+            case '0':
+              ?>  Em Moderção <?php
+              break;
+            
+            case '1':
+             ?>  Aprovado <?php
+              break;  
+
+            case '2':
+              ?>  Reprovado <?php
+              break; 
+
+            case '3':
+              ?>  Destivado <?php
+              break; 
+
+            case '4':
+              ?>  Removido <?php
+              break;
+            
+            default:
+              # code...
+              break;
+          }
+        ?>
+        </td>
+        <td><?php echo $value['a_data_cadastro']->format('d/m/Y H:i'); ?></td>
+        <td>
+
+          <?php
+            switch ($value['a_status']) {
+              case '0':
+                ?>  <a href='javascript:callAjax("<?php echo $this->url('admin/modera-anuncio/action',array('action'=>'aprovado','id_registro'=>$value['a_id'],'id_ads'=>$value['a_id'])); ?>",$("#load-list1"),null,null,null,last_url,$("#load-list1"));' ><i class="icon-edit"></i> Aprovar </a> <?php
+                break;
+              
+              case '1':
+               ?>  <a href='javascript:callAjax("<?php echo $this->url('admin/modera-anuncio/action',array('action'=>'reprovado','id_registro'=>$value['a_id'],'id_ads'=>$value['a_id'])); ?>",$("#load-list1"),null,null,null,last_url,$("#load-list1"));' ><i class="icon-remove-circle"></i> Reprovar </a> <?php
+                break;  
+
+              case '2':
+                ?> <i class="icon-remove-circle"></i> Histório   <?php
+                break;  
+              
+              default:
+                # code...
+                break;
+            }
+          ?>
+            
+          </td>
+      </tr>
+      
+      <?php } }else{ ?>
+      <tr>
+        <td colspan="5">Nenhum pergunta enviada</td>
+      </tr>
+      
+      <?php } ?>
+        </tbody>
+  </table>
+  <?php echo $this->paginationControl($this->dados,'Sliding','paginator'); ?>
+  <script type="text/javascript">
+
+     !function ($) {
+    
+         $(function(){
+
+              // tooltip demo
+              $('.table').tooltip({
+                selector: "a[data-toggle=tooltip]"
+              });
+
+        })
+    
+    }(window.jQuery)
+
+</script>        

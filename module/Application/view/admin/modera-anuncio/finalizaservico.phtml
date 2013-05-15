@@ -1,0 +1,101 @@
+<?php 
+               
+if($this->msg['tipo'] == "error"){
+    echo '<div class="alert alert-error">';
+    switch ($this->msg['cod_msg']) {
+        case '1':
+            echo "Usuário ou senha inválidos";
+            break;
+        
+        default:
+            
+            break;
+    }
+    echo '</div>';
+
+}elseif($this->msg['tipo'] == "success"){
+    echo '<div class="alert alert-success">';
+    switch ($this->msg['cod_msg']) {
+        case '1':
+            echo "Campanha finalizada com sucesso";
+            break;
+            
+        case '2':
+            echo "Pergunta atualizada e publicada com sucesso";
+            break;
+        
+        default:
+            
+            break;
+    }
+    echo '</div>';
+
+}else{
+
+?>
+<?php
+ $form = $this->form;            
+ //$action = $form->get('id')->getValue() ? "edit" : "index" ;
+ //$form->setAttribute('action', $this->url('admin/servico',array('action'=>$action)));
+ $form->setAttribute('class', 'form-horizontal');
+ $form->prepare();
+ echo $this->form()->openTag($form) . PHP_EOL;
+
+?>
+  <fieldset>
+    <legend><i class="icon-list"></i> Finalizar Campanha</legend>
+    <p>
+        <label>Data Inicio</label>
+        <?php echo $this->formInput($form->get('data_inicio')); ?>
+        <?php echo $this->formElementErrors($form->get('data_inicio')); ?>
+    </p>
+    <p>
+        <label>Data Fim</label>
+        <?php echo $this->formInput($form->get('data_fim')); ?>
+        <?php echo $this->formElementErrors($form->get('data_fim')); ?>
+    </p>
+    <p>
+        <label>Media Clique</label>
+        <?php echo $this->formInput($form->get('media_clique')); ?>
+        <?php echo $this->formElementErrors($form->get('media_clique')); ?>
+    </p>
+     <p>
+        <label>Posição Média</label>
+        <?php echo $this->formInput($form->get('posicao_media')); ?>
+        <?php echo $this->formElementErrors($form->get('posicao_media')); ?>
+    </p>
+     <p>
+        <label>Impressões</label>
+        <?php echo $this->formInput($form->get('impressao')); ?>
+        <?php echo $this->formElementErrors($form->get('impressao')); ?>
+    </p>    
+    <p>
+
+    <button type="button" class="btn" onclick="callAjax('<?php echo $this->url('admin/solicitacao-servico/action',array('action'=>'finalizaservico','id_plano_anuncio'=>$this->dados['id_plano_anuncio'])); ?>',$('#load-list2'),'POST','data_inicio='+$('#finalizaservico').find('input[name=data_inicio]').val()+'&data_fim='+$('#finalizaservico').find('input[name=data_fim]').val()+'&media_clique='+$('#finalizaservico').find('input[name=media_clique]').val()+'&posicao_media='+$('#finalizaservico').find('input[name=posicao_media]').val()+'&impressao='+$('#finalizaservico').find('input[name=impressao]').val()+'&id=',null,last_url,$('#load-list1'));">Enviar</button>
+    </p>
+    
+  </fieldset>
+</form>
+
+<?php } ?>
+
+<script type="text/javascript">
+  
+!function ($) {
+
+   $(function(){
+      $('#finalizaservico').find('input[name=data_inicio]').datepicker();
+      //$('#finalizaservico').find('input[name=data_inicio]').datepicker( "option","dateFormat", "dd/mm/yy");
+       $('#finalizaservico').find('input[name=data_fim]').datepicker();
+      //$('#finalizaservico').find('input[name=data_fim]').datepicker("option", "dateFormat", "dd/mm/yy");
+      //$( "#datepicker" ).datepicker( "option", "dateFormat", $( this ).val() );
+
+    })
+
+}(window.jQuery)
+
+
+
+
+</script>
+
