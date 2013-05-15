@@ -5,6 +5,7 @@
         <th>#</th>
         <th>Divulgar</th>
         <th>Status</th>
+        <th>Status Ads</th>
         <th>Enviado em</th>
         <th>Ações</th>
       </tr>
@@ -47,6 +48,35 @@
 
             case '2':
               ?>  Finalizado <?php
+              break;  
+            
+            default:
+              # code...
+              break;
+          }
+        ?>
+        </td>
+        <td>
+        <?php
+          switch ($value['a_status']) {
+            case '0':
+              ?>  Em Moderação <?php
+              break;
+            
+            case '1':
+             ?>  Aprovado <?php
+              break;  
+
+            case '2':
+              ?>  Reprovado <?php
+              break;
+
+            case '3':
+              ?>  Desativado <?php
+              break;
+
+            case '4':
+              ?>  Removido <?php
               break;  
             
             default:

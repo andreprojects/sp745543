@@ -35,6 +35,17 @@ class AnuncioRepository extends EntityRepository {
 
 		return $records;
 	}
+
+	public function findbyAllWithUser($sort = "id",$order = "DESC"){
+		$qb = $this->createQueryBuilder('a');
+		$qb ->select(array('u','a'))
+			->innerJoin('Application\Entity\Usuario', 'u', 'WITH', 'u.id = a.id_usuario')
+			->orderBy("a.".$sort,$order);
+
+		$query = $qb->getQuery();
+		$records = $query->getScalarResult();
+		return $records;
+	}
 	
 	public function findByUserWithAds($id_anuncio)
 	{ 

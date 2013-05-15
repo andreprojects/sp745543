@@ -346,6 +346,39 @@ return array(
                         )
                     ),
 
+                    'modera-anuncio' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '/modera-anuncio',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\ModeraAnuncio',
+                                'action' => 'index'
+                            )
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'action' => array(
+                                'type' => 'segment',
+                                'options' => array(
+                                    'route' => '/:action[/:id_registro][/:id_ads]',
+                                    'defaults' => array(
+                                      'controller' => 'Admin\Controller\ModeraAnuncio'
+                                    )
+                                )
+                            ),
+                            'list' => array(
+                                'type' => 'segment',
+                                'options' => array(
+                                    'route' => '/list[/:col_order][/:type_order][/page[/:page]]',
+                                    'defaults' => array(
+                                      'controller' => 'Admin\Controller\ModeraAnuncio',
+                                        'action'   => 'list'
+                                    )
+                                )
+                            )
+                        ),
+                    ),
+
                     'solicitacao-servico' => array(
                         'type' => 'segment',
                         'options' => array(
@@ -634,6 +667,7 @@ return array(
             'Admin\Controller\Plano'             => 'Admin\Controller\PlanoController',
             'Admin\Controller\PerguntaDenuncia'  => 'Admin\Controller\PerguntaDenunciaController',
             'Admin\Controller\SolicitacaoServico' => 'Admin\Controller\SolicitacaoServicoController',
+            'Admin\Controller\ModeraAnuncio'    => 'Admin\Controller\ModeraAnuncioController',
             'Application\Controller\MeusAnuncios'=> 'Application\Controller\MeusAnunciosController',
             'Application\Controller\Convite'     => 'Application\Controller\ConviteController',
             'Application\Controller\Indicado'   => 'Application\Controller\IndicadoController',
