@@ -139,7 +139,7 @@ class PerguntaController extends AbstractActionController {
         }
 
         //var_dump($or_anuncio);
-        $result = new ViewModel(array('form' => $form,'titulo'=>$or_anuncio->titulo,'ads'=>$ar_anuncio));
+        $result = new ViewModel(array('titulo'=>$or_anuncio->titulo,'ads'=>$ar_anuncio));
         //$result->setTerminal(true);
         return $result;
 
@@ -196,7 +196,7 @@ class PerguntaController extends AbstractActionController {
         $paginator->setDefaultItemCountPerPage(10);
 
         
-        $result = new ViewModel(array('form' => $form,
+        $result = new ViewModel(array(
                                         'dados'=>$paginator,
                                         'titulo'=>$or_anuncio->titulo,
                                         'ads'=>$ar_anuncio));
@@ -248,7 +248,7 @@ class PerguntaController extends AbstractActionController {
 
 
     public function respostaperguntaAction(){
-
+        $msg = array();
         //Verificar se a pergunta pertence ao usuário logado
         $sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
 
@@ -288,12 +288,11 @@ class PerguntaController extends AbstractActionController {
                 if($tipo != 1){
                     $date = new \DateTime("now America/Sao_Paulo");
                     $records['data_resposta'] = $date;
-                    
                 }
                 $service->update($records);
 
-
-                if($or_pergunta){
+                if(!empty($or_pergunta)){
+                    $service_email = $this->getServiceLocator()->get("service_pergunta");
 
                     $records_email['nome_remetente'] = $sessionLogin['user']->nome;
                     $records_email['email']          = $or_pergunta['0']->email;
@@ -303,13 +302,10 @@ class PerguntaController extends AbstractActionController {
                     $records_email['msg_resposta']   = $or_pergunta['0']->msg_resposta;
                     $records_email['link_ads']      = array('username'=>$sessionLogin['user']->username,'id_ads'=>$or_ads->id,'url_ads'=>$or_ads->url);
 
-                    $service->setMailSubject($records_email['nome_remetente']." respondeu sua pergunta referente ao anúncio");
-                    $service->setMailTemplate("application/pergunta/resposta-email");
-                    //var_dump($records_email);
-                    $service->SendEmail($records_email);
+                    $service_email->setMailSubject("Anunciante respondeu sua pergunta");
+                    $service_email->setMailTemplate("application/pergunta/resposta-email");
+                    $service_email->SendEmail($records_email);
                 }
-
-
 
                 $msg['tipo'] = "success";
                 if($tipo != 1){

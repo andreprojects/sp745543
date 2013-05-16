@@ -67,6 +67,8 @@ class SolicitacaoServicoController extends AbstractActionController {
     {
         $id_plano_anuncio   = $this->params()->fromRoute('id_plano_anuncio', 0);
         $form = $this->getServiceLocator()->get("service_finaliza_servico_form");
+
+
         $request = $this->getRequest();
         
         if ($request->isPost()) {
@@ -87,6 +89,23 @@ class SolicitacaoServicoController extends AbstractActionController {
                 //$records['token'] = md5(uniqid(time()));
                 //var_dump($records);
                 $service->update($records);
+
+                $repository = $this->getEm()->getRepository("Application\Entity\PlanoAnuncio");
+                $obj_records_pa = $repository->findBySolicitacaoWithId($id_plano_anuncio);
+
+                if(!empty($obj_records_pa)){
+
+                    $records_email['email']                 = $obj_records_pa['0']['u_email'];
+                    $records_email['nome']                  = $obj_records_pa['0']['u_nome'];
+                    $records_email['dados']['data_inicio']  = $obj_records_pa['0']['pa_data_inicio'];
+                    $records_email['dados']['data_fim']     = $obj_records_pa['0']['pa_data_fim'];
+                    $records_email['dados']['media_clique'] = $obj_records_pa['0']['pa_media_clique'];
+                    $records_email['dados']['impressao']    = $obj_records_pa['0']['pa_impressao'];
+                    
+                    $service->setMailSubject($records_email['nome']." sua campanha foi finalizada");
+                    $service->SendEmail($records_email);
+                }
+
                 
                 $msg['ref']     = "servico";
                 $msg['tipo']    = "success";    

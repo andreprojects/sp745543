@@ -19,6 +19,7 @@ class Pergunta extends AbstractService {
         parent::__construct($em);
         $this->entity = "Application\Entity\Pergunta";
         $this->mail_template = "application/pergunta/pergunta-publica-email";
+        //$this->mail_template = "application/pergunta/resposta-email";
         //$this->mail_subject = "Formulário Fale Conosco";
         /*$this->mail_form_name = "OutMarcas";*/
         

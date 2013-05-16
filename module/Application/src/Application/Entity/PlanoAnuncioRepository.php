@@ -44,5 +44,20 @@ class PlanoAnuncioRepository extends EntityRepository {
 		return $records;
 	}
 
+	public function findBySolicitacaoWithId($id_plano){
+
+		$qb = $this->createQueryBuilder('pa');
+		$qb ->select(array('u','a','pa'))
+			->innerJoin('Application\Entity\Anuncio', 'a', 'WITH', 'a.id = pa.id_anuncio')
+			->innerJoin('Application\Entity\Usuario', 'u', 'WITH', 'u.id = a.id_usuario')
+			//->orderBy($sort,$order);
+			->where('pa.id = :id_plano')
+			->setParameter('id_plano', $id_plano);
+		$query = $qb->getQuery();
+
+		$records = $query->getScalarResult();
+		return $records;
+	}
+
     
 }

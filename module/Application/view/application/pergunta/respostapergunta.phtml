@@ -1,40 +1,41 @@
 <?php 
-               
-if($this->msg['tipo'] == "error"){
-    echo '<div class="alert alert-error">';
-    switch ($this->msg['cod_msg']) {
-        case '1':
-            echo "Usuário ou senha inválidos";
-            break;
-        
-        default:
+
+if(!empty($this->msg)){            
+    if($this->msg['tipo'] == "error"){
+        echo '<div class="alert alert-error">';
+        switch ($this->msg['cod_msg']) {
+            case '1':
+                echo "Usuário ou senha inválidos";
+                break;
             
-            break;
+            default:
+                
+                break;
+        }
+        echo '</div>';
+
+    }elseif($this->msg['tipo'] == "success"){
+        echo '<div class="alert alert-success">';
+        switch ($this->msg['cod_msg']) {
+            case '1':
+                echo "Pergunta respondida e publicada com sucesso";
+                break;
+                
+            case '2':
+                echo "Pergunta atualizada e publicada com sucesso";
+                break;
+            
+            default:
+                
+                break;
+        }
+        echo '</div>';
+
+        ?>
+        <small>Dica: Para remover a pergunta do anúncio, clique em retirar.</small>
+
+        <?php
     }
-    echo '</div>';
-
-}elseif($this->msg['tipo'] == "success"){
-    echo '<div class="alert alert-success">';
-    switch ($this->msg['cod_msg']) {
-        case '1':
-            echo "Pergunta respondida e publicada com sucesso";
-            break;
-            
-        case '2':
-            echo "Pergunta atualizada e publicada com sucesso";
-            break;
-        
-        default:
-            
-            break;
-    }
-    echo '</div>';
-
-    ?>
-    <small>Dica: Para remover a pergunta do anúncio, clique em retirar.</small>
-
-    <?php
-
 
 }else{
 
