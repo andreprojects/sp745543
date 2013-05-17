@@ -152,6 +152,17 @@ return array(
                     )
                 )
             ),
+            'email-auth-sservico' => array(//sem auth
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/h/email-auth-sservico/:id_anuncio/:email/:token',
+                    'defaults' => array(
+                      'controller' => 'Admin\Controller\SolicitacaoServico',
+                        'action'  => 'emailauth'
+                    )
+                )
+            ),
+
             'pergunta-publica' => array(//sem auth
                 'type' => 'segment',
                 'options' => array(

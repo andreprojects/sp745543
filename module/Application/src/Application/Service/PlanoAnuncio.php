@@ -23,6 +23,14 @@ class PlanoAnuncio extends AbstractService {
         /*$this->mail_form_name = "OutMarcas";*/
         
     }
+
+    public function setMailSubject($subject){
+        $this->mail_subject = $subject;
+    }
+
+    public function setMailTemplate($template){
+        $this->mail_template = $template;
+    }
     
     
 

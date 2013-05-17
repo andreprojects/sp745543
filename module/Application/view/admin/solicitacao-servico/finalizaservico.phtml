@@ -71,7 +71,7 @@ if($this->msg['tipo'] == "error"){
     </p>    
     <p>
 
-    <button type="button" class="btn" onclick="callAjax('<?php echo $this->url('admin/solicitacao-servico/action',array('action'=>'finalizaservico','id_plano_anuncio'=>$this->dados['id_plano_anuncio'])); ?>',$('#load-list2'),'POST','data_inicio='+$('#finalizaservico').find('input[name=data_inicio]').val()+'&data_fim='+$('#finalizaservico').find('input[name=data_fim]').val()+'&media_clique='+$('#finalizaservico').find('input[name=media_clique]').val()+'&posicao_media='+$('#finalizaservico').find('input[name=posicao_media]').val()+'&impressao='+$('#finalizaservico').find('input[name=impressao]').val()+'&id=',null,last_url,$('#load-list1'));">Enviar</button>
+    <button type="button" class="btn" onclick="callAjax('<?php echo $this->url('admin/solicitacao-servico/action',array('action'=>'finalizaservico','id_plano_anuncio'=>$this->dados['id_plano_anuncio'])); ?>',$('#load-list2'),'POST','data_inicio='+$('#finalizaservico').find('input[name=data_inicio]').val()+'&data_fim='+$('#finalizaservico').find('input[name=data_fim]').val()+'&media_clique='+$('#finalizaservico').find('input[name=media_clique]').val()+'&posicao_media='+$('#finalizaservico').find('input[name=posicao_media]').val()+'&impressao='+$('#finalizaservico').find('input[name=impressao]').val()+'&id=',null,last_url,$('#load-solicitacao-servico'));">Enviar</button>
     </p>
     
   </fieldset>

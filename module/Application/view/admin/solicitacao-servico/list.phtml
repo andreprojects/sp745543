@@ -91,7 +91,7 @@
           <?php
             switch ($value['pa_status']) {
               case '0':
-                ?>  <a href='javascript:callAjax("<?php echo $this->url('admin/solicitacao-servico/action',array('action'=>'publica','id_plano_anuncio'=>$value['pa_id'],'id_ads'=>$value['pa_id_anuncio'])); ?>",$("#load-list1"),null,null,null,last_url,$("#load-list1"));' ><i class="icon-edit"></i> Publicar </a> <?php
+                ?>  <a href='javascript:callAjax("<?php echo $this->url('admin/solicitacao-servico/action',array('action'=>'publica','id_plano_anuncio'=>$value['pa_id'],'id_ads'=>$value['pa_id_anuncio'])); ?>",$("#load-solicitacao-servico"),null,null,null,last_url,$("#load-solicitacao-servico"));' ><i class="icon-edit"></i> Publicar </a> <?php
                 break;
               
               case '1':
