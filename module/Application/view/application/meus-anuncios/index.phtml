@@ -80,7 +80,8 @@
 
 	          <h4><?php $form = $this->form; if($form->get('id')->getValue()) echo "Editar"; else echo "Novo"; ?> Anúncio #<?php echo $form->get('id')->getValue(); ?></h4>
 	           <?php 
-	           
+	           if(isset($this->msg['tipo']))
+	           {
 	           if($this->msg['tipo'] == "error"){
 	           		echo '<div class="alert alert-error">';
 					switch ($this->msg['cod_msg']) {
@@ -111,6 +112,7 @@
 					}
 					echo '</div>';
 	           }
+	       }
 	           
 	           ?>
 	           

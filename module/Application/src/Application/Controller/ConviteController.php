@@ -36,7 +36,7 @@ class ConviteController extends AbstractActionController {
     	$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
         $form = $this->getServiceLocator()->get("convite_form");
         $request = $this->getRequest();
-        
+        $msg=array(0);
         if ($request->isPost()) {
             $form->setData($request->getPost());
             

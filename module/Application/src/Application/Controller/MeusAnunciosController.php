@@ -45,7 +45,7 @@ class MeusAnunciosController extends AbstractActionController {
 	
     public function indexAction()
     {
-
+    	$msg="";
     	$repository_user = $this->getEm()->getRepository("Application\Entity\Usuario");
         $form = $this->getServiceLocator()->get("service_meusanuncios_form");
 		$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
@@ -103,7 +103,7 @@ class MeusAnunciosController extends AbstractActionController {
 									'username' => $sessionLogin['user']->username,
 									'dados'=>$obj_records,
 									'qtd_anuncio'=>$obj_records_user->qtd_anuncio,
-									'dados_pagination'=>$paginator));     
+									));     
     }
 
     public function listAction(){
@@ -234,7 +234,7 @@ class MeusAnunciosController extends AbstractActionController {
 				}
 			}
 		}
-		
+		if(!empty($strimgs))
 		return $strimgs;
 		
 	}

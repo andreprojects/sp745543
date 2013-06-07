@@ -1,16 +1,17 @@
 <?php 
+if(isset($this->msg['cod_msg'])):
+  switch($this->msg['cod_msg']):
 
-switch($this->msg['cod_msg']):
+    case 1:
+      ?> <div class="alert alert-success">Convite enviado com sucesso</div><?php
+      break;
 
-  case 1:
-    ?> <div class="alert alert-success">Convite enviado com sucesso</div><?php
-    break;
-
-  case 2:
-    ?> <div class="alert alert-success">Convite reenviado com sucesso</div><?php
-    break;
-  
-endswitch;
+    case 2:
+      ?> <div class="alert alert-success">Convite reenviado com sucesso</div><?php
+      break;
+    
+  endswitch;
+endif;
 
 $form = $this->form;     
  //$action = $form->get('id')->getValue() ? "edit" : "index" ;

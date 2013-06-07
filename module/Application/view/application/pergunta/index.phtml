@@ -1,5 +1,6 @@
 <?php 
-               
+
+if(isset($this->msg['tipo'])):       
 if($this->msg['tipo'] == "error"){
     echo '<div class="alert alert-error">';
     switch ($this->msg['cod_msg']) {
@@ -29,7 +30,7 @@ if($this->msg['tipo'] == "error"){
     }
     echo '</div>';
 }
-
+endif;
 ?>
 <?php
  $form = $this->form_pergunta;            

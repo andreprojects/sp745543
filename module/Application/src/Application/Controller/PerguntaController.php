@@ -41,6 +41,7 @@ class PerguntaController extends AbstractActionController {
 	
     public function indexAction()
     {
+        $msg = array(0);
     	//$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
         $form = $this->getServiceLocator()->get("pergunta_publica_form");
 

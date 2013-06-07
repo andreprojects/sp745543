@@ -110,9 +110,9 @@ return array(
 
 
             'faleconosco' => array(
-                'type' => 'literal',
+                'type' => 'segment',
                 'options' => array(
-                    'route' => '/h/faleconosco',
+                    'route' => '/h/faleconosco[/:action]',
                     'defaults' => array(
                       'controller' => 'Application\Controller\FaleConosco',
                         'action'  => 'index'

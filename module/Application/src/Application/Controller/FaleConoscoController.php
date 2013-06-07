@@ -5,6 +5,13 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
+use Aws\S3\S3Client;
+use Aws\Common\Enum\Region;
+//use Aws\Common\Aws;
+use Aws\S3\Enum\CannedAcl;
+use Aws\S3\Exception\S3Exception;
+use Guzzle\Http\EntityBody;
+
 class FaleConoscoController extends AbstractActionController {
     
     /**
@@ -23,13 +30,43 @@ class FaleConoscoController extends AbstractActionController {
 
         return $this->em;
     }
+
+    public function testeAction(){
+
+        $aws    = $this->getServiceLocator()->get('aws');
+        $s3 = $aws->get('s3');
+
+        $uri = $this->getRequest()->getUri();
+        $scheme = $uri->getScheme();
+        $host = $uri->getHost();
+        $base = sprintf('%s://%s', $scheme, $host);
+        $url_file = getcwd()."/public/img/logo/logosp160.png";
+        $body = fopen($url_file, 'r');
+
+        try {
+            $s3->putObject(array(
+                'Bucket' => 'shareplaque-images',
+                'Key'    => 'logosp160xxx.png',
+                'Body'   => EntityBody::factory($body),
+                'ACL'    => CannedAcl::PUBLIC_READ,
+                'ContentType' => 'image/png',
+                'ContentLength' => filesize($url_file),
+
+            ));
+            echo "Enviado com sucesso";
+        } catch (S3Exception $e) {
+            echo "There was an error uploading the file.\n ".$e->getMessage();
+        }
+
+        return $this->response;
+    }
     
     public function indexAction() {
 
         
         $form = $this->getServiceLocator()->get("service_faleconosco_form");
         $request = $this->getRequest();
-        
+        $msg = array(0);
         if ($request->isPost()) {
             $form->setData($request->getPost());
             if ($form->isValid()) {

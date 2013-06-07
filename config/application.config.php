@@ -7,6 +7,7 @@ return array(
         //'Login',
         'DoctrineModule',
         'DoctrineORMModule',
+        'Aws'
         //'ZfcBase',
         //'ZfcUser',
         //'ScnSocialAuth'

@@ -135,7 +135,7 @@ class PerfilController extends AbstractActionController {
       $dados['username'] = $username;
       $dados['url_ads'] = $url_ads;
 
-      return new ViewModel(array('form_pergunta' => $form_pergunta,'msg' => $msg,'dados' => $dados));
+      return new ViewModel(array('msg' => $msg,'dados' => $dados));
 
   }
 

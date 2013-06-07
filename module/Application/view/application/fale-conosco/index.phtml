@@ -7,7 +7,7 @@
           </ul>
                 <div class="span4">        
             <?php
-
+            if(isset($this->msg['tipo'])){
            if($this->msg['tipo'] == "error"){
                 echo '<div class="alert alert-error">';
                 switch ($this->msg['cod_msg']) {
@@ -38,6 +38,7 @@
                 }
                 echo '</div>';
            }
+         }
 
 
            ?>

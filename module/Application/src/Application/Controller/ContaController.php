@@ -27,7 +27,7 @@ class ContaController extends AbstractActionController {
     }
     
 	public function indexAction(){
-
+        $msg = array(0);
 		$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
 		
 		$repository_user = $this->getEm()->getRepository("Application\Entity\Usuario");
