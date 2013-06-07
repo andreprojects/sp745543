@@ -1,0 +1,15 @@
+{
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://packages.zendframework.com/"
+        }
+    ],
+    "require": {
+        "aws/aws-sdk-php-zf2": "1.0.*",
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.*",
+        "doctrine/doctrine-module": "0.*",
+        "doctrine/doctrine-orm-module": "0.*"
+    }
+}
