@@ -35,25 +35,30 @@ class FaleConoscoController extends AbstractActionController {
 
         $aws    = $this->getServiceLocator()->get('aws');
         $s3 = $aws->get('s3');
-
+		
         $uri = $this->getRequest()->getUri();
         $scheme = $uri->getScheme();
         $host = $uri->getHost();
         $base = sprintf('%s://%s', $scheme, $host);
         $url_file = getcwd()."/public/img/logo/logosp160.png";
         $body = fopen($url_file, 'r');
+        $bucket= 'shareplaque-images';
 
         try {
+            $response= $s3->listObjects(array('Bucket' => $bucket,'Prefix' => 'teste/'));
+            var_dump($response->toArray());
+
             $s3->putObject(array(
                 'Bucket' => 'shareplaque-images',
-                'Key'    => 'logosp160xxx.png',
+                'Key'    => 'teste/logosp160xxx.png',
                 'Body'   => EntityBody::factory($body),
                 'ACL'    => CannedAcl::PUBLIC_READ,
                 'ContentType' => 'image/png',
                 'ContentLength' => filesize($url_file),
-
             ));
-            echo "Enviado com sucesso";
+            echo "Enviado com sucesso"; 
+			
+
         } catch (S3Exception $e) {
             echo "There was an error uploading the file.\n ".$e->getMessage();
         }

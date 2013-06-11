@@ -270,15 +270,12 @@ class MeusAnunciosController extends AbstractActionController {
 			}
 		
 			//verifica qtd de imagens
-
 			$list_files = scandir($path_folder."/50");
 
 			if((count($list_files)-2) >= 10){
 				echo json_encode(array('files'=>array('error'=>'Maximum of 10 photos')));
 				exit;
 			}
-
-
 		}
 		
 		$file = $this->params()->fromFiles('filesaddfotos');

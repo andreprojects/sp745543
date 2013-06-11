@@ -63,7 +63,6 @@ class PerguntaController extends AbstractActionController {
                 //gera token
                 //$rep_user = $this->getEm()->getRepository("Application\Entity\Usuario");
                 
-
                 //$records['id_usuario'] = $sessionLogin['user']->id;
                 //var_dump($records);
 
