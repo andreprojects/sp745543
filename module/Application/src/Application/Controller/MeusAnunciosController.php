@@ -12,6 +12,13 @@ use Zend\Validator\File\Extension;
 use Zend\Paginator\Paginator,
     Zend\Paginator\Adapter\ArrayAdapter;
 
+use Aws\S3\S3Client;
+use Aws\Common\Enum\Region;
+//use Aws\Common\Aws;
+use Aws\S3\Enum\CannedAcl;
+use Aws\S3\Exception\S3Exception;
+use Guzzle\Http\EntityBody;
+
 class MeusAnunciosController extends AbstractActionController {
     
     /**
@@ -216,7 +223,7 @@ class MeusAnunciosController extends AbstractActionController {
 	
 	private function listimages($diretorio,$id_anuncio){
 		
-		$path_folder = "./public/users/".$diretorio.$id_anuncio."/50";
+		/*$path_folder = "./public/users/".$diretorio.$id_anuncio."/50";
 		$path_host = "/users/".$diretorio.$id_anuncio."/50";
 		
 		
@@ -235,11 +242,43 @@ class MeusAnunciosController extends AbstractActionController {
 			}
 		}
 		if(!empty($strimgs))
-		return $strimgs;
+		return $strimgs;*/
+
+		$aws    = $this->getServiceLocator()->get('aws');
+        $s3 = $aws->get('s3');
+        $bucket= 'shareplaque-images';
+
+		$path_host = $diretorio."ads/50/".$id_anuncio;
+
+		try {
+            $responseS3= $s3->listObjects(array('Bucket' => $bucket,'Prefix' => $path_host.'/'));
+            if(!empty($responseS3)){
+            	$data_responseS3 = $responseS3->toArray();
+            	if(!empty($data_responseS3['Contents'])){
+            		//var_dump($data_responseS3['Contents']);
+            		foreach($data_responseS3['Contents'] as $k => $item){
+            			if(!empty($item['Size'])){
+            				$strimgs[$k]['url'] = "https://shareplaque-images.s3.amazonaws.com/".$item['Key'];
+							$strimgs[$k]['nome'] = "";
+						}
+            		}
+            		return $strimgs;
+            		
+            	}	
+            }
+            
+        } catch (S3Exception $e) {
+            echo "There was an error uploading the file.\n ".$e->getMessage();
+            exit;
+        }
 		
 	}
 
 	public function addimageAction(){
+
+		$aws    = $this->getServiceLocator()->get('aws');
+        $s3 = $aws->get('s3');
+        $bucket= 'shareplaque-images';
 		
 		$id_anuncio = $this->params()->fromRoute('id', 0);
 		$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
@@ -249,11 +288,15 @@ class MeusAnunciosController extends AbstractActionController {
 			exit;
 		}
 		
-		$create_folders = array(50,80);
 		
-		$path_folder = "./public/users/".$sessionLogin['user']->diretorio.$id_anuncio;
+		$path_user = $sessionLogin['user']->diretorio."ads/real/".$id_anuncio;
+		$path_user_50 = $sessionLogin['user']->diretorio."ads/50/".$id_anuncio;
+		//$path_folder = "./public/users/".$path_user;
+		$path_folder = "./public/s3/user/ads/real";
+		$path_folder_50 = "./public/s3/user/ads/50";
 		//$path_folder_full = "./public/users/".$sessionLogin['user']->diretorio.$id_anuncio."/50";
 		
+		/*
 		if(!empty($create_folders))
 		{
 			foreach($create_folders as $k => $v){
@@ -277,6 +320,26 @@ class MeusAnunciosController extends AbstractActionController {
 				exit;
 			}
 		}
+		*/
+
+		try {
+            $responseS3= $s3->listObjects(array('Bucket' => $bucket,'Prefix' => $path_user.'/'));
+            if(!empty($responseS3)){
+            	$data_responseS3 = $responseS3->toArray();
+            	if(!empty($data_responseS3['Contents'])){
+            		//var_dump($data_responseS3);
+            		if(count($data_responseS3['Contents']) >= 10){
+            			echo json_encode(array('files'=>array('error'=>'Maximum of 10 photos')));
+						exit;
+            		}
+            	}	
+            }
+            
+        } catch (S3Exception $e) {
+            echo "There was an error uploading the file.\n ".$e->getMessage();
+            exit;
+        }
+        //echo "ok";exit;
 		
 		$file = $this->params()->fromFiles('filesaddfotos');
 		//var_dump($id,$path_folder,$file,$file['name'],$_FILES);exit;
@@ -299,13 +362,31 @@ class MeusAnunciosController extends AbstractActionController {
         } else {
         	//$files_current_count = count(scandir($path_folder,1))-1;
         	$getextension = pathinfo($file['name'], PATHINFO_EXTENSION);
-        	$namefile = time().".".$getextension;
+        	$namefile = time().'-'.uniqid(true).".".$getextension;
         	$current_pathimg = $path_folder.'/'.$namefile;
 			
-			
+
 			$adapter->setDestination($path_folder);
 			$adapter->addFilter('Rename', array('target' => $current_pathimg,'overwrite' => true));
             if ($adapter->receive()) {
+
+            	try {
+		             $body = fopen($current_pathimg, 'r');
+		             $path_full = $path_user.'/'.$namefile;
+		             $s3->putObject(array(
+		                'Bucket' => 'shareplaque-images',
+		                'Key'    => $path_full,
+		                'Body'   => EntityBody::factory($body),
+		                'ACL'    => CannedAcl::PUBLIC_READ,
+		                //'ContentType' => 'image/png',
+		                'ContentLength' => filesize($current_pathimg),
+		             ));
+		            //echo "Enviado com sucesso"; 
+		        } catch (S3Exception $e) {
+		            echo "There was an error uploading the file.\n ".$e->getMessage();
+		        }
+		        //$create_folders = array(50,80);
+		        /*
             	//cria imagens miniaturas
       			if(!empty($create_folders))
 				{
@@ -313,8 +394,31 @@ class MeusAnunciosController extends AbstractActionController {
 						$new_pathimg = $path_folder.'/'.$v.'/'.$namefile;
 						$this->geraimagem($current_pathimg, $new_pathimg,$v);
 					}
+				}*/
+				$new_pathimg = $path_folder_50.'/'.$namefile;
+				if($this->geraimagem($current_pathimg, $new_pathimg,50)){
+					try {
+		             $body = fopen($new_pathimg, 'r');
+		             $path_full_50 = $path_user_50.'/'.$namefile;
+		             $s3->putObject(array(
+		                'Bucket' => 'shareplaque-images',
+		                'Key'    => $path_full_50,
+		                'Body'   => EntityBody::factory($body),
+		                'ACL'    => CannedAcl::PUBLIC_READ,
+		                //'ContentType' => 'image/png',
+		                'ContentLength' => filesize($new_pathimg),
+		             ));
+		             unlink($current_pathimg);
+		             unlink($new_pathimg);
+		            //echo "Enviado com sucesso"; 
+			        } catch (S3Exception $e) {
+			            echo "There was an error uploading the file.\n ".$e->getMessage();
+			        }
+					//
 				}
-            	echo json_encode(array('files'=>array($file+array('id'=>$id_anuncio,'pathfull'=>$path_folder.'/'.$files_current_count."-".$file['name']))));
+
+
+            	echo json_encode(array('files'=>array($file+array('id'=>$id_anuncio,'pathfull'=>$path_full_50))));
 			}
 		}
 		
@@ -389,7 +493,7 @@ class MeusAnunciosController extends AbstractActionController {
 			$larguraMax = $alturaMax; 
 		}
 		
-		 // Somente exita números muito pequenos. Para este exemplo não quero
+		// Somente exita números muito pequenos. Para este exemplo não quero
 		if($larguraMax < 20)
 		    $larguraMax = 20;
 		
@@ -410,9 +514,9 @@ class MeusAnunciosController extends AbstractActionController {
 		    $imagem = imagecreatefrompng($current_pathimg );
 		} elseif ($dados_img['mime'] == "image/x-ms-bmp") {
 		    //$imagem = imagecreatefromwbmp($filename);
-		    $magicianObj = new ZC_ImageLib($current_pathimg);
+		    /*$magicianObj = new ZC_ImageLib($current_pathimg);
 			$magicianObj->resizeImage($largura_nova, $altura_nova);
-			$magicianObj->saveImage($new_pathimg, 100);
+			$magicianObj->saveImage($new_pathimg, 100);*/
 			//echo file_get_contents($cache_file);
 			exit;
 		} else {
@@ -424,11 +528,11 @@ class MeusAnunciosController extends AbstractActionController {
 		
 				
 		if ($dados_img['mime'] == "image/gif") {
-			imagegif($nova_imagem, $new_pathimg);
+			return imagegif($nova_imagem, $new_pathimg);
 		} elseif ($dados_img['mime'] == "image/jpeg") {
-			imagejpeg($nova_imagem, $new_pathimg, 100 );
+			return imagejpeg($nova_imagem, $new_pathimg, 100 );
 		} elseif ($dados_img['mime'] == "image/png") {
-			imagepng($nova_imagem, $new_pathimg);
+			return imagepng($nova_imagem, $new_pathimg);
 		} else {
 		    die("No image support in this PHP server");
 		}
