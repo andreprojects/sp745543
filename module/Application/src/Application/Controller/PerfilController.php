@@ -14,6 +14,13 @@ use Zend\Session\Container;
 use Zend\Paginator\Paginator,
     Zend\Paginator\Adapter\ArrayAdapter;
 
+use Aws\S3\S3Client;
+use Aws\Common\Enum\Region;
+//use Aws\Common\Aws;
+use Aws\S3\Enum\CannedAcl;
+use Aws\S3\Exception\S3Exception;
+use Guzzle\Http\EntityBody;
+
 class PerfilController extends AbstractActionController {
     
     /**
@@ -36,7 +43,7 @@ class PerfilController extends AbstractActionController {
     public function indexAction()
     {
 
-        $msg = array();
+       // $msg = array();
         //$this->params()->fromRoute('action', 0);
         $username = $this->params()->fromRoute('username', 0);
 
@@ -50,7 +57,7 @@ class PerfilController extends AbstractActionController {
 
         $dados['id_usuario'] = $obj_records->id;
         $dados['username'] = $username;
-        return new ViewModel(array('form' => $form,'msg' => $msg,'dados' => $dados));    
+        return new ViewModel(array('dados' => $dados));    
 
     }
 
@@ -66,11 +73,13 @@ class PerfilController extends AbstractActionController {
         $obj_records = $repository->findByUserListAll($id_usuario,$col_order,$type_order);
 
 
+
         $page = $this->params()->fromRoute('page');
         $paginator = new Paginator(new ArrayAdapter($obj_records));
             $paginator->setCurrentPageNumber($page);
             $paginator->setDefaultItemCountPerPage(2);
 
+          
         $result = new ViewModel(array(
                       'username' =>  $username,
                       'dados'=>$paginator,
@@ -101,7 +110,7 @@ class PerfilController extends AbstractActionController {
           //$records = new \Doctrine\Common\Collections\ArrayCollection($obj_repo);
           //var_dump($obj_repo['1']->diretorio);exit;
 
-          $path_host = "/users/".$obj_repo['1']->diretorio.$id_ads;
+          /*$path_host = "/users/".$obj_repo['1']->diretorio.$id_ads;
           $path_folder = "./public".$path_host;
 
           if(file_exists($path_folder))
@@ -120,7 +129,36 @@ class PerfilController extends AbstractActionController {
               }
               $dados['collections_images'] = $collections_images;
             }
+          }*/
+
+        $aws    = $this->getServiceLocator()->get('aws');
+        $s3 = $aws->get('s3');
+        $bucket= 'shareplaque-images';
+
+        $path_host = $obj_repo['1']->diretorio."ads/50/".$id_ads;
+
+        try {
+                $responseS3= $s3->listObjects(array('Bucket' => $bucket,'Prefix' => $path_host.'/'));
+                if(!empty($responseS3)){
+                  $data_responseS3 = $responseS3->toArray();
+                  if(!empty($data_responseS3['Contents'])){
+                    //var_dump($data_responseS3['Contents']);
+                    foreach($data_responseS3['Contents'] as $k => $item){
+                      if(!empty($item['Size'])){
+                        $collections_images[$k]['50'] = "https://shareplaque-images.s3.amazonaws.com/".$item['Key'];
+                        $collections_images[$k]['full'] = str_replace("/50/", "/real/","https://shareplaque-images.s3.amazonaws.com/".$item['Key'] );
+                      }
+                    }
+                    
+                  } 
+                }
+                
+          } catch (S3Exception $e) {
+              echo "There was an error uploading the file.\n ".$e->getMessage();
+              exit;
           }
+
+          $dados['collections_images'] = $collections_images;
 
           $dados['id_ads'] = $id_ads;
           $dados['titulo'] = $obj_repo['0']->titulo;

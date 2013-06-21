@@ -210,8 +210,11 @@ class MeusAnunciosController extends AbstractActionController {
 		
 		if(empty($opcao)){
 			$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
+			$diretorio = $sessionLogin['user']->diretorio;
+		}else{
+			$diretorio = null;
 		}
-		$records = $this->listimages($sessionLogin['user']->diretorio,$id_anuncio);
+		$records = $this->listimages($diretorio,$id_anuncio);
 		//var_dump($records);exit;
 		
 		//return $this->response;

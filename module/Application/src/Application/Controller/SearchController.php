@@ -94,7 +94,7 @@ class SearchController extends AbstractActionController {
         }
         //var_dump($paginator);
 
-        $result = new ViewModel(array('dados' => $paginator,'msg' => $msg));
+        $result = new ViewModel(array('dados' => $paginator));
         $result->setTerminal(true);
         return $result;   
         //return $this->response;     
