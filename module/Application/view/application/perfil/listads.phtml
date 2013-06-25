@@ -1,16 +1,16 @@
 
           
 <table class="table-pergunta-publica">
-  	<?php if(!empty($this->dados)) { foreach ($this->dados as $key => $value) { ?>
+  	<?php if(!empty($this->dados)) { foreach ($this->dados as $key => $value) {  ?>
     <tr>
-      <td><a href="<?php echo $this->url("home",array("username"=>$this->username,"action"=>'a',"id_ads"=>$value->id,"url_ads"=>$value->url)); ?>" data-toggle="tooltip" data-original-title="Visualizar Anúncio"><?php echo $value->titulo; ?></a></td>
+      <td><a href="<?php echo $this->url("home",array("username"=>$this->username,"action"=>'a',"id_ads"=>$value['a_id'],"url_ads"=>$value['a_url'])); ?>" data-toggle="tooltip" data-original-title="Visualizar Anúncio"><?php echo $value['a_titulo']; ?></a></td>
     </tr>
     <tr>
-      <td><small><?php if(strlen($value->descricao)>=255) {echo substr($value->descricao,0,255)."...";}else{ echo $value->descricao;} ?></small></td>
+      <td><small><?php if(strlen($value['a_descricao'])>=255) {echo substr($value['a_descricao'],0,255)."...";}else{ echo $value['a_descricao'];} ?></small></td>
     </tr>
     <tr>
-      <td id="loadfotos<?php echo $value->id; ?>">
-<script>callAjax("<?php echo $this->url("display-images",array('id'=>$value->id,'cod'=>1)); ?>",$('#loadfotos<?php echo $value->id; ?>'));</script>
+      <td id="loadfotos<?php echo $value['a_id']; ?>">
+<script>callAjax("<?php echo $this->url("display-images",array('id'=>$value['a_id'],'cod'=>1)); ?>",$("#loadfotos<?php echo $value['a_id']; ?>"));</script>
       </td>
     </tr>
     <?php } }else{ ?>

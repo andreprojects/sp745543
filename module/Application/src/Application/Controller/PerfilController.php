@@ -176,7 +176,7 @@ class PerfilController extends AbstractActionController {
       return new ViewModel(array('msg' => $msg,'dados' => $dados));
 
   }
-
+/*
   public function displayimageAction(){
     
     $id_anuncio = $this->params()->fromRoute('id', 0);
@@ -210,7 +210,7 @@ class PerfilController extends AbstractActionController {
     
     return $strimgs;
     
-  }
+  }*/
     
 
 

@@ -193,7 +193,6 @@ class MeusAnunciosController extends AbstractActionController {
 		//$obj_records_user = $repository_user->findById($sessionLogin['user']->id);
 		
 		$new_model = new ViewModel(array(	'form' => $form,
-											'msg' => $msg,
 											'username' => $sessionLogin['user']->username,
 											'dados'=>$obj_records,
 											//'qtd_anuncio'=>$obj_records_user->qtd_anuncio,
@@ -212,8 +211,12 @@ class MeusAnunciosController extends AbstractActionController {
 			$sessionLogin = $this->getServiceLocator()->get("service_helper_session_login");
 			$diretorio = $sessionLogin['user']->diretorio;
 		}else{
-			$diretorio = null;
+			$repository = $this->getEm()->getRepository("Application\Entity\Anuncio");
+			$return_obj = $repository->findByUserWithAds($id_anuncio);
+			$diretorio = $return_obj[1]->diretorio;
+			
 		}
+
 		$records = $this->listimages($diretorio,$id_anuncio);
 		//var_dump($records);exit;
 		
